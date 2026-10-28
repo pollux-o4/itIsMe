@@ -1,0 +1,33 @@
+{
+  "name": "itis-me-portfolio",
+  "private": true,
+  "type": "module",
+  "packageManager": "pnpm@12.15.0",
+  "engines": {
+    "node": ">=22.23.4"
+  },
+  "scripts": {
+    "dev": "astro dev --host 0.0.0.0",
+    "build": "astro build",
+    "preview": "astro preview --host 0.0.0.0",
+    "check": "astro check",
+    "verify": "node scripts/check-emphasis.mjs && node scripts/check-preview-interaction.mjs && pnpm check && pnpm build && node scripts/verify-build.mjs && node scripts/check-story.mjs && node scripts/check-public-privacy.mjs",
+    "artwork": "node scripts/render-artwork.mjs"
+  },
+  "dependencies": {
+    "@astrojs/react": "7.1.1",
+    "@tailwindcss/vite": "^4.3.3",
+    "astro": "7.4.2",
+    "lucide-react": "^1.61.0",
+    "react": "^19.3.1",
+    "react-dom": "^19.3.1",
+    "tailwindcss": "^4.3.3"
+  },
+  "devDependencies": {
+    "@astrojs/check": "^0.9.12",
+    "@types/react": "^19.3.0",
+    "@types/react-dom": "^19.3.0",
+    "oxc-transform-react": "^0.145.0",
+    "typescript": "^6.0.3"
+  }
+}

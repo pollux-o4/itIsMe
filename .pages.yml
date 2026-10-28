@@ -1,0 +1,326 @@
+# shortcut: CMS 인증·원격 저장은 로컬 검증 범위 밖, 계정 연결 후 실제 저장 확인.
+media:
+  input: public/images
+  output: /itIsMe/images
+  categories:
+  - image
+content:
+- name: portfolio
+  label: Portfolio · 실제 작업과 이력
+  type: file
+  path: src/data/portfolio.json
+  format: json
+  fields:
+  - name: name
+    label: 이름
+    type: string
+    required: true
+  - name: english
+    label: 영문 이름
+    type: string
+    required: true
+  - name: role
+    label: 본인 역할
+    type: string
+    required: true
+  - name: headline
+    label: 소개 제목
+    type: text
+    required: true
+  - name: email
+    label: 이메일
+    type: string
+    required: true
+  - name: sourceDate
+    label: 자료 기준일
+    type: string
+    required: true
+  - name: projects
+    label: 대표 작업
+    type: object
+    required: true
+    list: true
+    fields:
+    - name: id
+      label: id
+      type: string
+      required: true
+      readonly: true
+    - name: number
+      label: number
+      type: string
+      required: true
+      readonly: true
+    - name: category
+      label: 프로젝트 분야
+      type: string
+      required: true
+    - name: label
+      label: 라벨
+      type: string
+      required: true
+    - name: title
+      label: 제목
+      type: text
+      required: true
+    - name: period
+      label: period
+      type: string
+      required: true
+    - name: team
+      label: team
+      type: string
+      required: true
+    - name: role
+      label: 본인 역할
+      type: string
+      required: true
+    - name: summary
+      label: 핵심 작업 (강조는 **구절**)
+      type: text
+      required: true
+    - name: outcomeLabel
+      label: 결과 종류 (팀 평가·팀 실험·구현 결과)
+      type: string
+      required: true
+    - name: outcome
+      label: 결과 한 줄 (강조는 **구절**)
+      type: string
+      required: true
+    - name: outcomeNote
+      label: 결과 해석에 필요한 조건
+      type: text
+      required: true
+    - name: tags
+      label: tags
+      type: string
+      required: true
+      list: true
+    - name: source
+      label: source
+      type: string
+      required: true
+    - name: kind
+      label: kind
+      type: string
+      required: true
+      readonly: true
+    - name: steps
+      label: steps
+      type: string
+      required: true
+      list: true
+    - name: problem
+      label: problem
+      type: text
+      required: true
+    - name: decision
+      label: decision
+      type: text
+      required: true
+    - name: boundary
+      label: 검증 범위·제약
+      type: text
+      required: true
+    - name: facts
+      label: 핵심 정보
+      type: object
+      required: true
+      list: true
+      fields:
+      - name: value
+        label: 값
+        type: string
+        required: true
+      - name: label
+        label: 라벨
+        type: string
+        required: true
+    - name: details
+      label: 설계·검증 근거
+      type: object
+      required: true
+      list: true
+      fields:
+      - name: heading
+        label: 소제목
+        type: string
+        required: true
+      - name: text
+        label: 내용
+        type: text
+        required: true
+    - name: figures
+      label: 근거 이미지
+      type: object
+      required: true
+      list: true
+      fields:
+      - name: image
+        label: 이미지 파일명 (확장자 제외)
+        type: string
+        required: true
+      - name: caption
+        label: 이미지 설명
+        type: string
+        required: true
+    - name: link
+      label: 발표자료 URL
+      type: string
+      required: true
+  - name: otherProjects
+    label: 더 많은 작업
+    type: object
+    required: true
+    list: true
+    fields:
+    - name: id
+      label: id
+      type: string
+      required: true
+      readonly: true
+    - name: title
+      label: 제목
+      type: text
+      required: true
+    - name: type
+      label: type
+      type: string
+      required: true
+    - name: duration
+      label: duration
+      type: string
+      required: true
+    - name: stack
+      label: stack
+      type: string
+      required: true
+    - name: description
+      label: description
+      type: text
+      required: true
+    - name: source
+      label: source
+      type: string
+      required: true
+    - name: image
+      label: 미리보기 이미지 파일명 (확장자 제외)
+      type: string
+      required: true
+    - name: imageAlt
+      label: 미리보기 설명
+      type: string
+      required: true
+    - name: presentation
+      label: presentation
+      type: string
+      required: false
+  - name: education
+    label: 교육
+    type: object
+    required: true
+    list: true
+    fields:
+    - name: period
+      label: period
+      type: string
+      required: true
+    - name: title
+      label: 제목
+      type: text
+      required: true
+    - name: description
+      label: description
+      type: text
+      required: true
+  - name: certifications
+    label: 자격
+    type: object
+    required: true
+    list: true
+    fields:
+    - name: date
+      label: date
+      type: string
+      required: true
+    - name: name
+      label: 이름
+      type: string
+      required: true
+  - name: additional
+    label: 추가 프로젝트
+    type: object
+    required: true
+    list: true
+    fields:
+    - name: date
+      label: date
+      type: string
+      required: true
+    - name: title
+      label: 제목
+      type: text
+      required: true
+    - name: note
+      label: note
+      type: text
+      required: true
+  - name: recordNote
+    label: 자료 간 확인 사항
+    type: text
+    required: true
+  - name: experience
+    label: 업무 경험
+    type: object
+    list: true
+    fields:
+    - name: period
+      label: 기간
+      type: string
+      required: true
+    - name: organization
+      label: 조직
+      type: string
+      required: true
+    - name: role
+      label: 역할
+      type: string
+      required: true
+    - name: summary
+      label: 핵심 작업 (강조는 **구절**)
+      type: string
+      required: true
+    - name: details
+      label: 상세
+      type: text
+      required: true
+    - name: source
+      label: 근거
+      type: string
+      required: true
+- name: site
+  label: Site settings
+  type: file
+  path: src/data/site.json
+  format: json
+  fields:
+  - name: name
+    label: 이름
+    type: string
+    required: true
+  - name: title
+    label: 사이트 제목
+    type: string
+    required: true
+  - name: description
+    label: 검색엔진 소개
+    type: text
+    required: true
+  - name: intro
+    label: 홈 소개
+    type: text
+    required: true
+  - name: github
+    label: GitHub 프로필 (HTTPS)
+    type: string
+    required: true

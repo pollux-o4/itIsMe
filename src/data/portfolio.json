@@ -1,0 +1,380 @@
+{
+  "name": "주연석",
+  "english": "YEONSEOK JU",
+  "role": "AI · Full-stack Engineer",
+  "headline": "AI 모델과\n웹 서비스를 만듭니다.",
+  "email": "yeonseok.ju@gmail.com",
+  "sourceDate": "2026.02",
+  "projects": [
+    {
+      "id": "agriculture",
+      "number": "01",
+      "label": "농산물 가격 예측",
+      "title": "농산물\n가격 예측",
+      "period": "2025.03",
+      "team": "6명 · 13일",
+      "role": "**데이터 수집·전처리** / 모델링 / 발표",
+      "summary": "데이터 누수를 의심해 **시간순으로 다시 평가**했습니다.",
+      "tags": [
+        "Random Forest",
+        "TimeSeriesSplit",
+        "Feature engineering"
+      ],
+      "source": "04–06",
+      "kind": "validation",
+      "steps": [
+        "5년 데이터 통합",
+        "누수 의심 · 변수 정리",
+        "시간순 검증"
+      ],
+      "problem": "기후·계절·유통 정보를 이용해 농산물 가격을 예측하는 팀 프로젝트입니다.",
+      "decision": "데이터를 **시간순으로 나눠 검증**하고, 미래 정보가 섞일 수 있는 변수를 정리했습니다.",
+      "boundary": "초기 R² 0.98과 수정 후 0.81은 서로 다른 조건에서 얻은 팀 실험 결과입니다. 두 수치만으로 성능을 비교할 수는 없습니다.",
+      "facts": [
+        {
+          "value": "82,815",
+          "label": "통합 데이터 행"
+        },
+        {
+          "value": "27",
+          "label": "통합 당시 열"
+        },
+        {
+          "value": "5년",
+          "label": "데이터 범위"
+        }
+      ],
+      "details": [
+        {
+          "heading": "데이터 수집과 전처리",
+          "text": "KADX의 농수축산물 일자별 도소매 가격을 예측 대상으로 삼았습니다. 기상, 원유·천연가스 가격, 농가인구, 수입 물량, 생산량, 소비자물가지수 데이터를 **날짜와 지역에 맞춰 합쳤습니다**. 각 변수와 가격 사이의 시차도 살폈습니다."
+        },
+        {
+          "heading": "데이터 누수 점검",
+          "text": "Random Forest의 R²가 0.98로 나와 **데이터 누수를 의심**했습니다. 시간 정보는 월 중심으로 정리하고, 중복되거나 불필요한 열과 상관성이 낮은 열을 제거했습니다."
+        },
+        {
+          "heading": "시간순 검증과 튜닝",
+          "text": "특성 중요도가 0.005 이상인 변수를 선택하고 Random Search와 Grid Search로 튜닝했습니다. **TimeSeriesSplit으로 교차검증**한 뒤 테스트 R² 0.81을 기록했습니다."
+        }
+      ],
+      "figures": [
+        {
+          "image": "agri-features",
+          "caption": "특성 선택과 튜닝 · 원본 p.6"
+        },
+        {
+          "image": "agri-result",
+          "caption": "시간순 검증 결과 · 원본 p.6"
+        }
+      ],
+      "link": "https://drive.google.com/file/d/1NUvbrivh2mqOVo53M9YfrVgeCcbkXoDy/view",
+      "category": "머신러닝",
+      "outcomeLabel": "팀 평가",
+      "outcome": "시간순 분할 후 **R² 0.81**",
+      "outcomeNote": "R²는 모델 평가 지표이며, 정확도(%)가 아닙니다."
+    },
+    {
+      "id": "engine",
+      "number": "02",
+      "label": "항공기 엔진 잔여 수명 예측",
+      "title": "항공기 엔진\n잔여 수명 예측",
+      "period": "2025.04",
+      "team": "6명 · 10일",
+      "role": "**엔진 조사·코드 검수** / 발표자료",
+      "summary": "엔진 구조와 열화 과정을 조사해 **팀에 공유**했습니다.",
+      "tags": [
+        "NASA dataset",
+        "Time series",
+        "Asymmetric scoring"
+      ],
+      "source": "07–09",
+      "kind": "safety",
+      "steps": [
+        "엔진 도메인 분석",
+        "비대칭 스코어링",
+        "조기 예측 시도"
+      ],
+      "problem": "운행에 따라 열화되는 터보팬 엔진의 잔여 수명을 시계열 데이터로 예측했습니다.",
+      "decision": "팀에서는 엔진 수명을 실제보다 길게 예측할 때 **더 큰 벌점**을 주도록 평가했습니다.",
+      "boundary": "일부 모델에서 조기 예측을 확인했습니다. 실제 항공기에 적용하거나 운항 안전성을 시험하지는 않았습니다.",
+      "facts": [
+        {
+          "value": "NASA",
+          "label": "공개 데이터"
+        },
+        {
+          "value": "6명",
+          "label": "팀 프로젝트"
+        },
+        {
+          "value": "10일",
+          "label": "개발 기간"
+        }
+      ],
+      "details": [
+        {
+          "heading": "엔진 구조 조사",
+          "text": "엔진 구성 요소, 열화 과정과 수명 분포를 조사해 **시각 자료로 정리**했습니다. 팀에 조사 내용을 공유하고 코드 검수와 발표자료 제작을 맡았습니다."
+        },
+        {
+          "heading": "예측 오차 평가",
+          "text": "팀은 센서 데이터를 시각화하고, 불필요한 특성을 제거하고, 파생 변수를 만든 뒤 머신러닝·딥러닝 모델을 평가했습니다. 수명을 실제보다 길게 예측한 경우에 벌점이 커지는 **비대칭 스코어링**을 적용했습니다."
+        },
+        {
+          "heading": "팀 실험 결과",
+          "text": "팀 실험에서 일부 모델의 조기 예측과 **R² 0.71에서 0.81로의 변화**를 확인했습니다. 발표자료에는 모델별 데이터 분할·평가 조건이 자세히 적혀 있지 않습니다."
+        }
+      ],
+      "figures": [
+        {
+          "image": "engine-domain",
+          "caption": "엔진 도메인 이해를 위한 시각 자료 · 원본 p.8"
+        },
+        {
+          "image": "engine-result",
+          "caption": "팀 실험의 예측 비교 · 원본 p.9"
+        }
+      ],
+      "link": "https://drive.google.com/file/d/1s-RFam5iAfP9klukSH2eo5BRwoVYetbC/view",
+      "category": "시계열 예측",
+      "outcomeLabel": "팀 실험",
+      "outcome": "일부 모델에서 **조기 예측** 확인",
+      "outcomeNote": "실제 항공기 운항 안전성을 시험한 결과는 아닙니다."
+    },
+    {
+      "id": "nutrition",
+      "number": "03",
+      "label": "음식 이미지 분석 · 식단 서비스",
+      "title": "음식 사진 분석과\n식단 기록",
+      "period": "2025.11–12",
+      "team": "4명 · 36일",
+      "role": "**팀장** / 프론트엔드 / 백엔드 / 모델링 / 발표자료",
+      "summary": "사진 업로드부터 **영양 조회·식사 기록**까지 구현했습니다.",
+      "tags": [
+        "Next.js",
+        "FastAPI",
+        "YOLO11",
+        "AWS EC2"
+      ],
+      "source": "10–18",
+      "kind": "service",
+      "steps": [
+        "음식 사진 입력",
+        "분류 · 영양 분석",
+        "식사 기록 · 추천"
+      ],
+      "problem": "음식 사진을 분석해 칼로리·영양 정보를 보여주고 식단과 레시피를 추천하는 서비스입니다.",
+      "decision": "웹 기능과 **이미지 수집·라벨링·재학습 과정**을 구현했습니다. 팀의 코드와 문서를 정리하고 배포 버전을 관리했습니다.",
+      "boundary": "교육 과정에서 만든 팀 프로젝트입니다. 화면의 영양 점수와 칼로리는 시연용이며, 의료적 정확도나 실제 사용 효과를 검증하지 않았습니다.",
+      "facts": [
+        {
+          "value": "4명",
+          "label": "팀 · 팀장 역할"
+        },
+        {
+          "value": "36일",
+          "label": "개발 기간"
+        },
+        {
+          "value": "Web + AI",
+          "label": "구현·배포"
+        }
+      ],
+      "details": [
+        {
+          "heading": "구현한 기능",
+          "text": "음식 사진을 올리면 음식·식재료를 분류하고 칼로리와 영양 정보를 계산해 **식사 기록에 저장**합니다. 개인 목표와 영양 점수, 영양소별 점수, 식재료 기반 음식 분류·레시피 추천, 대화형 레시피 검색을 구현했습니다.\n알레르기·질환 경고 기능도 있지만 의학적 안전성을 검증한 것은 아닙니다."
+        },
+        {
+          "heading": "프론트엔드와 백엔드",
+          "text": "프론트엔드는 **Next.js·React**·TypeScript·Tailwind CSS, 백엔드는 **FastAPI·Python**·Pydantic으로 개발했습니다. 음식 탐지는 YOLO11-large, 식재료 탐지는 Roboflow 모델, 탐지 결과 보정은 GPT-4o, 챗봇은 LangChain·GPT-4o를 사용했습니다.\n영양 정보와 기록은 MySQL에 저장하고 세션·캐시는 Redis로 관리했습니다. **AWS EC2·Docker·PM2**로 배포·운영 환경을 구성했습니다."
+        },
+        {
+          "heading": "학습 데이터 준비",
+          "text": "식약처 식품영양성분 CSV에서 필요한 열을 **pandas로 전처리**해 MySQL에 넣었습니다. 동적 크롤링으로 수집한 음식 이미지는 YOLO 학습에 사용했습니다."
+        },
+        {
+          "heading": "재학습과 팀 작업",
+          "text": "Playwright로 이미지를 수집해 사전 라벨링·전처리를 하고, Label Studio에서 검수하도록 구성했습니다. 데이터 버전 관리, 모델 학습·배포, 지표 확인을 거쳐 **저신뢰 샘플**을 다시 학습에 사용했습니다. Label Studio SDK로 업로드·다운로드를 연동했습니다.\n기획서·요구사항·ERD·WBS·진행일지·트러블슈팅을 정리하고 GitHub Organization의 Front·Back·Modeling 저장소를 **submodule로 묶었습니다**. 일정과 가이드는 Discord·Notion에서 공유했습니다."
+        }
+      ],
+      "figures": [
+        {
+          "image": "architecture",
+          "caption": "서비스 아키텍처 · 원본 p.11"
+        },
+        {
+          "image": "mlops",
+          "caption": "수집부터 저신뢰 샘플 재학습까지 · 원본 p.13"
+        },
+        {
+          "image": "food-metrics",
+          "caption": "목표·영양 점수와 식사 기록 · 원본 p.15"
+        },
+        {
+          "image": "food-ingredients",
+          "caption": "식재료 분류와 레시피 추천 · 원본 p.16"
+        },
+        {
+          "image": "food-chat",
+          "caption": "대화형 추천과 위험 경고 UI · 원본 p.17"
+        }
+      ],
+      "link": "https://drive.google.com/file/d/1k-lpT-BCFsIn6loHz4TGoovxUQbgcAwB/view",
+      "category": "웹 · 컴퓨터 비전",
+      "outcomeLabel": "구현 결과",
+      "outcome": "**웹·AI 연동과 배포**",
+      "outcomeNote": "교육 과정 팀 프로젝트 · 실제 사용 효과 미검증"
+    }
+  ],
+  "otherProjects": [
+    {
+      "id": "arxiv",
+      "title": "arXiv 논문 수집",
+      "type": "수집",
+      "duration": "6일 · 개인",
+      "stack": "Selenium · Openpyxl",
+      "description": "동적 페이지에서 당일 AI 논문의 제목·초록·링크를 수집해 **Excel에 누적 저장**했습니다.",
+      "source": "19",
+      "presentation": "1nMbhkO-hl7TADqv8K2GN93HWc8SObhvy",
+      "image": "arxiv-preview",
+      "imageAlt": "논문 수집 결과와 Excel 저장 화면"
+    },
+    {
+      "id": "student",
+      "title": "학생 성적 분석",
+      "type": "분석",
+      "duration": "6일 · 개인",
+      "stack": "NumPy · pandas · SciPy",
+      "description": "DDA·EDA·CDA로 데이터를 살피고 가설을 세웠습니다. **카이제곱 독립 검정과 Kruskal–Wallis H 검정**으로 가설을 확인했습니다.",
+      "source": "19",
+      "presentation": "1ArzaYgoYWyQHrvGKkMAsbaZjj05npoJJ",
+      "image": "student-preview",
+      "imageAlt": "성적 분포와 통계 검정 결과"
+    },
+    {
+      "id": "thumbnail",
+      "title": "썸네일 감정 분석",
+      "type": "비전",
+      "duration": "20일 · 팀",
+      "stack": "TensorFlow · YOLO · OpenCV",
+      "description": "YT-dlp·Google APIs로 썸네일과 메타데이터를 수집했습니다. YOLO 얼굴 탐지로 라벨링을 돕고 ViT·FaceNet 전이학습을 비교했습니다. 팀 분석에서는 감정보다 구독자·좋아요 수의 영향이 크게 나타났지만, **인과관계를 입증한 결과는 아닙니다**.",
+      "source": "20",
+      "presentation": "1nGUwr1S5lYI4cDzCN50YrzQUovlYSPkC",
+      "image": "thumbnail-preview",
+      "imageAlt": "썸네일 얼굴 탐지와 라벨링 예시"
+    },
+    {
+      "id": "city",
+      "title": "들락날락 입지 분석",
+      "type": "공간",
+      "duration": "14일 · 팀",
+      "stack": "QGIS · GeoPandas · DBSCAN",
+      "description": "9종의 공공데이터로 부산 어린이복합문화공간 후보지를 분석했습니다. 지하철·버스와 경사를 함께 고려해 어린이가 **15분 안에 걸어서 갈 수 있는 지역**을 골랐습니다.",
+      "source": "20",
+      "presentation": "",
+      "image": "city-preview",
+      "imageAlt": "부산 공공데이터 입지 분석 지도"
+    },
+    {
+      "id": "dropout",
+      "title": "대학생 중퇴 예측",
+      "type": "분석",
+      "duration": "5일 · 팀",
+      "stack": "pandas · scikit-learn",
+      "description": "포르투갈 대학생 데이터를 EDA·PDA로 분석하고 중퇴 예측 모델을 만들었습니다. **팀 실험 정확도는 89%**입니다. 발표자료에는 데이터 분할 조건이 적혀 있지 않습니다.",
+      "source": "21",
+      "presentation": "1k6fWsFBiG3NbCLoUHaL5Q2ToEtXki6Zt",
+      "image": "dropout-preview",
+      "imageAlt": "학적 상태별 성적 분포"
+    },
+    {
+      "id": "vit",
+      "title": "Vision Transformer 구현",
+      "type": "비전",
+      "duration": "14일 · 팀",
+      "stack": "PyTorch · Python",
+      "description": "차원 변환과 연산 과정을 분석해 시각 자료로 설명하고, PyTorch로 Vision Transformer 모델을 **구현·학습**했습니다.",
+      "source": "21",
+      "presentation": "1I6QieQ7lCZvXFCb-k-NGS1gkcztCCNE6",
+      "image": "vit-preview",
+      "imageAlt": "차원 변환 설명과 구현 코드"
+    }
+  ],
+  "education": [
+    {
+      "period": "2019.02–2025.08",
+      "title": "건양대학교",
+      "description": "임상의약학 학사 · 3.94 / 4.5"
+    },
+    {
+      "period": "2025.02–06",
+      "title": "이스트캠프 와썹",
+      "description": "AI 모델 개발 9기 수료"
+    },
+    {
+      "period": "2025.07–12",
+      "title": "인공지능사관학교",
+      "description": "6기 컴퓨터 비전 과정 수료"
+    }
+  ],
+  "certifications": [
+    {
+      "date": "2025.04",
+      "name": "SQLD"
+    },
+    {
+      "date": "2025",
+      "name": "ADsP"
+    },
+    {
+      "date": "2025.10",
+      "name": "인공지능활용능력"
+    },
+    {
+      "date": "2025.11",
+      "name": "빅데이터분석기사"
+    },
+    {
+      "date": "—",
+      "name": "정보처리기사 필기"
+    }
+  ],
+  "additional": [
+    {
+      "date": "2025.09",
+      "title": "독거노인·치매 환자 사회적 고립 완화 AI 헬스케어",
+      "note": "온라인 해커톤 · 팀 프로젝트"
+    },
+    {
+      "date": "2025.10",
+      "title": "한우 체형 분석·주간 맞춤 사료 관리",
+      "note": "AI 프론티어 챌린지 해커톤 · 팀 프로젝트"
+    },
+    {
+      "date": "2026.02",
+      "title": "입주 전후 차이 분석 서비스",
+      "note": "원본 작성 당시 진행 중 · 이후 상태 미확인"
+    }
+  ],
+  "experience": [
+    {
+      "period": "2024.08–12",
+      "organization": "에버트라이",
+      "role": "임상연구 운영 (SaMD CRA)",
+      "summary": "의료 소프트웨어 **임상연구 3건**의 운영·데이터 모니터링",
+      "details": "다기관 2건과 단일기관 1건의 임상연구를 담당했습니다. 계약·연구비 예산을 검토하고 병원 인력을 교육했습니다. **임상 데이터를 모니터링**하며 PI·CRC·Sponsor 사이의 업무를 조율했습니다.",
+      "source": "이력서 p.1"
+    },
+    {
+      "period": "2025.10–11",
+      "organization": "OpenTrain · 프리랜서",
+      "role": "한국어 음성 데이터 라벨링·품질 검수",
+      "summary": "**Labelbox** 기반 음성 데이터 라벨링·품질 검수",
+      "details": "바뀌는 가이드라인에 맞춰 음성 데이터를 라벨링하고 검수했습니다. **이력서에 기재한 QC 이후 평균 작업 정확도는 93%**입니다.",
+      "source": "이력서 p.1"
+    }
+  ],
+  "recordNote": "정보처리기사는 필기 합격입니다. 이력서와 포트폴리오에서 날짜가 다른 자격은 취득 날짜를 생략했습니다."
+}

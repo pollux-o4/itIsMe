@@ -1,0 +1,94 @@
+---
+import { ClientRouter } from "astro:transitions";
+import { site, url, asset } from "../lib/content";
+import "../styles/global.css";
+import displayFont from "../assets/fonts/dm-sans.ttf?url";
+import boldFont from "../assets/fonts/dm-sans-bold.ttf?url";
+interface Props {
+  title?: string;
+  description?: string;
+  active?: string;
+}
+const { title, description = site.description, active = "home" } = Astro.props;
+---
+
+<!doctype html>
+<html lang="ko">
+  <head>
+    <meta charset="UTF-8" /><meta
+      name="viewport"
+      content="width=device-width, initial-scale=1"
+    />
+    <meta name="description" content={description} /><meta
+      name="theme-color"
+      content="#f2f0e9"
+    />
+    <title>{title ? `${title} — ${site.name}` : site.title}</title>
+    <link rel="icon" type="image/svg+xml" href={asset("/images/favicon.svg")} />
+    <link rel="canonical" href={new URL(Astro.url.pathname, Astro.site)} />
+    <link
+      rel="preload"
+      href={displayFont}
+      as="font"
+      type="font/ttf"
+      crossorigin
+    />
+    <link
+      rel="preload"
+      href={boldFont}
+      as="font"
+      type="font/ttf"
+      crossorigin
+    />
+    <ClientRouter />
+  </head>
+  <body>
+    <a href="#main" class="skip-link">본문으로 건너뛰기</a>
+    <header class="site-header wrap">
+      <a href={url()} class="wordmark" aria-label={`${site.name} 홈`}
+        ><span class="brand-flower" aria-hidden="true">p4</span>{site.name}<span
+          class="wordmark-note mono">DEVELOPER / BUILDER</span
+        ></a
+      >
+      <nav aria-label="주 메뉴">
+        <a
+          href={url("work/")}
+          aria-current={active === "work" ? "page" : undefined}
+          >프로젝트</a
+        ><a
+          href={url("about/")}
+          aria-current={active === "about" ? "page" : undefined}>경력·학력</a
+        ><a
+          href={site.github}
+          class="github-link"
+          target="_blank"
+          rel="noreferrer"
+          >GitHub <span aria-hidden="true">↗</span><span class="sr-only">
+            (새 창)</span
+          ></a
+        >
+      </nav>
+    </header>
+    <main id="main" tabindex="-1"><slot /></main>
+    <footer class="site-footer wrap">
+      <div>
+        <a
+          href={site.github}
+          class="footer-brand"
+          target="_blank"
+          rel="noreferrer"
+          aria-label="GitHub에서 작업 살펴보기 (새 창)"
+          >GitHub에서<br /><em>코드 보기</em><span aria-hidden="true"
+            >↗</span
+          ></a
+        ><p>코드와 작업 기록은 GitHub에서 확인할 수 있습니다.</p>
+      </div><div class="footer-meta">
+        <a href={site.github} target="_blank" rel="noreferrer"
+          >GitHub ↗<span class="sr-only"> (새 창)</span></a
+        ><span class="mono"
+          >© {new Date().getFullYear()}{" "}{site.name}</span
+        >
+      </div>
+    </footer>
+  </body>
+</html>

@@ -1,0 +1,36 @@
+<div class="engine-timeline">
+  <div class="visual-caption"><span>같은 오차, 다른 위험</span><small>원본의 예시 · 단위: 사이클</small></div>
+  <svg viewBox="0 0 400 228" role="img" aria-labelledby="engine-timeline-title engine-timeline-desc">
+    <title id="engine-timeline-title">실제 잔여 수명 20사이클에서, 10과 30으로 예측한 경우</title>
+    <desc id="engine-timeline-desc">실제 잔여 수명은 20사이클입니다. 10으로 예측하면 10사이클 이르고, 30으로 예측하면 10사이클 늦습니다. 늦은 예측은 실제 수명을 넘기므로 더 큰 벌점을 줍니다. 실험 결과가 아닌 설명용 예시입니다.</desc>
+    <rect x="254" y="36" width="126" height="155" fill="#fae6dd" rx="8"/>
+    <path d="M254 32V194" stroke="#62677b" stroke-width="1.5" stroke-dasharray="4 4"/>
+    <text x="254" y="20" text-anchor="middle" class="actual">실제 수명 20</text>
+    <text x="20" y="65" class="early">이른 예측</text>
+    <path d="M20 86H137" class="early-bar"/>
+    <circle cx="137" cy="86" r="5" fill="#4058ba"/>
+    <text x="137" y="111" text-anchor="middle">10</text>
+    <path d="M145 86H246" stroke="#4058ba" stroke-dasharray="3 4"/>
+    <text x="196" y="76" text-anchor="middle" class="delta">−10</text>
+    <text x="20" y="146" class="late">늦은 예측</text>
+    <path d="M20 167H371" class="late-bar"/>
+    <circle cx="371" cy="167" r="5" fill="#aa452b"/>
+    <text x="371" y="193" text-anchor="middle">30</text>
+    <text x="312" y="157" text-anchor="middle" class="delta">+10</text>
+    <path d="M20 210H379m-7-4 7 4-7 4" fill="none" stroke="#777d8d"/>
+    <text x="20" y="225">0</text><text x="379" y="225" text-anchor="end">예측한 잔여 수명</text>
+  </svg>
+  <div class="risk-key"><span>조기 정비 가능성</span><strong>실제 수명 초과 → 더 큰 벌점</strong></div>
+  <div class="engine-result"><span>별도 팀 실험 · R²</span><strong>0.71 <span>→</span> 0.81</strong></div>
+</div>
+<style>
+ .engine-timeline{background:#f0f2f7;padding:30px;display:flex;flex-direction:column;justify-content:center;gap:16px;min-width:0}
+ svg{width:100%;height:auto;display:block;max-height:260px}
+ svg text{font:13px var(--sans);fill:#555c70}.actual{font-weight:700;fill:#24293d}.early{fill:#4058ba;font-weight:650}.late{fill:#aa452b;font-weight:650}.delta{font-size:15px;font-weight:650}
+ .early-bar,.late-bar{stroke-width:7;stroke-linecap:round;fill:none}.early-bar{stroke:#4058ba}.late-bar{stroke:#aa452b}
+ .risk-key{display:flex;justify-content:space-between;gap:14px;font-size:12px}.risk-key span{color:#4058ba}.risk-key strong{color:#963c26;font-weight:600}
+ .engine-result{display:flex;justify-content:space-between;gap:15px;align-items:center;border-top:1px solid #cbd0dd;padding-top:14px}
+ .engine-result>span{font-size:12px;color:var(--muted)}.engine-result strong{font-size:27px;line-height:1.2;font-weight:600;letter-spacing:-.04em}.engine-result strong span{font-size:18px;color:#70768b}
+ @media screen and (max-width:680px){svg text{font-size:17px}.delta{font-size:18px}.engine-timeline{padding:24px 20px;gap:18px}.risk-key{font-size:11px;gap:10px}}
+ @media print{svg text{font-size:17px}.delta{font-size:18px}.engine-timeline{padding:4mm;gap:2mm}svg{height:35mm}.risk-key{font-size:7pt}.engine-result{padding-top:2mm}.engine-result>span{font-size:7pt}.engine-result strong{font-size:18pt}}
+</style>

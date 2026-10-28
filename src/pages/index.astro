@@ -1,0 +1,84 @@
+---
+import Emphasis from '../components/Emphasis.astro';
+import ProjectPreview from '../components/ProjectPreview.astro';
+import ValidationFlow from '../components/ValidationFlow.astro';
+import EngineTimeline from '../components/EngineTimeline.astro';
+import { ArrowRight, ArrowUpRight, Plus, Hospital, AudioLines, Camera, ScanLine, NotebookPen } from 'lucide-react';
+import StoryLayout from '../layouts/StoryLayout.astro';
+import { portfolio } from '../lib/portfolio';
+import { asset, site } from '../lib/content';
+const img=(name:string)=>asset(`/images/portfolio/${name}.webp`);
+---
+<StoryLayout>
+  <section id="start" class="story-intro" data-chapter aria-labelledby="intro-title">
+    <div class="intro-top"><span class="kicker">AI & FULL-STACK</span><span class="edition">SELECTED WORK / 2025—2026</span></div>
+    <div class="intro-heading">
+      <div class="intro-copy">
+        <div class="identity"><img src={img('portrait')} width="44" height="44" alt="주연석 프로필"/><p>{portfolio.name}<span>{portfolio.role}</span></p></div>
+        <h1 id="intro-title">{portfolio.headline.split('\n').map((line,i)=>i===0?<>{line}{' '}<br/></>:<em>{line}</em>)}</h1>
+        <p class="intro-caption" data-intro>{site.intro}</p>
+        <div class="hero-actions"><a class="primary-link" href="#agriculture">프로젝트 보기 <span aria-hidden="true"><ArrowUpRight size={16}/></span></a><a href="#background">경력·학력 <span aria-hidden="true"><ArrowRight size={16}/></span></a></div>
+      </div>
+      <ProjectPreview/>
+    </div>
+    <div class="story-map" role="group" aria-label="대표 프로젝트 바로가기">
+      <a href="#agriculture" class="map-card map-validation"><span class="map-index">01</span><div class="map-label"><span>머신러닝</span><strong>농산물 가격 예측</strong><small>내 역할 · 데이터 수집·전처리·모델링</small></div><span class="map-go" aria-hidden="true"><ArrowRight size={18}/></span></a>
+      <a href="#engine" class="map-card map-safety"><span class="map-index">02</span><div class="map-label"><span>시계열 예측</span><strong>엔진 수명 예측</strong><small>내 역할 · 엔진 조사·코드 검수</small></div><span class="map-go" aria-hidden="true"><ArrowRight size={18}/></span></a>
+      <a href="#nutrition" class="map-card map-service"><span class="map-index">03</span><div class="map-label"><span>웹 · 컴퓨터 비전</span><strong>음식 사진 분석 앱</strong><small>내 역할 · 팀장·웹·모델 개발</small></div><span class="map-go" aria-hidden="true"><ArrowRight size={18}/></span></a>
+    </div>
+  </section>
+  {portfolio.projects.map(p=>(
+    <section id={p.id} class={`story-project project-${p.kind}`} data-chapter aria-labelledby={`${p.id}-title`}>
+      <div class="chapter-heading"><span class="chapter-number">{p.number}</span><div><p class="kicker">{p.category}</p><h2 id={`${p.id}-title`}>{p.title.split('\n').map((line,i)=><span>{i>0?' ':''}{line}</span>)}</h2></div><span class="chapter-date"><span>{p.period}</span><span>{p.team}</span></span></div>
+      <div class="case-stage">
+        <div class="case-summary">
+          <dl class="case-brief">
+            <div><dt>내 역할</dt><dd><Emphasis text={p.role}/></dd></div>
+            <div><dt>핵심 작업</dt><dd><Emphasis text={p.summary}/></dd></div>
+            <div class="case-outcome"><dt>{p.outcomeLabel}</dt><dd><Emphasis text={p.outcome}/><small>{p.outcomeNote}</small></dd></div>
+          </dl>
+          <div class="tech-tags" aria-label="사용 기술">{p.tags.map(t=><span>{t}</span>)}</div>
+          <p class="source-label">원본 PDF p.{p.source} · 팀 프로젝트</p>
+        </div>
+        {p.kind==='validation' && <ValidationFlow/>}
+        {p.kind==='safety' && <EngineTimeline/>}
+        {p.kind==='service' && <div class="service-visual">
+          <div class="visual-caption"><span>사진에서 식사 기록까지</span><small>실제 구현 화면</small></div>
+          <div class="service-image">
+            <figure><img src={img('food-upload')} width="345" height="530" alt="음식 사진 업로드 화면"/><figcaption><Camera size={16} aria-hidden="true"/>사진 업로드</figcaption></figure>
+            <figure><img src={img('food-detect')} width="238" height="549" alt="음식 탐지 결과 화면"/><figcaption><ScanLine size={16} aria-hidden="true"/>음식 탐지</figcaption></figure>
+            <figure><img src={img('food-nutrition')} width="291" height="558" alt="영양 정보와 식사 저장 화면"/><figcaption><NotebookPen size={16} aria-hidden="true"/>영양·기록</figcaption></figure>
+          </div>
+        </div>}
+
+      </div>
+      <ol class="case-steps">{p.steps.map((s,i)=><li><span>0{i+1}</span>{s}</li>)}</ol>
+      <details class="case-disclosure" id={`${p.id}-evidence`} data-disclosure>
+        <summary><span><span class="kicker">개발 과정</span><strong>과정·근거<span class="disclosure-closed"> 펼치기</span><span class="disclosure-open"> 접기</span></strong></span><span class="disclosure-sign" aria-hidden="true"><Plus size={18}/></span></summary>
+        <div class="disclosure-content">
+          <div class="decision-row"><div><h3>프로젝트 소개</h3><p><Emphasis text={p.problem}/></p></div><div><h3>작업 내용</h3><p><Emphasis text={p.decision}/></p></div></div>
+          <div class="fact-row">{p.facts.map(({value:v,label:l})=><div><strong>{v}</strong><span>{l}</span></div>)}</div>
+          <div class="detail-text">{p.details.map(({heading:h,text:t})=><div><h3>{h}</h3>{t.split('\n').map(paragraph=><p><Emphasis text={paragraph}/></p>)}</div>)}</div>
+          <div class="evidence-gallery">{p.figures.map(({image:name,caption})=><figure><img src={img(name)} width={name==='food-chat'?1280:1000} height={name==='food-chat'?460:500} loading="eager" alt={caption}/><figcaption>{caption}</figcaption></figure>)}</div>
+          {p.kind==='service' && <div class="case-resources"><a href="https://youtube.com/shorts/7hj92GtiodM" target="_blank" rel="noreferrer">서비스 시연 ↗<span class="sr-only"> 새 창</span></a><a href="https://youtu.be/9ZQNLvgRKjQ" target="_blank" rel="noreferrer">학습 파이프라인 시연 ↗<span class="sr-only"> 새 창</span></a><a href="https://drive.google.com/drive/folders/1RSmgiVb6tBg7QbEVDCo4trfaJ3A4targ" target="_blank" rel="noreferrer">프로젝트 산출물 ↗<span class="sr-only"> 새 창</span></a></div>}
+          <aside class="evidence-boundary"><strong>실험 조건과 한계</strong><p><Emphasis text={p.boundary}/></p></aside>
+          <a class="source-link" href={p.link} target="_blank" rel="noreferrer">발표자료 ↗<span class="sr-only"> 새 창</span></a>
+        </div>
+      </details>
+    </section>
+  ))}
+  <section id="archive" class="story-archive" data-chapter aria-labelledby="archive-title">
+    <div class="section-title"><span class="kicker">04 / 프로젝트</span><h2 id="archive-title">다른 프로젝트</h2></div>
+    <div class="other-grid">{portfolio.otherProjects.map((p,i)=><details class="other-project" data-disclosure id={p.id}><summary><span class="archive-preview"><img src={img(p.image)} width="600" height="360" alt={p.imageAlt} loading="eager"/><span class="preview-source">원본 p.{p.source}</span></span><span class="archive-label"><span class="other-number">0{i+1}</span><small>{p.type} / {p.duration}</small><strong>{p.title}</strong><span class="archive-cue">내용 보기</span></span><span class="disclosure-sign" aria-hidden="true"><Plus size={18}/></span></summary><div class="disclosure-content"><p><Emphasis text={p.description}/></p><span class="other-stack">{p.stack}</span><small class="source-label">원본 p.{p.source} · {p.duration.includes('개인') ? '개인 프로젝트' : '팀 프로젝트 · 개인 기여 상세 미기재'}</small>{p.presentation && <a href={`https://drive.google.com/file/d/${p.presentation}/view`} target="_blank" rel="noreferrer">발표자료 ↗<span class="sr-only"> 새 창</span></a>}</div></details>)}</div>
+  </section>
+  <section id="background" class="story-background" data-chapter aria-labelledby="background-title">
+    <div class="section-title"><span class="kicker">05 / 이력 · 자료 기준 {portfolio.sourceDate}</span><h2 id="background-title">경력과 학력</h2></div>
+    <div class="experience-path">{portfolio.experience.map((e,i)=><article><span class="experience-symbol" aria-hidden="true">{i===0?<Hospital size={24}/>:<AudioLines size={24}/>}</span><div><span class="kicker">{e.period}</span><h3>{e.role}</h3><span class="experience-org">{e.organization}</span><p><Emphasis text={e.summary}/></p></div></article>)}</div>
+    <div class="education-path">{portfolio.education.map(({period,title,description:desc},i)=><div><span class="path-dot">0{i+1}</span><small>{period}</small><h3>{title}</h3><p>{desc}</p></div>)}</div>
+    <details class="background-detail" data-disclosure><summary><strong>경력 상세·자격·추가 프로젝트</strong><span class="disclosure-sign" aria-hidden="true"><Plus size={18}/></span></summary><div class="disclosure-content">
+      <div class="experience-details">{portfolio.experience.map(e=><div><h3>{e.organization} · {e.role}</h3><p><Emphasis text={e.details}/></p><small>{e.source}</small></div>)}</div><div class="background-columns"><div><h3>자격</h3><ul>{portfolio.certifications.map(({date,name})=><li><time>{date}</time><span>{name}</span></li>)}</ul></div><div><h3>추가 프로젝트</h3><ul>{portfolio.additional.map(({date,title,note})=><li><time>{date}</time><span>{title}<small>{note}</small></span></li>)}</ul></div></div>
+      <p class="evidence-boundary">{portfolio.recordNote}</p>
+    </div></details>
+    <div class="submission"><div><span class="kicker">PDF / 인쇄</span><h3>포트폴리오 인쇄</h3><p>접힌 상세 내용도 함께 인쇄됩니다.</p></div><div><button type="button" data-print>전체 인쇄 / PDF 저장 ↗</button></div></div>
+  </section>
+</StoryLayout>

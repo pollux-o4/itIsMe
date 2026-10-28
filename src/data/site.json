@@ -1,0 +1,25 @@
+{
+  "name": "주연석",
+  "title": "주연석 — AI · Full-stack Engineer",
+  "description": "개발자 주연석의 포트폴리오. 농산물 가격 예측, 항공기 엔진 수명 예측, 음식 사진 분석 앱에서 맡은 일과 개발 과정을 소개합니다.",
+  "intro": "데이터 수집·모델 개발·웹 구현을 맡았습니다.\n임상연구 운영과 음성 데이터 검수 경험도 있습니다.",
+  "headline": "AI 모델과\n웹 서비스를 만듭니다.",
+  "about": "AI 모델과 웹 서비스를 개발하는 주연석입니다.",
+  "background": "임상의약학을 전공하고 AI 모델 개발·컴퓨터 비전 교육을 수료했습니다.",
+  "github": "https://github.com/pollux-o4",
+  "featured": [],
+  "sections": [
+    {
+      "id": "work",
+      "enabled": true
+    },
+    {
+      "id": "about",
+      "enabled": true
+    },
+    {
+      "id": "notes",
+      "enabled": false
+    }
+  ]
+}

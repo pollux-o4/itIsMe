@@ -1,0 +1,9 @@
+---
+import { getCollection, render } from 'astro:content';
+import Layout from '../../layouts/Layout.astro';
+import { url, asset } from '../../lib/content';
+export async function getStaticPaths() { return (await getCollection('notes', ({ data }) => data.published)).map(note => ({ params: { id: note.id }, props: { note } })); }
+const { note } = Astro.props;
+const { Content } = await render(note);
+---
+<Layout title={note.data.title}><article class="note-detail wrap"><a href={url('notes/')} class="text-link">← 모든 기록</a><span class="eyebrow">{note.data.date.toISOString().slice(0, 10)} · {note.data.sample ? '예시 기록' : note.data.tags.join(' · ')}</span><h1>{note.data.title}</h1>{note.data.image && <img src={asset(note.data.image)} alt={note.data.title} width="1200" height="900"/>}<div class="prose"><Content/></div></article></Layout>
