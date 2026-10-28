@@ -14,9 +14,9 @@ const img=(name:string)=>asset(`/images/portfolio/${name}.webp`);
     <div class="intro-top"><span class="kicker">AI & FULL-STACK</span><span class="edition">SELECTED WORK / 2025—2026</span></div>
     <div class="intro-heading">
       <div class="intro-copy">
-        <div class="identity"><img src={img('portrait')} width="44" height="44" alt="주연석 프로필"/><p>{portfolio.name}<span>{portfolio.role}</span></p></div>
+        <div class="identity"><div class="portrait-control" data-portrait-control><button class="portrait-trigger" type="button" aria-haspopup="dialog" aria-label="주연석 프로필 사진 크게 보기" data-portrait-open><img src={img('portrait')} width="44" height="44" alt=""/></button><div class="portrait-peek" aria-hidden="true"><img src={img('portrait')} width="362" height="509" alt=""/><span><strong>책임감과 꾸준함으로<br/>함께 만듭니다.</strong><small>소개 보기 ↗</small></span></div></div><p>{portfolio.name}<span>{portfolio.role}</span></p><dialog class="portrait-dialog" aria-labelledby="portrait-dialog-title" data-portrait-dialog><button class="portrait-dialog-close" type="button" aria-label="사진 닫기" data-portrait-close>×</button><div class="portrait-dialog-body"><img src={img('portrait')} width="362" height="509" alt="주연석 프로필 사진"/><div class="portrait-story"><span class="portrait-story-label">ABOUT / 주연석</span><h2 id="portrait-dialog-title">책임감과 꾸준함으로,<br/><em>함께 만듭니다.</em></h2><p>데이터 수집부터 모델 개발,<br/>웹 구현까지.</p><span class="portrait-story-role">AI · Full-stack Engineer</span></div></div></dialog></div>
         <h1 id="intro-title">{portfolio.headline.split('\n').map((line,i)=>i===0?<>{line}{' '}<br/></>:<em>{line}</em>)}</h1>
-        <p class="intro-caption" data-intro>{site.intro}</p>
+        <p class="intro-caption" data-intro>{site.intro}</p><p class="portrait-print-story">책임감과 꾸준함으로, 함께 만듭니다.</p>
         <div class="hero-actions"><a class="primary-link" href="#agriculture">프로젝트 보기 <span aria-hidden="true"><ArrowUpRight size={16}/></span></a><a href="#background">경력·학력 <span aria-hidden="true"><ArrowRight size={16}/></span></a></div>
       </div>
       <ProjectPreview/>

@@ -68,6 +68,17 @@ function initializeStory() {
         { signal },
       );
     });
+  const portrait = document.querySelector<HTMLDialogElement>("[data-portrait-dialog]");
+  const portraitControl = document.querySelector<HTMLElement>("[data-portrait-control]");
+  document.querySelector<HTMLButtonElement>("[data-portrait-open]")?.addEventListener("click", () => portrait?.showModal(), {signal});
+  document.querySelector<HTMLButtonElement>("[data-portrait-close]")?.addEventListener("click", () => portrait?.close(), {signal});
+  portrait?.addEventListener("click", event => { if (event.target === portrait) portrait.close(); }, {signal});
+  portraitControl?.addEventListener("pointerenter", () => portraitControl.removeAttribute("data-dismissed"), {signal});
+  portraitControl?.addEventListener("pointerleave", () => portraitControl.removeAttribute("data-dismissed"), {signal});
+  portraitControl?.addEventListener("focusout", () => portraitControl.removeAttribute("data-dismissed"), {signal});
+  document.addEventListener("keydown", event => {
+    if (event.key === "Escape" && (portrait?.open || portraitControl?.matches(":hover, :focus-within"))) portraitControl?.setAttribute("data-dismissed", "");
+  }, {signal});
   const preview = document.querySelector<HTMLElement>(".project-preview");
   const panels = [...document.querySelectorAll<HTMLAnchorElement>("[data-preview]")];
   const cards = [...document.querySelectorAll<HTMLAnchorElement>(".story-map .map-card")];
