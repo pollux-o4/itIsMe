@@ -2,7 +2,7 @@
   <div class="visual-caption"><span>평가 데이터를 다시 나눴습니다</span><small>시간순 분할 개념도</small></div>
   <svg viewBox="0 0 400 120" role="img" aria-labelledby="split-title split-desc">
     <title id="split-title">과거로 학습하고 이후 데이터로 평가</title>
-    <desc id="split-desc">왼쪽의 과거 데이터는 학습에, 오른쪽의 이후 데이터는 평가에 사용합니다. 구간 길이는 실제 데이터 비율이 아닙니다.</desc>
+    <desc id="split-desc">왼쪽의 과거 데이터는 학습에, 오른쪽의 이후 데이터는 평가에 사용합니다. 구간 길이는 설명을 위해 임의로 그렸습니다.</desc>
     <path d="M20 24H376m-8-5 8 5-8 5" fill="none" stroke="currentColor" stroke-width="1.5"/>
     <text x="20" y="14">과거</text><text x="376" y="14" text-anchor="end">미래</text>
     <rect x="20" y="42" width="212" height="52" rx="6" fill="#2453c6"/>
@@ -15,7 +15,7 @@
     <div><span>초기 평가</span><strong>0.98<small>R²</small></strong><p>데이터 누수 의심</p></div>
     <div><span>시간순 평가</span><strong>0.81<small>R²</small></strong><p>분할 조건 수정 후</p></div>
   </div>
-  <p class="visual-footnote">평가 조건이 달라 두 점수는 직접 비교할 수 없습니다.</p>
+  <p class="visual-footnote">두 점수는 분할 조건이 달라 직접 비교하기 어렵습니다.</p>
 </div>
 <style>
   .validation-flow{background:var(--accent-soft);padding:30px;display:flex;flex-direction:column;justify-content:center;gap:20px;min-width:0}
