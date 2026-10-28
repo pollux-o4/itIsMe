@@ -1,0 +1,76 @@
+---
+import { Plus } from 'lucide-react';
+import type { Project } from '../../lib/portfolio-schema';
+import { portfolioImage as img } from '../../lib/content';
+import Emphasis from '../Emphasis.astro';
+import ValidationFlow from '../ValidationFlow.astro';
+import EngineTimeline from '../EngineTimeline.astro';
+import ServiceFlow from '../ServiceFlow.astro';
+
+interface Props { project: Project }
+const { project: p } = Astro.props;
+// The project kind selects its visual; the shared case and evidence stay unchanged.
+const visuals = { validation: ValidationFlow, safety: EngineTimeline, service: ServiceFlow };
+const Visual = visuals[p.kind];
+---
+<section id={p.id} class={`story-project project-${p.kind}`} data-chapter aria-labelledby={`${p.id}-title`}>
+  <div class="chapter-heading">
+    <span class="chapter-number">{p.number}</span>
+    <div>
+      <p class="kicker">{p.category}</p>
+      <h2 id={`${p.id}-title`}>{p.title.split('\n').map((line, i) => <span>{i > 0 ? ' ' : ''}{line}</span>)}</h2>
+    </div>
+    <span class="chapter-date"><span>{p.period}</span><span>{p.team}</span></span>
+  </div>
+  <div class="case-stage">
+    <div class="case-summary">
+      <dl class="case-brief">
+        <div><dt>내 역할</dt><dd><Emphasis text={p.role}/></dd></div>
+        <div><dt>핵심 작업</dt><dd><Emphasis text={p.summary}/></dd></div>
+        <div class="case-outcome">
+          <dt>{p.outcomeLabel}</dt>
+          <dd><Emphasis text={p.outcome}/><small>{p.outcomeNote}</small></dd>
+        </div>
+      </dl>
+      <div class="tech-tags" aria-label="사용 기술">{p.tags.map(tag => <span>{tag}</span>)}</div>
+      <p class="source-label">원본 PDF p.{p.source} · 팀 프로젝트</p>
+    </div>
+    <Visual/>
+  </div>
+  <ol class="case-steps">{p.steps.map((step, i) => <li><span>0{i + 1}</span>{step}</li>)}</ol>
+  <details class="case-disclosure" id={`${p.id}-evidence`} data-disclosure>
+    <summary>
+      <span>
+        <span class="kicker">개발 과정</span>
+        <strong>과정·근거<span class="disclosure-closed"> 펼치기</span><span class="disclosure-open"> 접기</span></strong>
+      </span>
+      <span class="disclosure-sign" aria-hidden="true"><Plus size={18}/></span>
+    </summary>
+    <div class="disclosure-content">
+      <div class="decision-row">
+        <div><h3>프로젝트 소개</h3><p><Emphasis text={p.problem}/></p></div>
+        <div><h3>작업 내용</h3><p><Emphasis text={p.decision}/></p></div>
+      </div>
+      <div class="fact-row">{p.facts.map(fact => <div><strong>{fact.value}</strong><span>{fact.label}</span></div>)}</div>
+      <div class="detail-text">
+        {p.details.map(detail => <div>
+          <h3>{detail.heading}</h3>
+          {detail.text.split('\n').map(paragraph => <p><Emphasis text={paragraph}/></p>)}
+        </div>)}
+      </div>
+      <div class="evidence-gallery">
+        {p.figures.map(figure => <figure>
+          <img src={img(figure.image)} width={figure.image === 'food-chat' ? 1280 : 1000}
+            height={figure.image === 'food-chat' ? 460 : 500} loading="eager" alt={figure.caption}/>
+          <figcaption>{figure.caption}</figcaption>
+        </figure>)}
+      </div>
+      {p.resources.length > 0 && <div class="case-resources">
+        {p.resources.map(resource => <a href={resource.href} target="_blank" rel="noreferrer">
+          {resource.label} ↗<span class="sr-only"> 새 창</span>
+        </a>)}
+      </div>}
+      <a class="source-link" href={p.link} target="_blank" rel="noreferrer">발표자료 ↗<span class="sr-only"> 새 창</span></a>
+    </div>
+  </details>
+</section>

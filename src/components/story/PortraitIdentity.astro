@@ -1,0 +1,30 @@
+---
+import { portfolio } from '../../lib/portfolio';
+import { portfolioImage as img } from '../../lib/content';
+const lines = portfolio.portrait.headline.split('\n');
+---
+<div class="identity">
+  <div class="portrait-control" data-portrait-control>
+    <button class="portrait-trigger" type="button" aria-haspopup="dialog"
+      aria-label={`${portfolio.name} 프로필 사진 크게 보기`} data-portrait-open>
+      <img src={img('portrait')} width="44" height="44" alt=""/>
+    </button>
+    <div class="portrait-peek" aria-hidden="true">
+      <img src={img('portrait')} width="362" height="509" alt=""/>
+      <span><strong>{lines.map((line, i) => <>{i > 0 && <br/>}{line.replace(/,$/, '')}</>)}</strong><small>소개 보기 ↗</small></span>
+    </div>
+  </div>
+  <p>{portfolio.name}<span>{portfolio.role}</span></p>
+  <dialog class="portrait-dialog" aria-labelledby="portrait-dialog-title" data-portrait-dialog>
+    <button class="portrait-dialog-close" type="button" aria-label="사진 닫기" data-portrait-close>×</button>
+    <div class="portrait-dialog-body">
+      <img src={img('portrait')} width="362" height="509" alt={`${portfolio.name} 프로필 사진`}/>
+      <div class="portrait-story">
+        <span class="portrait-story-label">ABOUT / {portfolio.name}</span>
+        <h2 id="portrait-dialog-title">{lines.map((line, i) => i === 0 ? <>{line}<br/></> : <em>{line}</em>)}</h2>
+        <p>{portfolio.portrait.description.split('\n').map((line, i) => <>{i > 0 && <br/>}{line}</>)}</p>
+        <span class="portrait-story-role">{portfolio.role}</span>
+      </div>
+    </div>
+  </dialog>
+</div>

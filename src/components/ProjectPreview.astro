@@ -1,25 +1,43 @@
 ---
 import { ArrowRight, ArrowUpRight } from 'lucide-react';
-import { asset } from '../lib/content';
+import { portfolioImage as img } from '../lib/content';
 import { portfolio } from '../lib/portfolio';
 import { plainText } from '../lib/emphasis';
-const img=(name:string)=>asset(`/images/portfolio/${name}.webp`);
-const studies = portfolio.projects.filter(p=>p.kind!=='service').map(p=>{
-  const figure = p.figures[p.kind==='validation'?1:0];
-  return {id:p.id,number:p.number,image:figure.image,alt:figure.caption,title:p.title.replace('\n',' '),caption:plainText(p.summary),stack:p.tags.slice(0,2).join(' · ')};
-});
 ---
 <div class="project-preview" aria-label="대표 프로젝트 미리보기">
-  {studies.map(p=><a class="hero-feature preview-panel" data-preview={p.id} href={`#${p.id}`} aria-label={`${p.title} 살펴보기`} aria-hidden="true" inert>
-    <div class="feature-label"><span>대표 프로젝트 / {p.number}</span><span class="feature-arrow" aria-hidden="true"><ArrowUpRight size={18}/></span></div>
-    <div class="study-composition preview-art"><img src={img(p.image)} width="1000" height="500" alt={p.alt}/></div>
-    <div class="feature-caption"><span>{p.caption}</span><strong>{p.title} <span aria-hidden="true"><ArrowUpRight size={16}/></span></strong><small>{p.stack}</small></div>
-  </a>)}
-  <a class="hero-feature preview-panel" data-preview="nutrition" data-active href="#nutrition" aria-label="음식 이미지 분석 서비스 살펴보기">
-    <div class="feature-label"><span>대표 프로젝트 / 03</span><span class="feature-arrow" aria-hidden="true"><ArrowUpRight size={18}/></span></div>
-    <div class="product-composition preview-art"><img class="product-input" src={img('food-detect')} width="238" height="549" alt="음식 사진에서 피자를 탐지한 실제 화면"/><img class="product-output" src={img('food-nutrition')} width="291" height="558" alt="탐지한 음식의 영양 정보가 표시된 실제 화면"/><span class="product-connector" aria-hidden="true"><ArrowRight size={20}/></span></div>
-    <div class="feature-caption"><span>음식 사진을 분석하고 식사를 기록하는 앱</span><strong>음식 이미지 분석 서비스 <span aria-hidden="true"><ArrowUpRight size={16}/></span></strong><small>Next.js · FastAPI · YOLO11</small></div>
-  </a>
+  {portfolio.projects.map(project => {
+    const { preview } = project;
+    const figure = preview.figure === undefined ? undefined : project.figures[preview.figure];
+    const title = preview.title ?? project.title.replaceAll('\n', ' ');
+    return (
+      <a class="hero-feature preview-panel" data-preview={project.id}
+        data-preview-default={preview.isDefault ? '' : undefined}
+        data-active={preview.isDefault ? '' : undefined}
+        href={`#${project.id}`} aria-label={`${title} 살펴보기`}
+        aria-hidden={preview.isDefault ? undefined : 'true'} inert={!preview.isDefault}>
+        <div class="feature-label">
+          <span>대표 프로젝트 / {project.number}</span>
+          <span class="feature-arrow" aria-hidden="true"><ArrowUpRight size={18}/></span>
+        </div>
+        {project.kind === 'service' ? (
+          <div class="product-composition preview-art">
+            <img class="product-input" src={img('food-detect')} width="238" height="549" alt="음식 사진에서 피자를 탐지한 실제 화면"/>
+            <img class="product-output" src={img('food-nutrition')} width="291" height="558" alt="탐지한 음식의 영양 정보가 표시된 실제 화면"/>
+            <span class="product-connector" aria-hidden="true"><ArrowRight size={20}/></span>
+          </div>
+        ) : figure && (
+          <div class="study-composition preview-art">
+            <img src={img(figure.image)} width="1000" height="500" alt={figure.caption}/>
+          </div>
+        )}
+        <div class="feature-caption">
+          <span>{preview.caption ?? plainText(project.summary)}</span>
+          <strong>{title} <span aria-hidden="true"><ArrowUpRight size={16}/></span></strong>
+          <small>{project.tags.slice(0, project.kind === 'service' ? 3 : 2).join(' · ')}</small>
+        </div>
+      </a>
+    );
+  })}
 </div>
 <style>
 .project-preview{display:grid;min-width:0;isolation:isolate}
@@ -32,7 +50,7 @@ const studies = portfolio.projects.filter(p=>p.kind!=='service').map(p=>{
  .preview-panel{transition:opacity 180ms ease}
  .preview-art{transform:translate(var(--preview-x,0px),var(--preview-y,0px)) rotate(var(--preview-tilt,0deg));transition:transform 160ms ease-out}
 }
-@media screen and (max-width:799px){.study-composition{height:230px}.preview-panel:not([data-preview="nutrition"]){display:none}.preview-panel[data-preview="nutrition"]{visibility:visible;opacity:1;pointer-events:auto}}
+@media screen and (max-width:799px){.study-composition{height:230px}.preview-panel:not([data-preview-default]){display:none}.preview-panel[data-preview-default]{visibility:visible;opacity:1;pointer-events:auto}}
 @media(prefers-reduced-motion:reduce){.preview-panel,.preview-art{transition:none!important}.preview-art{transform:none!important}}
-@media print{.project-preview{display:block}.preview-panel:not([data-preview="nutrition"]){display:none!important}.preview-panel[data-preview="nutrition"]{display:flex!important;visibility:visible!important;opacity:1!important}.preview-art{transform:none!important}}
+@media print{.project-preview{display:block}.preview-panel:not([data-preview-default]){display:none!important}.preview-panel[data-preview-default]{display:flex!important;visibility:visible!important;opacity:1!important}.preview-art{transform:none!important}}
 </style>

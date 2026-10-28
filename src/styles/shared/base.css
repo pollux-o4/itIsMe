@@ -1,0 +1,171 @@
+@import "tailwindcss";
+@font-face {
+  font-family: "Instrument";
+  src: url("../../assets/fonts/instrument-serif.ttf") format("truetype");
+  font-weight: 400;
+  font-style: normal;
+  font-display: swap;
+}
+@font-face {
+  font-family: "Instrument";
+  src: url("../../assets/fonts/instrument-serif-italic.ttf") format("truetype");
+  font-weight: 400;
+  font-style: italic;
+  font-display: swap;
+}
+@font-face {
+  font-family: "DM Sans";
+  src: url("../../assets/fonts/dm-sans.ttf") format("truetype");
+  font-weight: 400 500;
+  font-display: swap;
+}
+@font-face {
+  font-family: "DM Sans";
+  src: url("../../assets/fonts/dm-sans-bold.ttf") format("truetype");
+  font-weight: 600 900;
+  font-display: swap;
+}
+:root {
+  --paper: #fafaf9;
+  --ink: #24272c;
+  --muted: #626771;
+  --line: #e0e3e7;
+  --accent: #315bc9;
+  --accent-soft: #edf2ff;
+  --display: "DM Sans", sans-serif;
+  --sans: "DM Sans", Arial, sans-serif;
+  --mono: ui-monospace, SFMono-Regular, monospace;
+  --duration: 200ms;
+  --space: 72px;
+  color-scheme: light;
+}
+* {
+  box-sizing: border-box;
+}
+html {
+  scroll-behavior: smooth;
+  scroll-padding-top: 32px;
+}
+body {
+  margin: 0;
+  background: var(--paper);
+  color: var(--ink);
+  font: 15px/1.7 var(--sans);
+  -webkit-font-smoothing: antialiased;
+}
+button,
+input,
+select,
+textarea {
+  font: inherit;
+}
+button,
+a,
+input,
+summary {
+  -webkit-tap-highlight-color: transparent;
+}
+button {
+  cursor: pointer;
+}
+a {
+  color: inherit;
+  text-decoration: none;
+}
+img {
+  max-width: 100%;
+  height: auto;
+  display: block;
+}
+button {
+  color: inherit;
+}
+h1,
+h2,
+h3,
+p,
+figure {
+  margin: 0;
+}
+h1,
+h2,
+h3 {
+  line-height: 1.25;
+  letter-spacing: -0.035em;
+}
+h1,
+h2 {
+  font-family: var(--display);
+}
+h1 {
+  font-weight: 700;
+}
+em {
+  font-style: normal;
+}
+p {
+  word-break: keep-all;
+  overflow-wrap: anywhere;
+}
+::selection {
+  background: #dbe5ff;
+}
+a,
+button {
+  touch-action: manipulation;
+}
+:focus-visible {
+  outline: 2px solid var(--accent);
+  outline-offset: 5px;
+  border-radius: 3px;
+}
+[hidden] {
+  display: none !important;
+}
+.sr-only {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  white-space: nowrap;
+}
+.skip-link {
+  position: fixed;
+  z-index: 100;
+  top: 8px;
+  left: 12px;
+  padding: 12px;
+  background: var(--ink);
+  color: white;
+  transform: translateY(-150%);
+}
+.skip-link:focus {
+  transform: none;
+}
+.wrap {
+  width: min(960px, calc(100% - 64px));
+  margin-inline: auto;
+}
+.mono,
+.eyebrow {
+  font-family: var(--mono);
+  font-size: 12px;
+  letter-spacing: 0.08em;
+}
+.eyebrow {
+  color: var(--muted);
+  display: block;
+  margin-bottom: 14px;
+}
+.text-link {
+  display: inline-flex;
+  gap: 8px;
+  align-items: center;
+  min-height: 44px;
+  font-size: 13px;
+  font-weight: 600;
+}
+.text-link:hover {
+  color: var(--accent);
+}

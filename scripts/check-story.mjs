@@ -15,12 +15,19 @@ for (const project of p.projects) {
     html.includes(`id="${project.id}-evidence"`),
     `Missing inline evidence: ${project.id}`,
   );
-  for (const key of ['role','summary','outcomeLabel','outcome','outcomeNote'])
+  for (const key of ['role','summary','outcomeLabel','outcome','outcomeNote','cardTitle','cardRole','navigationLabel'])
     assert(includesText(project[key]), `Missing visible project brief: ${project.id}/${key}`);
   for (const detail of project.details)
     assert(includesText(detail.text), `Missing evidence: ${detail.heading}`);
   for (const f of project.figures)
     assert(existsSync(`public/images/portfolio/${f.image}.webp`));
+}
+assert.equal((html.match(/data-preview-default(?:[\s=>])/g) || []).length, 1, 'Exactly one default preview in HTML');
+const defaultProject = p.projects.find(project => project.preview.isDefault);
+const defaultPanel = [...html.matchAll(/<a\b[^>]*data-preview="([^"]+)"[^>]*>/g)].find(match => match[0].includes('data-preview-default'));
+assert.equal(defaultPanel?.[1], defaultProject.id, 'Default preview must follow content data');
+for (const project of p.projects) {
+  for (const resource of project.resources) assert(html.includes(resource.href), `Missing resource: ${resource.label}`);
 }
 for (const other of p.otherProjects) {
   assert(existsSync(`public/images/portfolio/${other.image}.webp`), `Missing preview: ${other.id}`);

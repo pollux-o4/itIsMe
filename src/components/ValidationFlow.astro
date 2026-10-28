@@ -1,24 +1,25 @@
 <div class="validation-flow">
   <div class="visual-caption"><span>시간순 데이터 분할</span><small>학습·평가 구성</small></div>
-  <svg viewBox="0 0 400 120" role="img" aria-labelledby="split-title split-desc">
+  <svg viewBox="0 0 400 130" role="img" aria-labelledby="split-title split-desc">
     <title id="split-title">과거로 학습하고 이후 데이터로 평가</title>
     <desc id="split-desc">왼쪽의 과거 데이터는 학습에, 오른쪽의 이후 데이터는 평가에 사용합니다. 구간 길이는 설명을 위해 임의로 그렸습니다.</desc>
-    <path d="M20 24H376m-8-5 8 5-8 5" fill="none" stroke="currentColor" stroke-width="1.5"/>
-    <text x="20" y="14">과거</text><text x="376" y="14" text-anchor="end">미래</text>
-    <rect x="20" y="42" width="212" height="52" rx="6" fill="#2453c6"/>
-    <rect x="244" y="42" width="132" height="52" rx="6" fill="#fff" stroke="#2453c6" stroke-width="1.5"/>
-    <text x="126" y="74" text-anchor="middle" class="train-label">학습 데이터</text>
-    <text x="310" y="74" text-anchor="middle" class="test-label">평가 데이터</text>
-    <path d="M238 34V106" stroke="#68718a" stroke-dasharray="3 4"/>
+    <path d="M20 32H376m-8-5 8 5-8 5" fill="none" stroke="currentColor" stroke-width="1.5"/>
+    <text x="20" y="22">과거</text><text x="376" y="22" text-anchor="end">미래</text>
+    <rect x="20" y="50" width="212" height="52" rx="6" fill="#2453c6"/>
+    <rect x="244" y="50" width="132" height="52" rx="6" fill="#fff" stroke="#2453c6" stroke-width="1.5"/>
+    <text x="126" y="82" text-anchor="middle" class="train-label">학습 데이터</text>
+    <text x="310" y="82" text-anchor="middle" class="test-label">평가 데이터</text>
+    <path d="M238 42V114" stroke="#68718a" stroke-dasharray="3 4"/>
   </svg>
 
 </div>
 <style>
   .validation-flow{background:var(--accent-soft);padding:30px;display:flex;flex-direction:column;justify-content:center;gap:20px;min-width:0}
   svg{width:100%;height:auto;color:#5a6075;display:block}
-  text{font:13px var(--sans);fill:currentColor}
-  .train-label,.test-label{font-size:16px;font-weight:600}
+  text{font:20px var(--sans);fill:currentColor}
+  .train-label,.test-label{font-size:20px;font-weight:600}
   .train-label{fill:#fff}.test-label{fill:#204bb5}
-  @media screen and (max-width:680px){text{font-size:16px}.train-label,.test-label{font-size:18px}.validation-flow{padding:24px 20px;gap:18px}}
+  @media screen and (max-width:900px){text{font-size:24px}.train-label,.test-label{font-size:24px}}
+  @media screen and (max-width:680px){.validation-flow{padding:24px 20px;gap:18px}}
   @media print{.validation-flow{padding:3mm;gap:2mm}svg{max-height:20mm}}
 </style>

@@ -1,0 +1,52 @@
+---
+import { Plus, Hospital, AudioLines } from 'lucide-react';
+import { portfolio } from '../../lib/portfolio';
+import Emphasis from '../Emphasis.astro';
+---
+<section id="background" class="story-background" data-chapter aria-labelledby="background-title">
+  <div class="section-title">
+    <span class="kicker">05 / 이력 · 자료 기준 {portfolio.sourceDate}</span><h2 id="background-title">경력과 학력</h2>
+  </div>
+  <div class="experience-path">
+    {portfolio.experience.map((experience, i) => <article>
+      <span class="experience-symbol" aria-hidden="true">{i === 0 ? <Hospital size={24}/> : <AudioLines size={24}/>}</span>
+      <div>
+        <span class="kicker">{experience.period}</span><h3>{experience.role}</h3>
+        <span class="experience-org">{experience.organization}</span><p><Emphasis text={experience.summary}/></p>
+      </div>
+    </article>)}
+  </div>
+  <div class="education-path">
+    {portfolio.education.map((education, i) => <div>
+      <span class="path-dot">0{i + 1}</span><small>{education.period}</small>
+      <h3>{education.title}</h3><p>{education.description}</p>
+    </div>)}
+  </div>
+  <details class="background-detail" data-disclosure>
+    <summary>
+      <strong>경력 상세·자격·추가 프로젝트</strong>
+      <span class="disclosure-sign" aria-hidden="true"><Plus size={18}/></span>
+    </summary>
+    <div class="disclosure-content">
+      <div class="experience-details">
+        {portfolio.experience.map(experience => <div>
+          <h3>{experience.organization} · {experience.role}</h3>
+          <p><Emphasis text={experience.details}/></p><small>{experience.source}</small>
+        </div>)}
+      </div>
+      <div class="background-columns">
+        <div><h3>자격</h3><ul>
+          {portfolio.certifications.map(certification => <li><time>{certification.date}</time><span>{certification.name}</span></li>)}
+        </ul></div>
+        <div><h3>추가 프로젝트</h3><ul>
+          {portfolio.additional.map(project => <li><time>{project.date}</time><span>{project.title}<small>{project.note}</small></span></li>)}
+        </ul></div>
+      </div>
+      <p class="evidence-boundary">{portfolio.recordNote}</p>
+    </div>
+  </details>
+  <div class="submission">
+    <div><span class="kicker">PDF / 인쇄</span><h3>포트폴리오 인쇄</h3><p>접힌 상세 내용도 함께 인쇄됩니다.</p></div>
+    <div><button type="button" data-print>전체 인쇄 / PDF 저장 ↗</button></div>
+  </div>
+</section>

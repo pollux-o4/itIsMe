@@ -19,17 +19,21 @@ A의 연속형 본문에 넓은 화면의 고정 목차와 큰 제품 화면을 
 - `/work/`, `/about/`는 각각 작업과 배경 앵커로 연결됩니다.
 - 개인정보가 포함된 원본 PDF는 공개 자산에 포함하지 않습니다.
 
+## 구조
+
+[C1~C4 아키텍처 지도](docs/architecture/README.md)와 [리팩토링 판단](docs/architecture/refactoring.md)에 실행 경계·책임·코드 경로를 정리했습니다. 홈은 섹션을 조합하고, 브라우저 동작은 탐색·미리보기·사진·인쇄로 나눕니다. 스타일 진입점은 `src/styles/global.css`, `src/styles/story.css`이며 import 순서가 cascade를 보존합니다.
+
 ## 콘텐츠 수정
 
 | 내용 | 파일 |
 |---|---|
-| 이름·역할·소개 제목·연락처, 대표 작업 3개, 추가 작업·경력·학력·자격 | `src/data/portfolio.json` |
-| 메타데이터·한 줄 소개·GitHub | `src/data/site.json` |
+| 이름·역할·소개 제목·사진 소개·연락처, 대표 작업 3개와 목차·미리보기, 추가 작업·경력·학력·자격 | `src/data/portfolio.json` |
+| 검색 메타데이터·한 줄 소개·GitHub | `src/data/site.json` |
 | 근거 이미지 | `public/images/portfolio/` |
 
 `.pages.yml`은 Pages CMS에서 Portfolio, Site settings를 편집하도록 구성합니다. 저장소/브랜치에 대한 GitHub 인증은 계정 소유자가 연결해야 합니다. 저장은 선택한 브랜치의 커밋을 만들며, main 변경만 기존 배포 워크플로가 실행합니다.
 
-대표 작업의 ID·종류는 시각화와 연결되어 있습니다. 사례 자체를 바꿀 때는 `src/pages/index.astro`의 해당 개념도도 함께 갱신합니다. 이미지 파일명은 확장자 없이 입력하며 WebP 자산을 사용합니다. 빌드는 데이터 스키마, 근거 이미지, 내부 앵커와 링크를 확인합니다.
+대표 작업의 ID·종류는 시각화와 연결되어 있습니다. 시각화 교체 지점은 `src/components/story/ProjectCase.astro`의 종류별 레지스트리입니다. 목차·바로가기·미리보기는 `portfolio.json`에서 읽으며, 기본 미리보기는 `preview.isDefault`를 전체에서 하나만 선택합니다. 일반 미리보기의 `preview.figure`는 근거 이미지의 0부터 시작하는 순번입니다. 제목·설명을 생략하면 프로젝트 제목·핵심 작업을 사용합니다. 이미지 파일명은 확장자 없이 입력하며 WebP 자산을 사용합니다. 빌드는 데이터 스키마, 근거 이미지, 내부 앵커와 링크를 확인합니다.
 
 역할·요약·결과·상세 본문의 핵심 구절은 `**강조할 구절**`로 표시합니다. 파란색과 굵기가 함께 적용되며 HTML은 허용하지 않습니다. 한 문단에서 짧은 핵심 구절만 강조합니다. 이름·제목·메타데이터에는 이 표식을 쓰지 않습니다. 대표 작업의 `outcomeLabel`, `outcome`, `outcomeNote`는 결과의 주체·내용·해석 조건을 각각 담습니다.
 
@@ -39,7 +43,7 @@ A의 연속형 본문에 넓은 화면의 고정 목차와 큰 제품 화면을 
 
 ## 검증과 배포
 
-`pnpm verify`는 강조 표식·텍스트 보존 검사와 타입 검사·빌드·내부 참조·이야기 콘텐츠 포함 검사를 실행합니다. `pnpm build && pnpm preview`로 프로덕션을 확인합니다. 현재 검증 결과와 선택의 이유는 `QUALITY.md`에 있습니다. 디자인 수집 레퍼런스는 문서로 저장하지 않습니다.
+`pnpm verify`는 화면 글씨의 최소 12px 검사와 강조 표식·텍스트 보존 검사, 타입 검사·빌드·내부 참조·이야기 콘텐츠 포함 검사를 실행합니다. 최초 설정 시 `pnpm hooks:install`을 실행하면 커밋할 때 스테이징된 CSS와 Astro 스타일의 글씨 크기도 검사합니다. 인쇄 전용 스타일과 이미지 속 글씨는 이 검사 범위에서 제외합니다. `pnpm build && pnpm preview`로 프로덕션을 확인합니다. 현재 검증 결과와 선택의 이유는 `QUALITY.md`에 있습니다. 디자인 수집 레퍼런스는 문서로 저장하지 않습니다.
 
 현재 브랜치는 `codex/portfolio-private-safe`입니다. main 반영·원격 push·배포는 이번 작업에 포함하지 않았습니다. 기존 GitHub Actions 배포 대상은 `https://pollux-o4.github.io/itIsMe/`이며 이번 변경의 배포 성공을 확인한 주소는 아닙니다.
 

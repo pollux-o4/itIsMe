@@ -1,0 +1,32 @@
+---
+import { Plus } from 'lucide-react';
+import { portfolio } from '../../lib/portfolio';
+import { portfolioImage as img } from '../../lib/content';
+import Emphasis from '../Emphasis.astro';
+---
+<section id="archive" class="story-archive" data-chapter aria-labelledby="archive-title">
+  <div class="section-title"><span class="kicker">04 / 프로젝트</span><h2 id="archive-title">다른 프로젝트</h2></div>
+  <div class="other-grid">
+    {portfolio.otherProjects.map((project, i) => <details class="other-project" data-disclosure id={project.id}>
+      <summary>
+        <span class="archive-preview">
+          <img src={img(project.image)} width="600" height="360" alt={project.imageAlt} loading="eager"/>
+          <span class="preview-source">원본 p.{project.source}</span>
+        </span>
+        <span class="archive-label">
+          <span class="other-number">0{i + 1}</span>
+          <small>{project.type} / {project.duration}</small>
+          <strong>{project.title}</strong><span class="archive-cue">내용 보기</span>
+        </span>
+        <span class="disclosure-sign" aria-hidden="true"><Plus size={18}/></span>
+      </summary>
+      <div class="disclosure-content">
+        <p><Emphasis text={project.description}/></p><span class="other-stack">{project.stack}</span>
+        <small class="source-label">원본 p.{project.source} · {project.duration.includes('개인') ? '개인 프로젝트' : '팀 프로젝트 · 개인 기여 상세 미기재'}</small>
+        {project.presentation && <a href={`https://drive.google.com/file/d/${project.presentation}/view`} target="_blank" rel="noreferrer">
+          발표자료 ↗<span class="sr-only"> 새 창</span>
+        </a>}
+      </div>
+    </details>)}
+  </div>
+</section>

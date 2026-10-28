@@ -11,8 +11,10 @@
     "build": "astro build",
     "preview": "astro preview --host 0.0.0.0",
     "check": "astro check",
-    "verify": "node scripts/check-emphasis.mjs && node scripts/check-preview-interaction.mjs && pnpm check && pnpm build && node scripts/verify-build.mjs && node scripts/check-story.mjs && node scripts/check-public-privacy.mjs",
-    "artwork": "node scripts/render-artwork.mjs"
+    "verify": "pnpm check:text-size && node scripts/check-portfolio.mjs && node scripts/check-architecture.mjs && node scripts/check-emphasis.mjs && node scripts/check-preview-interaction.mjs && pnpm check && pnpm build && node scripts/verify-build.mjs && node scripts/check-story.mjs && node scripts/check-public-privacy.mjs",
+    "artwork": "node scripts/render-artwork.mjs",
+    "check:text-size": "node scripts/check-text-size.mjs",
+    "hooks:install": "git config --local core.hooksPath .githooks"
   },
   "dependencies": {
     "@astrojs/react": "7.1.1",

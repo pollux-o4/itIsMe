@@ -1,0 +1,18 @@
+.site-header {
+  min-height: 80px;
+}
+@supports (interpolate-size: allow-keywords) {
+  .deep-dive {
+    interpolate-size: allow-keywords;
+  }
+  .deep-dive::details-content {
+    block-size: 0;
+    overflow: clip;
+    transition:
+      block-size var(--duration),
+      content-visibility var(--duration) allow-discrete;
+  }
+  .deep-dive[open]::details-content {
+    block-size: auto;
+  }
+}

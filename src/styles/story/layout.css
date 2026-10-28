@@ -1,0 +1,34 @@
+/* The single layout adapts its contents rail to available reading space. */
+@media screen and (min-width: 1280px) {
+  .story-nav { position:fixed; top:132px; left:max(24px,calc((100vw - 1480px)/2)); width:170px; flex-direction:column; align-items:stretch; justify-content:start; padding:0; border:0; background:transparent; backdrop-filter:none; gap:6px; }
+  .story-nav a { justify-content:flex-start; padding:12px 14px; font-size:13px; }
+  .story-main,.story-footer { width:calc(100% - 230px); max-width:1190px; margin-left:max(210px,calc((100vw - 1060px)/2)); margin-right:20px; padding-left:24px; padding-right:36px; }
+  .story-header { max-width:1440px; }
+}
+@media screen and (min-width: 800px) {
+  .intro-heading { grid-template-columns:.95fr 1.05fr; gap:36px; }
+  .product-composition { height:300px; }
+  .product-composition img { height:290px; max-width:165px; }
+}
+@media screen and (min-width:1280px) {
+  .story-main section[data-chapter] { scroll-margin-top:0; }
+}
+
+@media print {
+  .chapter-heading h2 span { display:inline; }
+  .project-validation .chapter-heading { margin-bottom:3mm; }
+  .project-validation .case-steps { padding:3mm 0; }
+  .project-validation .evidence-gallery img { max-height:28mm; }
+  .project-validation .source-link { margin-top:1mm; }
+  .story-body { color:#202335 !important; }
+}
+
+@media screen and (max-width:480px) {
+  .intro-top .kicker { white-space:nowrap; }
+  .intro-top .edition { display:none; }
+}
+
+@media screen {
+ .experience-org,.education-path small { font:12px/1.6 var(--sans); }
+ .education-path p { font-size:13px; }
+}

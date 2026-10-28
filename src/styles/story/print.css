@@ -1,0 +1,407 @@
+@media print {
+  @page {
+    size: A4;
+    margin: 14mm 15mm 16mm;
+    @bottom-right {
+      content: counter(page);
+      font-size: 9px;
+      color: var(--muted);
+    }
+  }
+  html {
+    scrollbar-gutter: auto;
+    scroll-behavior: auto !important;
+  }
+  .story-body {
+    background: white !important;
+    color: #192823 !important;
+    font-size: 10pt;
+    print-color-adjust: exact;
+    -webkit-print-color-adjust: exact;
+  }
+  .story-header,
+  .story-nav,
+  .skip-link,
+  .submission {
+    display: none !important;
+  }
+  .story-main {
+    max-width: none !important;
+    margin: 0 !important;
+    padding: 0 !important;
+  }
+  .story-main #start {
+    scroll-margin-top: 180px;
+  }
+  .story-main section[data-chapter] {
+    scroll-margin: 0;
+  }
+  .story-intro {
+    padding: 0 0 12mm;
+    break-after: page;
+  }
+  .intro-top {
+    margin-bottom: 6mm;
+  }
+  .edition {
+    display: block;
+  }
+  .intro-heading {
+    padding: 7mm 0 10mm;
+  }
+  .story-body h1 {
+    font-size: 42pt;
+  }
+  .intro-caption {
+    font-size: 10pt;
+    max-width: 95mm;
+  }
+  .portrait {
+    width: 30mm;
+    margin-right: 8mm;
+  }
+  .portrait img {
+    height: 40mm;
+  }
+  .portrait figcaption {
+    font-size: 7pt;
+  }
+  .story-map {
+    gap: 4mm;
+  }
+  .map-card {
+    flex-direction: row;
+    box-shadow: none !important;
+    transform: none !important;
+    border-radius: 2mm;
+  }
+  .map-label {
+    padding: 4mm 6mm;
+    justify-content: center;
+    gap: 2mm;
+  }
+  .map-label strong {
+    font-size: 12pt;
+  }
+  .map-service img {
+    height: 35mm;
+  }
+  .story-project {
+    break-before: page;
+    border: 0;
+    padding: 0;
+  }
+  .chapter-heading {
+    gap: 5mm;
+    margin-bottom: 6mm;
+  }
+  .chapter-number {
+    font-size: 30pt;
+  }
+  .chapter-heading h2 {
+    font-size: 24pt;
+  }
+  .chapter-date {
+    font-size: 8pt;
+  }
+  .case-stage {
+    grid-template-columns: 1.2fr 1fr;
+    min-height: 0;
+    border-radius: 2mm;
+    break-inside: avoid;
+  }
+  .case-summary {
+    padding: 6mm;
+    gap: 3mm;
+  }
+  .case-summary dt,
+  .case-summary dd {
+    font-size: 8pt;
+  }
+  .tech-tags span {
+    font-size: 7pt;
+  }
+  .source-label {
+    font-size: 7pt;
+  }
+  .service-visual {
+    padding: 5mm;
+  }
+  .service-image {
+    transform: none !important;
+  }
+  .case-steps {
+    padding: 4mm 0;
+    gap: 3mm;
+  }
+  .case-steps li {
+    font-size: 8pt;
+  }
+  .case-disclosure {
+    border: 0;
+  }
+  .story-body summary {
+    padding: 3mm 0;
+    min-height: 0;
+    break-after: avoid;
+  }
+  .case-disclosure summary .kicker {
+    display: none;
+  }
+  .story-body summary strong {
+    font-size: 10pt;
+    font-weight: 650;
+  }
+  .disclosure-sign {
+    display: none;
+  }
+  .story-body details::details-content {
+    display: contents !important;
+    content-visibility: visible !important;
+  }
+  .story-body details:not([open]) > :not(summary) {
+    display: block !important;
+  }
+  .disclosure-content {
+    padding: 2mm 0 4mm !important;
+    animation: none !important;
+  }
+  .disclosure-content h3 {
+    font-size: 9pt;
+    margin-bottom: 1.5mm;
+  }
+  .disclosure-content p {
+    font-size: 8.5pt;
+    line-height: 1.65;
+  }
+  .decision-row,
+  .detail-text {
+    display: grid !important;
+    grid-template-columns: 1fr 1fr;
+    gap: 4mm 6mm;
+  }
+  .decision-row > div,
+  .detail-text > div {
+    break-inside: avoid;
+  }
+  .fact-row {
+    padding: 3mm 0;
+    margin: 4mm 0;
+    gap: 6mm;
+    break-inside: avoid;
+  }
+  .fact-row strong {
+    font-size: 19pt;
+  }
+  .fact-row span {
+    font-size: 7pt;
+  }
+  .detail-text {
+    margin-bottom: 5mm;
+  }
+  .evidence-gallery {
+    display: grid !important;
+    grid-template-columns: 1fr 1fr;
+    gap: 4mm;
+    break-inside: auto;
+  }
+  .evidence-gallery figure {
+    break-inside: avoid;
+  }
+  .evidence-gallery img {
+    border-radius: 1mm;
+    max-height: 50mm;
+    object-fit: contain;
+    background: #ebeff1;
+  }
+  .evidence-gallery figcaption {
+    font-size: 7pt;
+    padding-top: 1mm;
+  }
+  .project-service .evidence-gallery figure:first-child img {
+    max-height: 76mm;
+  }
+  .project-service .evidence-gallery figure:last-child img {
+    max-height: 64mm;
+  }
+  .project-service .evidence-gallery {
+    break-before: page;
+    padding-top: 3mm;
+  }
+  .evidence-boundary {
+    break-inside: avoid;
+    padding: 3mm 4mm;
+    margin-top: 4mm;
+    font-size: 7.5pt !important;
+  }
+  .evidence-boundary p {
+    font-size: 7.5pt;
+  }
+  .source-link,
+  .case-resources {
+    font-size: 7pt;
+    margin-top: 3mm;
+  }
+  .source-link:after,
+  .case-resources a:after,
+  .other-project .disclosure-content a:after {
+    content: " (" attr(href) ")";
+    display: block;
+    font: 6pt/1.5 var(--mono);
+    overflow-wrap: anywhere;
+    color: var(--muted);
+  }
+  .case-resources {
+    display: flex;
+    gap: 3mm;
+  }
+  .case-resources a {
+    flex: 1;
+    min-width: 0;
+  }
+  .story-archive,
+  .story-background {
+    break-before: page;
+    border: 0;
+    padding: 0;
+  }
+  .section-title {
+    margin-bottom: 5mm;
+  }
+  .section-title h2 {
+    font-size: 23pt;
+  }
+  .section-title > p {
+    font-size: 9pt;
+  }
+  .other-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 4mm 7mm;
+  }
+  .other-project summary {
+    padding: 4mm 0;
+  }
+  .other-project summary small {
+    font-size: 7pt;
+  }
+  .other-project .disclosure-content {
+    padding: 0 0 4mm !important;
+  }
+  .other-project .disclosure-content p {
+    font-size: 8.5pt;
+  }
+  .other-stack {
+    font-size: 7pt;
+    margin: 2mm 0;
+  }
+  .education-path {
+    margin: 8mm 0;
+    gap: 8mm;
+  }
+  .education-path > div {
+    padding: 5mm 0;
+  }
+  .education-path h3 {
+    font-size: 14pt;
+  }
+  .education-path p {
+    font-size: 9pt;
+  }
+  .background-columns {
+    display: grid !important;
+    grid-template-columns: 1fr 1.5fr;
+    gap: 8mm;
+  }
+  .background-columns li {
+    font-size: 8.5pt;
+    margin-top: 3mm;
+    gap: 4mm;
+  }
+  .background-columns time {
+    font-size: 7pt;
+  }
+  .story-footer {
+    max-width: none;
+    margin: 8mm 0 0;
+    padding: 6mm 0 0;
+    break-inside: avoid;
+  }
+  .story-footer h2 {
+    font-size: 22pt;
+    margin: 3mm 0 4mm;
+  }
+  .story-footer > div {
+    font-size: 9pt;
+    gap: 6mm;
+  }
+  .story-footer > p {
+    font-size: 7pt;
+    margin-top: 5mm;
+  }
+  .story-body [hidden] {
+    display: block !important;
+  }
+}
+@media print {
+  .story-project:not(.project-service) .chapter-heading {
+    margin-bottom: 4mm;
+  }
+  .story-project:not(.project-service) .chapter-heading h2 {
+    font-size: 21pt;
+  }
+  .story-project:not(.project-service) .case-summary {
+    padding: 4mm;
+    gap: 2mm;
+  }
+  .story-project:not(.project-service) .disclosure-content p {
+    font-size: 8pt;
+    line-height: 1.5;
+  }
+  .story-project:not(.project-service) .detail-text {
+    gap: 3mm 5mm;
+    margin-bottom: 3mm;
+  }
+  .story-project:not(.project-service) .fact-row {
+    padding: 2mm 0;
+    margin: 3mm 0;
+  }
+  .story-project:not(.project-service) .evidence-gallery img {
+    max-height: 32mm;
+  }
+  .story-project:not(.project-service) .evidence-boundary {
+    padding: 2mm 3mm;
+    margin-top: 3mm;
+  }
+  .project-service .evidence-gallery figure:first-child img {
+    max-height: 65mm;
+  }
+  .project-service .evidence-gallery figure:last-child img {
+    max-height: 48mm;
+  }
+  .project-service .evidence-gallery img {
+    max-height: 38mm;
+  }
+  .project-service .evidence-gallery {
+    gap: 3mm;
+  }
+}
+
+@media print {
+  .story-project.project-safety .case-steps {
+    padding: 2mm 0;
+  }
+  .story-project.project-safety .detail-text {
+    gap: 2mm 5mm;
+    margin-bottom: 2mm;
+  }
+  .story-project.project-safety .evidence-gallery img {
+    max-height: 27mm;
+  }
+  .story-project.project-safety .source-link {
+    margin-top: 1mm;
+  }
+  .story-project.project-safety .evidence-boundary {
+    margin-top: 2mm;
+  }
+}

@@ -14,7 +14,7 @@ import { Printer, Mail } from 'lucide-react';
   <title>{site.title}</title><meta name="description" content={site.description}/><meta name="theme-color" content="#f5f6f9"/>
   <link rel="icon" href={asset('/images/favicon.svg')}/><link rel="canonical" href={new URL(url(),Astro.site)}/>
   <link rel="preload" href={displayFont} as="font" type="font/woff2" crossorigin/>
-  <script type="application/ld+json" set:html={JSON.stringify({"@context":"https://schema.org","@type":"ProfilePage",mainEntity:{"@type":"Person",name:portfolio.name,jobTitle:portfolio.role,description:site.description,url:new URL(url(),Astro.site).href,sameAs:[site.github],alumniOf:{"@type":"CollegeOrUniversity",name:"건양대학교"},knowsAbout:["Python","Machine learning","Computer vision","Next.js","FastAPI","Clinical data monitoring","Data quality assurance"]}}).replace(/</g,'\\u003c')}/>
+  <script type="application/ld+json" set:html={JSON.stringify({"@context":"https://schema.org","@type":"ProfilePage",mainEntity:{"@type":"Person",name:portfolio.name,jobTitle:portfolio.role,description:site.description,url:new URL(url(),Astro.site).href,sameAs:[site.github],alumniOf:{"@type":"CollegeOrUniversity",name:portfolio.education[0]?.title},knowsAbout:["Python","Machine learning","Computer vision","Next.js","FastAPI","Clinical data monitoring","Data quality assurance"]}}).replace(/</g,'\\u003c')}/>
   <ClientRouter/>
 </head>
 <body class="story-body">
@@ -25,9 +25,7 @@ import { Printer, Mail } from 'lucide-react';
   </header>
   <nav class="story-nav" aria-label="포트폴리오 바로가기">
     <a href="#start" aria-current="location"><span>00</span> 소개</a>
-    <a href="#agriculture"><span>01</span> 농산물 가격</a>
-    <a href="#engine"><span>02</span> 엔진 수명</a>
-    <a href="#nutrition"><span>03</span> 음식 분석 앱</a>
+    {portfolio.projects.map(project => <a href={`#${project.id}`}><span>{project.number}</span> {project.navigationLabel}</a>)}
     <a href="#archive"><span>04</span> 다른 프로젝트</a>
     <a href="#background"><span>05</span> 경력·학력</a>
   </nav>

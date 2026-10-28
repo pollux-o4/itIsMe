@@ -1,0 +1,21 @@
+---
+import { Camera, ScanLine, NotebookPen } from 'lucide-react';
+import { portfolioImage as img } from '../lib/content';
+---
+<div class="service-visual">
+  <div class="visual-caption"><span>사진에서 식사 기록까지</span><small>실제 구현 화면</small></div>
+  <div class="service-image">
+    <figure>
+      <img src={img('food-upload')} width="345" height="530" alt="음식 사진 업로드 화면"/>
+      <figcaption><Camera size={16} aria-hidden="true"/>사진 업로드</figcaption>
+    </figure>
+    <figure>
+      <img src={img('food-detect')} width="238" height="549" alt="음식 탐지 결과 화면"/>
+      <figcaption><ScanLine size={16} aria-hidden="true"/>음식 탐지</figcaption>
+    </figure>
+    <figure>
+      <img src={img('food-nutrition')} width="291" height="558" alt="영양 정보와 식사 저장 화면"/>
+      <figcaption><NotebookPen size={16} aria-hidden="true"/>영양·기록</figcaption>
+    </figure>
+  </div>
+</div>

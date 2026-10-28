@@ -1,0 +1,32 @@
+---
+import { ArrowRight, ArrowUpRight } from 'lucide-react';
+import { portfolio } from '../../lib/portfolio';
+import { site } from '../../lib/content';
+import ProjectPreview from '../ProjectPreview.astro';
+import PortraitIdentity from './PortraitIdentity.astro';
+---
+  <section id="start" class="story-intro" data-chapter aria-labelledby="intro-title">
+    <div class="intro-top"><span class="kicker">AI & FULL-STACK</span><span class="edition">SELECTED WORK / 2025—2026</span></div>
+    <div class="intro-heading">
+      <div class="intro-copy">
+        <PortraitIdentity/>
+        <h1 id="intro-title">{portfolio.headline.split('\n').map((line,i)=>i===0?<>{line}{' '}<br/></>:<em>{line}</em>)}</h1>
+        <p class="intro-caption" data-intro>{site.intro}</p><p class="portrait-print-story">{portfolio.portrait.headline.replaceAll("\n", " ")}</p>
+        <div class="hero-actions"><a class="primary-link" href={`#${portfolio.projects[0].id}`}>프로젝트 보기 <span aria-hidden="true"><ArrowUpRight size={16}/></span></a><a href="#background">경력·학력 <span aria-hidden="true"><ArrowRight size={16}/></span></a></div>
+      </div>
+      <ProjectPreview/>
+    </div>
+    <div class="story-map" role="group" aria-label="대표 프로젝트 바로가기">
+      {portfolio.projects.map(project => (
+        <a href={`#${project.id}`} class={`map-card map-${project.kind}`}>
+          <span class="map-index">{project.number}</span>
+          <div class="map-label">
+            <span>{project.category}</span>
+            <strong>{project.cardTitle}</strong>
+            <small>내 역할 · {project.cardRole}</small>
+          </div>
+          <span class="map-go" aria-hidden="true"><ArrowRight size={18}/></span>
+        </a>
+      ))}
+    </div>
+  </section>

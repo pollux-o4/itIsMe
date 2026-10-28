@@ -4,26 +4,10 @@ import siteData from "../data/site.json";
 
 export const site = z
   .object({
-    name: z.string(),
     title: z.string(),
     description: z.string(),
     intro: z.string(),
-    headline: z.string(),
-    about: z.string(),
-    background: z.string(),
     github: z.url({ protocol: /^https$/ }),
-    featured: z.array(z.string()),
-    sections: z
-      .array(
-        z.object({
-          id: z.enum(["work", "about", "notes"]),
-          enabled: z.boolean(),
-        }),
-      )
-      .refine(
-        (items) => new Set(items.map((i) => i.id)).size === items.length,
-        "Section IDs must be unique",
-      ),
   })
   .parse(siteData);
 export const base = import.meta.env.BASE_URL.replace(/\/$/, "");
@@ -39,3 +23,5 @@ export async function publicProjects() {
     throw new Error("Project slugs must be unique.");
   return entries;
 }
+
+export const portfolioImage = (name: string) => asset(`/images/portfolio/${name}.webp`);

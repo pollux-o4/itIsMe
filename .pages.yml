@@ -27,6 +27,19 @@ content:
     label: 소개 제목
     type: text
     required: true
+  - name: portrait
+    label: 사진 소개
+    type: object
+    required: true
+    fields:
+    - name: headline
+      label: 사진 소개 제목
+      type: text
+      required: true
+    - name: description
+      label: 사진 소개 본문
+      type: text
+      required: true
   - name: email
     label: 이메일
     type: string
@@ -55,10 +68,49 @@ content:
       label: 프로젝트 분야
       type: string
       required: true
-    - name: label
-      label: 라벨
+    - name: navigationLabel
+      label: 목차 짧은 이름
       type: string
       required: true
+    - name: cardTitle
+      label: 바로가기 제목
+      type: string
+      required: true
+    - name: cardRole
+      label: 바로가기 역할 요약
+      type: string
+      required: true
+    - name: preview
+      label: 대표 미리보기
+      type: object
+      required: true
+      fields:
+      - name: isDefault
+        label: 기본 미리보기 (전체에서 하나)
+        type: boolean
+        required: true
+      - name: figure
+        label: 근거 이미지 순번 (0부터, 서비스는 생략)
+        type: number
+      - name: title
+        label: 미리보기 제목 (생략하면 프로젝트 제목)
+        type: string
+      - name: caption
+        label: 미리보기 설명 (생략하면 핵심 작업)
+        type: text
+    - name: resources
+      label: 추가 산출물 링크
+      type: object
+      list: true
+      fields:
+      - name: label
+        label: 링크 이름
+        type: string
+        required: true
+      - name: href
+        label: HTTPS 주소
+        type: string
+        required: true
     - name: title
       label: 제목
       type: text
@@ -300,10 +352,6 @@ content:
   path: src/data/site.json
   format: json
   fields:
-  - name: name
-    label: 이름
-    type: string
-    required: true
   - name: title
     label: 사이트 제목
     type: string

@@ -9,7 +9,6 @@
     {
       "id": "agriculture",
       "number": "01",
-      "label": "농산물 가격 예측",
       "title": "농산물\n가격 예측",
       "period": "2025.03",
       "team": "6명 · 13일",
@@ -71,12 +70,19 @@
       "category": "머신러닝",
       "outcomeLabel": "팀 평가",
       "outcome": "시간순 분할 후 **R² 0.81**",
-      "outcomeNote": "테스트 데이터 기준"
+      "outcomeNote": "테스트 데이터 기준",
+      "navigationLabel": "농산물 가격",
+      "cardTitle": "농산물 가격 예측",
+      "cardRole": "데이터 수집·전처리·모델링",
+      "preview": {
+        "isDefault": false,
+        "figure": 1
+      },
+      "resources": []
     },
     {
       "id": "engine",
       "number": "02",
-      "label": "항공기 엔진 잔여 수명 예측",
       "title": "항공기 엔진\n잔여 수명 예측",
       "period": "2025.04",
       "team": "6명 · 10일",
@@ -138,12 +144,19 @@
       "category": "시계열 예측",
       "outcomeLabel": "팀 실험",
       "outcome": "일부 모델에서 **조기 예측** 확인",
-      "outcomeNote": "NASA 공개 데이터로 진행한 팀 실험"
+      "outcomeNote": "NASA 공개 데이터로 진행한 팀 실험",
+      "navigationLabel": "엔진 수명",
+      "cardTitle": "엔진 수명 예측",
+      "cardRole": "엔진 조사·코드 검수",
+      "preview": {
+        "isDefault": false,
+        "figure": 0
+      },
+      "resources": []
     },
     {
       "id": "nutrition",
       "number": "03",
-      "label": "음식 이미지 분석 · 식단 서비스",
       "title": "음식 사진 분석과\n식단 기록",
       "period": "2025.11–12",
       "team": "4명 · 36일",
@@ -222,7 +235,29 @@
       "category": "웹 · 컴퓨터 비전",
       "outcomeLabel": "구현 결과",
       "outcome": "**웹·AI 연동과 배포**",
-      "outcomeNote": "교육 과정 팀 프로젝트"
+      "outcomeNote": "교육 과정 팀 프로젝트",
+      "navigationLabel": "음식 분석 앱",
+      "cardTitle": "음식 사진 분석 앱",
+      "cardRole": "팀장·웹·모델 개발",
+      "preview": {
+        "isDefault": true,
+        "title": "음식 이미지 분석 서비스",
+        "caption": "음식 사진을 분석하고 식사를 기록하는 앱"
+      },
+      "resources": [
+        {
+          "label": "서비스 시연",
+          "href": "https://youtube.com/shorts/7hj92GtiodM"
+        },
+        {
+          "label": "학습 파이프라인 시연",
+          "href": "https://youtu.be/9ZQNLvgRKjQ"
+        },
+        {
+          "label": "프로젝트 산출물",
+          "href": "https://drive.google.com/drive/folders/1RSmgiVb6tBg7QbEVDCo4trfaJ3A4targ"
+        }
+      ]
     }
   ],
   "otherProjects": [
@@ -373,5 +408,9 @@
       "source": "이력서 p.1"
     }
   ],
-  "recordNote": "정보처리기사는 필기 합격입니다. 자격 취득일이 이력서와 포트폴리오에서 다른 경우 날짜를 생략했습니다."
+  "recordNote": "정보처리기사는 필기 합격입니다. 자격 취득일이 이력서와 포트폴리오에서 다른 경우 날짜를 생략했습니다.",
+  "portrait": {
+    "headline": "책임감과 꾸준함으로,\n함께 만듭니다.",
+    "description": "데이터 수집부터 모델 개발,\n웹 구현까지."
+  }
 }

@@ -1,4 +1,5 @@
 ---
+import { portfolio } from "../lib/portfolio";
 import { ClientRouter } from "astro:transitions";
 import { site, url, asset } from "../lib/content";
 import "../styles/global.css";
@@ -23,7 +24,7 @@ const { title, description = site.description, active = "home" } = Astro.props;
       name="theme-color"
       content="#f2f0e9"
     />
-    <title>{title ? `${title} — ${site.name}` : site.title}</title>
+    <title>{title ? `${title} — ${portfolio.name}` : site.title}</title>
     <link rel="icon" type="image/svg+xml" href={asset("/images/favicon.svg")} />
     <link rel="canonical" href={new URL(Astro.url.pathname, Astro.site)} />
     <link
@@ -45,8 +46,8 @@ const { title, description = site.description, active = "home" } = Astro.props;
   <body>
     <a href="#main" class="skip-link">본문으로 건너뛰기</a>
     <header class="site-header wrap">
-      <a href={url()} class="wordmark" aria-label={`${site.name} 홈`}
-        ><span class="brand-flower" aria-hidden="true">p4</span>{site.name}<span
+      <a href={url()} class="wordmark" aria-label={`${portfolio.name} 홈`}
+        ><span class="brand-flower" aria-hidden="true">p4</span>{portfolio.name}<span
           class="wordmark-note mono">DEVELOPER / BUILDER</span
         ></a
       >
@@ -86,7 +87,7 @@ const { title, description = site.description, active = "home" } = Astro.props;
         <a href={site.github} target="_blank" rel="noreferrer"
           >GitHub ↗<span class="sr-only"> (새 창)</span></a
         ><span class="mono"
-          >© {new Date().getFullYear()}{" "}{site.name}</span
+          >© {new Date().getFullYear()}{" "}{portfolio.name}</span
         >
       </div>
     </footer>
