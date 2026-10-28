@@ -118,10 +118,6 @@ content:
       label: decision
       type: text
       required: true
-    - name: boundary
-      label: 검증 범위·제약
-      type: text
-      required: true
     - name: facts
       label: 핵심 정보
       type: object

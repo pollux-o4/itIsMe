@@ -32,7 +32,6 @@ export const portfolio = z
           steps: z.array(text).length(3),
           problem: text,
           decision: text,
-          boundary: text,
           facts: z.array(z.object({ value: text, label: text })),
           details: z.array(z.object({ heading: text, text: text })),
           figures: z.array(z.object({ image: id, caption: text })),

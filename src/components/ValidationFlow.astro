@@ -11,11 +11,7 @@
     <text x="310" y="74" text-anchor="middle" class="test-label">평가 데이터</text>
     <path d="M238 34V106" stroke="#68718a" stroke-dasharray="3 4"/>
   </svg>
-  <div class="evaluation-results">
-    <div><span>초기 평가</span><strong>0.98<small>R²</small></strong><p>데이터 누수 의심</p></div>
-    <div><span>시간순 평가</span><strong>0.81<small>R²</small></strong><p>분할 조건 수정 후</p></div>
-  </div>
-  <p class="visual-footnote">두 점수는 분할 조건이 달라 직접 비교하기 어렵습니다.</p>
+
 </div>
 <style>
   .validation-flow{background:var(--accent-soft);padding:30px;display:flex;flex-direction:column;justify-content:center;gap:20px;min-width:0}
@@ -23,13 +19,6 @@
   text{font:13px var(--sans);fill:currentColor}
   .train-label,.test-label{font-size:16px;font-weight:600}
   .train-label{fill:#fff}.test-label{fill:#204bb5}
-  .evaluation-results{display:grid;grid-template-columns:1fr 1fr;gap:20px}
-  .evaluation-results>div{border-top:1px solid #c6d5f0;padding-top:14px}
-  .evaluation-results span{font-size:12px;color:var(--muted)}
-  .evaluation-results strong{font-size:42px;letter-spacing:-.045em;line-height:1.3;display:block;color:#204bb5;font-weight:650;font-variant-numeric:tabular-nums}
-  .evaluation-results>div:first-child strong{color:#566079;font-size:32px;font-weight:500}
-  .evaluation-results strong small{font-size:13px;margin-left:6px;font-weight:500;letter-spacing:0}
-  .evaluation-results p{font-size:12px;color:var(--ink)}
-  @media screen and (max-width:680px){text{font-size:16px}.train-label,.test-label{font-size:18px}.validation-flow{padding:24px 20px;gap:18px}.evaluation-results strong{font-size:36px}.evaluation-results>div:first-child strong{font-size:28px}}
-  @media print{.validation-flow{padding:3mm;gap:2mm}svg{max-height:20mm}.evaluation-results{gap:4mm}.evaluation-results>div{padding-top:2mm}.evaluation-results span,.evaluation-results p{font-size:7pt}.evaluation-results strong{font-size:27pt}.evaluation-results strong small{font-size:8pt}.evaluation-results>div:first-child strong{font-size:21pt}}
+  @media screen and (max-width:680px){text{font-size:16px}.train-label,.test-label{font-size:18px}.validation-flow{padding:24px 20px;gap:18px}}
+  @media print{.validation-flow{padding:3mm;gap:2mm}svg{max-height:20mm}}
 </style>

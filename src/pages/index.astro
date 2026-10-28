@@ -61,7 +61,6 @@ const img=(name:string)=>asset(`/images/portfolio/${name}.webp`);
           <div class="detail-text">{p.details.map(({heading:h,text:t})=><div><h3>{h}</h3>{t.split('\n').map(paragraph=><p><Emphasis text={paragraph}/></p>)}</div>)}</div>
           <div class="evidence-gallery">{p.figures.map(({image:name,caption})=><figure><img src={img(name)} width={name==='food-chat'?1280:1000} height={name==='food-chat'?460:500} loading="eager" alt={caption}/><figcaption>{caption}</figcaption></figure>)}</div>
           {p.kind==='service' && <div class="case-resources"><a href="https://youtube.com/shorts/7hj92GtiodM" target="_blank" rel="noreferrer">서비스 시연 ↗<span class="sr-only"> 새 창</span></a><a href="https://youtu.be/9ZQNLvgRKjQ" target="_blank" rel="noreferrer">학습 파이프라인 시연 ↗<span class="sr-only"> 새 창</span></a><a href="https://drive.google.com/drive/folders/1RSmgiVb6tBg7QbEVDCo4trfaJ3A4targ" target="_blank" rel="noreferrer">프로젝트 산출물 ↗<span class="sr-only"> 새 창</span></a></div>}
-          <aside class="evidence-boundary"><strong>실험 조건과 한계</strong><p><Emphasis text={p.boundary}/></p></aside>
           <a class="source-link" href={p.link} target="_blank" rel="noreferrer">발표자료 ↗<span class="sr-only"> 새 창</span></a>
         </div>
       </details>

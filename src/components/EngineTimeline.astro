@@ -21,7 +21,6 @@
     <text x="20" y="225">0</text><text x="379" y="225" text-anchor="end">예측한 잔여 수명</text>
   </svg>
   <div class="risk-key"><span>조기 정비 가능성</span><strong>실제 수명 초과 → 더 큰 벌점</strong></div>
-  <div class="engine-result"><span>별도 팀 실험 · R²</span><strong>0.71 <span>→</span> 0.81</strong></div>
 </div>
 <style>
  .engine-timeline{background:#f0f2f7;padding:30px;display:flex;flex-direction:column;justify-content:center;gap:16px;min-width:0}
@@ -29,8 +28,6 @@
  svg text{font:13px var(--sans);fill:#555c70}.actual{font-weight:700;fill:#24293d}.early{fill:#4058ba;font-weight:650}.late{fill:#aa452b;font-weight:650}.delta{font-size:15px;font-weight:650}
  .early-bar,.late-bar{stroke-width:7;stroke-linecap:round;fill:none}.early-bar{stroke:#4058ba}.late-bar{stroke:#aa452b}
  .risk-key{display:flex;justify-content:space-between;gap:14px;font-size:12px}.risk-key span{color:#4058ba}.risk-key strong{color:#963c26;font-weight:600}
- .engine-result{display:flex;justify-content:space-between;gap:15px;align-items:center;border-top:1px solid #cbd0dd;padding-top:14px}
- .engine-result>span{font-size:12px;color:var(--muted)}.engine-result strong{font-size:27px;line-height:1.2;font-weight:600;letter-spacing:-.04em}.engine-result strong span{font-size:18px;color:#70768b}
  @media screen and (max-width:680px){svg text{font-size:17px}.delta{font-size:18px}.engine-timeline{padding:24px 20px;gap:18px}.risk-key{font-size:11px;gap:10px}}
- @media print{svg text{font-size:17px}.delta{font-size:18px}.engine-timeline{padding:4mm;gap:2mm}svg{height:35mm}.risk-key{font-size:7pt}.engine-result{padding-top:2mm}.engine-result>span{font-size:7pt}.engine-result strong{font-size:18pt}}
+ @media print{svg text{font-size:17px}.delta{font-size:18px}.engine-timeline{padding:4mm;gap:2mm}svg{height:35mm}.risk-key{font-size:7pt}}
 </style>
