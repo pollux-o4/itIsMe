@@ -1,25 +1,44 @@
-<div class="validation-flow">
-  <div class="visual-caption"><span>시간순 데이터 분할</span><small>학습·평가 구성</small></div>
-  <svg viewBox="0 0 400 130" role="img" aria-labelledby="split-title split-desc">
-    <title id="split-title">과거로 학습하고 이후 데이터로 평가</title>
-    <desc id="split-desc">왼쪽의 과거 데이터는 학습에, 오른쪽의 이후 데이터는 평가에 사용합니다. 구간 길이는 설명을 위해 임의로 그렸습니다.</desc>
-    <path d="M20 32H376m-8-5 8 5-8 5" fill="none" stroke="currentColor" stroke-width="1.5"/>
-    <text x="20" y="22">과거</text><text x="376" y="22" text-anchor="end">미래</text>
-    <rect x="20" y="50" width="212" height="52" rx="6" fill="#2453c6"/>
-    <rect x="244" y="50" width="132" height="52" rx="6" fill="#fff" stroke="#2453c6" stroke-width="1.5"/>
-    <text x="126" y="82" text-anchor="middle" class="train-label">학습 데이터</text>
-    <text x="310" y="82" text-anchor="middle" class="test-label">평가 데이터</text>
-    <path d="M238 42V114" stroke="#68718a" stroke-dasharray="3 4"/>
-  </svg>
-
-</div>
-<style>
-  .validation-flow{background:var(--accent-soft);padding:30px;display:flex;flex-direction:column;justify-content:center;gap:20px;min-width:0}
-  svg{width:100%;height:auto;color:#5a6075;display:block}
-  text{font:20px var(--sans);fill:currentColor}
-  .train-label,.test-label{font-size:20px;font-weight:600}
-  .train-label{fill:#fff}.test-label{fill:#204bb5}
-  @media screen and (max-width:900px){text{font-size:24px}.train-label,.test-label{font-size:24px}}
-  @media screen and (max-width:680px){.validation-flow{padding:24px 20px;gap:18px}}
-  @media print{.validation-flow{padding:3mm;gap:2mm}svg{max-height:20mm}}
-</style>
+---
+// Thirty periods in time order, 2019 to 2023. Test is about a fifth in both modes so only the order differs.
+const cells = Array.from({ length: 30 }, (_, i) => i);
+const randomTest = new Set([3, 8, 12, 17, 22, 26]);
+const timeTest = new Set(cells.slice(-6));
+// The score journey reported in the deck (team result after the leak fix).
+const journey = [
+  { label: '섞어서 나눔', value: 0.98, note: '미래가 섞인 점수', leak: true },
+  { label: '누수 제거', value: 0.57, note: '진짜 출발점' },
+  { label: '특성 선택', value: 0.62, note: '중요도 0.005 이상' },
+  { label: '튜닝 + 시간순 검증', value: 0.81, note: '2023년으로 시험' },
+];
+---
+<figure class="split-demo" data-split data-mode="time">
+  <div class="split-panel">
+    <div class="split-toolbar">
+      <span class="label">눌러서 비교해 보세요</span>
+      <div class="split-controls" role="group" aria-label="데이터 분할 방식" hidden>
+        <button type="button" data-split-mode="random" aria-pressed="false">무작위로 섞기</button>
+        <button type="button" data-split-mode="time" aria-pressed="true">날짜순으로 나누기</button>
+      </div>
+    </div>
+    <div class="split-axis" aria-hidden="true"><span>2019</span><span>시간 →</span><span>2023</span></div>
+    <div class="split-cells" role="img" aria-label="2019년부터 2023년까지 30개 기간. 무작위로 섞으면 시험 기간 사이사이의 미래 데이터가 학습에 들어가고, 날짜순으로 나누면 2022년까지 학습하고 2023년으로 시험합니다.">
+      {cells.map(i => <span class="cell" style={`--i:${i}`} data-r={randomTest.has(i) ? '' : undefined} data-t={timeTest.has(i) ? '' : undefined}></span>)}
+    </div>
+    <div class="split-legend" aria-hidden="true"><span class="key-train">학습</span><span class="key-test">시험</span></div>
+    <p class="split-note" aria-live="polite">
+      <span class="note-random">시험 기간 <b>뒤의 날짜</b>가 학습에 들어갑니다. 모델이 답을 미리 보고 0.98을 냈습니다.</span>
+      <span class="note-time"><b>2022년까지</b> 학습하고 <b>2023년</b>으로 시험합니다. 내일 가격을 맞히는 실제 조건과 같습니다.</span>
+    </p>
+  </div>
+  <ol class="split-journey" role="list" aria-label="테스트 R² 변화">
+    {journey.map(step => (
+      <li class={step.leak ? 'is-leak' : undefined} style={`--value:${step.value}`}>
+        <span class="journey-bar" aria-hidden="true"></span>
+        <strong>{step.value.toFixed(2)}</strong>
+        <span>{step.label}</span>
+        <small>{step.note}</small>
+      </li>
+    ))}
+  </ol>
+  <figcaption>테스트 R² · 0.57에서 0.81까지는 팀이 함께 끌어올린 결과입니다.</figcaption>
+</figure>

@@ -1,0 +1,27 @@
+---
+import { portfolioImage as img } from '../lib/content';
+import type { Project } from '../lib/portfolio-schema';
+type Figure = NonNullable<Project['evidence'][number]['figure']>;
+interface Props { figure: Figure; label: string }
+const { figure: f, label } = Astro.props;
+const pct = (value: number) => `${(value * 100).toFixed(2)}%`;
+---
+<figure class="exhibit">
+  <div class="exhibit-frame" style={`aspect-ratio:${f.width}/${f.height}`}>
+    <img src={img(f.image)} width={f.width} height={f.height} alt={f.alt} loading="eager" decoding="async"/>
+    {f.marks.map((mark, i) => (
+      <span class="exhibit-mark" style={`left:${pct(mark.x)};top:${pct(mark.y)};width:${pct(mark.w)};height:${pct(mark.h)}`} aria-hidden="true">
+        <b>{i + 1}</b>
+      </span>
+    ))}
+  </div>
+  <figcaption>
+    <p class="exhibit-caption"><span>{label}</span>{f.caption}</p>
+    {f.marks.length > 0 && (
+      <ol class="exhibit-keys" role="list">
+        {f.marks.map((mark, i) => <li><b aria-hidden="true">{i + 1}</b><span class="sr-only">표시 {i + 1}: </span>{mark.label}</li>)}
+      </ol>
+    )}
+    {f.page && <span class="exhibit-source">발표자료 p.{f.page}</span>}
+  </figcaption>
+</figure>

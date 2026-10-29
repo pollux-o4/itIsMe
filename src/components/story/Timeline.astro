@@ -1,0 +1,36 @@
+---
+import { portfolio } from '../../lib/portfolio';
+const kindLabel = { course: '교육', project: '작업', cert: '자격' } as const;
+const latest = portfolio.timelineYears.at(-1)?.year;
+const years = portfolio.timelineYears.map(year => ({
+  ...year,
+  entries: portfolio.timeline.filter(entry => entry.date.startsWith(year.year)),
+}));
+---
+<section id="timeline" class="timeline" data-chapter aria-labelledby="timeline-title">
+  <div class="shell">
+    <div class="section-head">
+      <p class="label">Timeline — {portfolio.timeline[0]?.date} → {portfolio.sourceDate}</p>
+      <h2 id="timeline-title">열한 달 동안,<br/>열한 개의 프로젝트.</h2>
+    </div>
+    <div class="timeline-key" aria-hidden="true">
+      <span class="kind-course">교육</span><span class="kind-project">작업</span><span class="kind-cert">자격</span>
+    </div>
+    {years.map(year => (
+      <section class={`timeline-year${year.year === latest ? ' is-current' : ''}`} aria-labelledby={`year-${year.year}`}>
+        <header class="year-head">
+          <h3 id={`year-${year.year}`}>{year.year}</h3>
+          <p>{year.note}</p>
+        </header>
+        <ol class="timeline-list" role="list">
+          {year.entries.map(entry => <li>
+            <time>{entry.date.slice(5)}<small>월</small></time>
+            <ul role="list">{entry.items.map(item => <li class={`kind-${item.kind}`}>
+              <span class="sr-only">{kindLabel[item.kind]}: </span>{item.text}
+            </li>)}</ul>
+          </li>)}
+        </ol>
+      </section>
+    ))}
+  </div>
+</section>

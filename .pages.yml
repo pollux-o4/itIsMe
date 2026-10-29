@@ -23,21 +23,29 @@ content:
     label: 본인 역할
     type: string
     required: true
+  - name: motto
+    label: 한 줄 자기 정의 (본인 문장, 사진이 바라보는 첫 줄)
+    type: string
+    required: true
   - name: headline
-    label: 소개 제목
+    label: 첫 화면 제목 (줄바꿈 유지)
     type: text
     required: true
-  - name: portrait
-    label: 사진 소개
+  - name: about
+    label: '자기소개 (본인 문장: 도입 → 주장 → 동기)'
     type: object
     required: true
     fields:
-    - name: headline
-      label: 사진 소개 제목
+    - name: lead
+      label: 도입
       type: text
       required: true
-    - name: description
-      label: 사진 소개 본문
+    - name: thesis
+      label: 주장 (강조는 **구절**)
+      type: text
+      required: true
+    - name: motivation
+      label: 동기
       type: text
       required: true
   - name: email
@@ -48,6 +56,20 @@ content:
     label: 자료 기준일
     type: string
     required: true
+  - name: highlights
+    label: 첫 화면 숫자
+    type: object
+    required: true
+    list: true
+    fields:
+    - name: value
+      label: 값
+      type: string
+      required: true
+    - name: label
+      label: 설명
+      type: string
+      required: true
   - name: projects
     label: 대표 작업
     type: object
@@ -80,24 +102,27 @@ content:
       label: 바로가기 역할 요약
       type: string
       required: true
-    - name: preview
-      label: 대표 미리보기
+    - name: headline
+      label: 사례 제목 (한 문장 주장, 줄바꿈 유지)
+      type: text
+      required: true
+    - name: cover
+      label: 목록 미리보기 이미지 파일명 (확장자 제외)
+      type: string
+      required: true
+    - name: question
+      label: 답하는 채용 질문
       type: object
       required: true
       fields:
-      - name: isDefault
-        label: 기본 미리보기 (전체에서 하나)
-        type: boolean
-        required: true
-      - name: figure
-        label: 근거 이미지 순번 (0부터, 서비스는 생략)
-        type: number
-      - name: title
-        label: 미리보기 제목 (생략하면 프로젝트 제목)
+      - name: label
+        label: 질문 (물음표 제외)
         type: string
-      - name: caption
-        label: 미리보기 설명 (생략하면 핵심 작업)
+        required: true
+      - name: evidence
+        label: 근거 한 줄 (강조는 **구절**)
         type: text
+        required: true
     - name: resources
       label: 추가 산출물 링크
       type: object
@@ -157,19 +182,46 @@ content:
       type: string
       required: true
       readonly: true
-    - name: steps
-      label: steps
-      type: string
+    - name: narrative
+      label: 사례 흐름 (강조는 **구절**)
+      type: object
       required: true
-      list: true
-    - name: problem
-      label: problem
-      type: text
+      fields:
+      - name: problem
+        label: 문제
+        type: text
+        required: true
+      - name: decision
+        label: 판단 — 왜 그렇게 했는가
+        type: text
+        required: true
+      - name: action
+        label: 실행 — 내가 한 일
+        type: text
+        required: true
+      - name: verification
+        label: 검증 — 결과와 조건
+        type: text
+        required: true
+      - name: limits
+        label: 남은 과제 — 검증하지 못한 것
+        type: text
+        required: true
+    - name: contribution
+      label: 역할 구분
+      type: object
       required: true
-    - name: decision
-      label: decision
-      type: text
-      required: true
+      fields:
+      - name: mine
+        label: 내가 맡은 일
+        type: string
+        required: true
+        list: true
+      - name: team
+        label: 팀이 함께한 일
+        type: string
+        required: true
+        list: true
     - name: facts
       label: 핵심 정보
       type: object
@@ -198,20 +250,78 @@ content:
         label: 내용
         type: text
         required: true
-    - name: figures
-      label: 근거 이미지
+    - name: evidence
+      label: 증거 (주장 하나 + 그림 하나, 2–5개)
       type: object
       required: true
       list: true
       fields:
-      - name: image
-        label: 이미지 파일명 (확장자 제외)
-        type: string
+      - name: claim
+        label: 주장 (강조는 **구절**)
+        type: text
         required: true
-      - name: caption
-        label: 이미지 설명
-        type: string
+      - name: why
+        label: 왜 중요한가 (한 줄)
+        type: text
         required: true
+      - name: visual
+        label: 분할 데모 (그림 대신 쓸 때만)
+        type: select
+        options:
+          values:
+          - split
+      - name: figure
+        label: 그림 (상호작용 그림을 쓰지 않을 때)
+        type: object
+        fields:
+        - name: image
+          label: 이미지 파일명 (확장자 제외)
+          type: string
+          required: true
+        - name: width
+          label: 원본 너비(px)
+          type: number
+          required: true
+        - name: height
+          label: 원본 높이(px)
+          type: number
+          required: true
+        - name: alt
+          label: 대체 텍스트
+          type: string
+          required: true
+        - name: caption
+          label: 그림이 보여 주는 것
+          type: string
+          required: true
+        - name: page
+          label: 발표자료 쪽
+          type: string
+        - name: marks
+          label: 볼 곳 표시 (0–1 비율, 최대 3개)
+          type: object
+          list: true
+          fields:
+          - name: x
+            label: x
+            type: number
+            required: true
+          - name: y
+            label: y
+            type: number
+            required: true
+          - name: w
+            label: 너비
+            type: number
+            required: true
+          - name: h
+            label: 높이
+            type: number
+            required: true
+          - name: label
+            label: 여기서 볼 것
+            type: string
+            required: true
     - name: link
       label: 발표자료 URL
       type: string
@@ -263,6 +373,49 @@ content:
       label: presentation
       type: string
       required: false
+  - name: timelineYears
+    label: 연표 연도 머리
+    type: object
+    required: true
+    list: true
+    fields:
+    - name: year
+      label: 연도 (4자리)
+      type: string
+      required: true
+    - name: note
+      label: 그해의 한 줄
+      type: string
+      required: true
+  - name: timeline
+    label: 연표
+    type: object
+    required: true
+    list: true
+    fields:
+    - name: date
+      label: 시기 (2025.02 또는 2025.05–06)
+      type: string
+      required: true
+    - name: items
+      label: 항목
+      type: object
+      required: true
+      list: true
+      fields:
+      - name: text
+        label: 내용
+        type: string
+        required: true
+      - name: kind
+        label: 종류
+        type: select
+        required: true
+        options:
+          values:
+          - course
+          - project
+          - cert
   - name: education
     label: 교육
     type: object

@@ -1,0 +1,58 @@
+@font-face {
+  font-family: "Pretendard";
+  src: url("../../assets/fonts/pretendard-variable.woff2") format("woff2");
+  font-weight: 45 920;
+  font-display: swap;
+}
+@font-face {
+  font-family: "Instrument";
+  src: url("../../assets/fonts/instrument-serif-italic.ttf") format("truetype");
+  font-style: italic;
+  font-weight: 400;
+  font-display: swap;
+}
+@font-face {
+  font-family: "Instrument";
+  src: url("../../assets/fonts/instrument-serif.ttf") format("truetype");
+  font-style: normal;
+  font-weight: 400;
+  font-display: swap;
+}
+
+/*
+  Paper, ink and one signal colour. Signal fills marks and bars; text that must be
+  read in the signal hue uses --signal-ink, which keeps 4.5:1 on paper.
+*/
+.story-body {
+  --paper: #eeebe4;
+  --paper-deep: #e5e1d7;
+  --ink: #141311;
+  --ink-soft: #3b3933;
+  --muted: #69655c;
+  --line: rgb(20 19 17 / 0.14);
+  --line-strong: rgb(20 19 17 / 0.82);
+  --signal: #ff4d1a;
+  --signal-ink: #b5300b;
+  --sans: "Pretendard", system-ui, -apple-system, sans-serif;
+  --serif: "Instrument", "Pretendard", Georgia, serif;
+  --mono: ui-monospace, "SFMono-Regular", "JetBrains Mono", Menlo, Consolas, monospace;
+  --gutter: clamp(16px, 4vw, 56px);
+  --gap: clamp(12px, 1.8vw, 28px);
+  --ease-out: cubic-bezier(0.2, 0.8, 0.2, 1);
+  --masthead: 72px;
+  color-scheme: light;
+}
+
+/* Night chapters swap the same tokens, so every component follows without overrides. */
+.story-body .is-night,
+.story-body .masthead.on-night {
+  --paper: #131210;
+  --paper-deep: #1c1b18;
+  --ink: #eeebe4;
+  --ink-soft: #d3cfc5;
+  --muted: #a39e93;
+  --line: rgb(238 235 228 / 0.14);
+  --line-strong: rgb(238 235 228 / 0.7);
+  --signal-ink: #ff7a52;
+  color-scheme: dark;
+}

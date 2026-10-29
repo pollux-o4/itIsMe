@@ -1,39 +1,60 @@
 ---
 import { ClientRouter } from 'astro:transitions';
-import { site, url, asset } from '../lib/content';
+import { site, url, asset, portfolioImage } from '../lib/content';
 import { portfolio } from '../lib/portfolio';
-import '../styles/global.css';
 import '../styles/story.css';
 import displayFont from '../assets/fonts/pretendard-variable.woff2?url';
-import { Printer, Mail } from 'lucide-react';
+import { Copy, Check, ArrowUpRight } from 'lucide-react';
+const [first, ...rest] = portfolio.email.split('@');
 ---
 <!doctype html>
 <html lang="ko">
 <head>
   <meta charset="UTF-8"/><meta name="viewport" content="width=device-width, initial-scale=1"/>
-  <title>{site.title}</title><meta name="description" content={site.description}/><meta name="theme-color" content="#f5f6f9"/>
+  <title>{site.title}</title><meta name="description" content={site.description}/><meta name="theme-color" content="#eeebe4"/>
   <link rel="icon" href={asset('/images/favicon.svg')}/><link rel="canonical" href={new URL(url(),Astro.site)}/>
   <link rel="preload" href={displayFont} as="font" type="font/woff2" crossorigin/>
   <script type="application/ld+json" set:html={JSON.stringify({"@context":"https://schema.org","@type":"ProfilePage",mainEntity:{"@type":"Person",name:portfolio.name,jobTitle:portfolio.role,description:site.description,url:new URL(url(),Astro.site).href,sameAs:[site.github],alumniOf:{"@type":"CollegeOrUniversity",name:portfolio.education[0]?.title},knowsAbout:["Python","Machine learning","Computer vision","Next.js","FastAPI","Clinical data monitoring","Data quality assurance"]}}).replace(/</g,'\\u003c')}/>
   <ClientRouter/>
 </head>
 <body class="story-body">
+  <div class="reading-progress" aria-hidden="true"><span></span></div>
   <a class="skip-link" href="#main">본문으로 건너뛰기</a>
-  <header class="story-header">
-    <a class="story-brand" href="#start" aria-label={`${portfolio.name} 포트폴리오 처음으로`}><span aria-hidden="true">j.</span> {portfolio.name} <small>{portfolio.role}</small></a>
-    <div class="header-actions"><a href="#contact"><Mail size={15} aria-hidden="true"/> 연락</a><button class="print-action" type="button" data-print><Printer size={15} aria-hidden="true"/> 전체 인쇄</button></div>
+  <header class="masthead">
+    <a class="brand" href="#start" aria-label={`${portfolio.name} 포트폴리오 처음으로`}>
+      <img class="brand-face" src={portfolioImage('portrait')} width="32" height="32" alt=""/><span class="brand-name">{portfolio.name}<small>{portfolio.english}</small></span>
+    </a>
+    <nav class="story-nav" aria-label="포트폴리오 바로가기">
+      {portfolio.projects.map(project => <a href={`#${project.id}`}><span>{project.number}</span>{project.navigationLabel}</a>)}
+      <a href="#archive"><span>+</span>다른 작업</a>
+      <a href="#background"><span>—</span>이력</a>
+    </nav>
+    <a class="masthead-contact" href="#contact">연락하기</a>
   </header>
-  <nav class="story-nav" aria-label="포트폴리오 바로가기">
-    <a href="#start" aria-current="location"><span>00</span> 소개</a>
-    {portfolio.projects.map(project => <a href={`#${project.id}`}><span>{project.number}</span> {project.navigationLabel}</a>)}
-    <a href="#archive"><span>04</span> 다른 프로젝트</a>
-    <a href="#background"><span>05</span> 경력·학력</a>
-  </nav>
   <main id="main" class="story-main" tabindex="-1"><slot/></main>
-  <footer class="story-footer" id="contact">
-    <span class="kicker">연락처</span><h2>이메일로<br/>연락해 주세요.</h2>
-    <div><a href={`mailto:${portfolio.email}`}>{portfolio.email} ↗</a><a href={site.github} target="_blank" rel="noreferrer">GitHub ↗ <span class="sr-only">새 창</span></a></div>
+  <footer class="contact is-night" id="contact" data-chapter aria-labelledby="contact-title">
+    <div class="shell">
+      <p class="label">Contact — 연락처</p>
+      <h2 id="contact-title" class="contact-title">읽어 주셔서<br/>감사합니다.</h2>
+      <p class="contact-lede">다음 문제를 함께 풀고 싶습니다. 이메일로 편하게 연락 주세요.</p>
+      <a class="contact-mail" href={`mailto:${portfolio.email}`}>
+        <span>{first}<wbr/>@{rest.join('@')}</span><ArrowUpRight size={40} strokeWidth={1.5} aria-hidden="true"/>
+      </a>
+      <div class="contact-actions">
+        <button type="button" class="pill copy-email" data-copy-email={portfolio.email} hidden>
+          <span class="copy-icon" aria-hidden="true"><Copy size={16}/></span><span class="copied-icon" aria-hidden="true"><Check size={16}/></span><span data-copy-label>이메일 복사</span>
+        </button>
+        <a class="pill" href={site.github} target="_blank" rel="noreferrer">GitHub ↗<span class="sr-only"> 새 창</span></a>
+        <button type="button" class="pill" data-print><span class="print-label">PDF로 저장</span><span class="print-pending">인쇄 준비 중</span></button>
+      </div>
+      <p class="sr-only" role="status" data-copy-status></p>
+      <div class="colophon">
+        <span>© {new Date().getFullYear()} {portfolio.name}</span>
+        <span>자료 기준 {portfolio.sourceDate}</span>
+        <a href="#start">처음으로 ↑</a>
+      </div>
+    </div>
   </footer>
-  <script src="../scripts/story.ts"></script>
+    <script src="../scripts/story.ts"></script>
 </body>
 </html>

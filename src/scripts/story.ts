@@ -1,7 +1,9 @@
 import { initializeNavigation } from './story/navigation';
-import { initializePortrait } from './story/portrait';
-import { initializePreview } from './story/preview';
 import { initializePrinting } from './story/printing';
+import { initializeReveal } from './story/reveal';
+import { initializeSplitDemo } from './story/split-demo';
+import { initializePreviewSlot } from './story/preview-slot';
+import { initializeContact } from './story/contact';
 
 let dispose = () => {};
 function initializeStory() {
@@ -10,9 +12,11 @@ function initializeStory() {
   const controller = new AbortController();
   dispose = () => controller.abort();
   initializeNavigation(controller.signal);
-  initializePortrait(controller.signal);
-  const preview = initializePreview(controller.signal);
-  initializePrinting(controller.signal, preview);
+  initializeReveal(controller.signal);
+  initializeSplitDemo(controller.signal);
+  initializePreviewSlot(controller.signal);
+  initializeContact(controller.signal);
+  initializePrinting(controller.signal);
 }
 
 document.addEventListener('astro:page-load', initializeStory);

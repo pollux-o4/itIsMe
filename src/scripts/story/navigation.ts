@@ -6,12 +6,19 @@ export function initializeNavigation(signal: AbortSignal) {
         ...document.querySelectorAll<HTMLElement>("[data-chapter]"),
     ];
     const nav = document.querySelector<HTMLElement>(".story-nav");
+    const masthead = document.querySelector<HTMLElement>(".masthead");
+    const progress = document.querySelector<HTMLElement>(".reading-progress span");
     let lastScrollY = window.scrollY;
     let directionStartY = lastScrollY;
     let direction = 0;
     let frame = 0;
     let activeId = "";
     function updateLocation() {
+        if (progress) {
+            const scrollable = document.documentElement.scrollHeight - window.innerHeight;
+            const fraction = scrollable > 0 ? Math.min(1, Math.max(0, window.scrollY / scrollable)) : 0;
+            progress.style.transform = `scaleX(${fraction})`;
+        }
         // A chapter remains current while its start is in the upper reading area.
         // Expanding a card can shift its section below a fixed pixel threshold.
         const readingEdge = Math.max(140, window.innerHeight * 0.25);
@@ -29,6 +36,13 @@ export function initializeNavigation(signal: AbortSignal) {
             });
         }
         activeId = active?.id || "";
+        // The masthead reads against whichever chapter sits beneath it.
+        const beneath = sections.find((section) => {
+            const rect = section.getBoundingClientRect();
+            return rect.top <= 32 && rect.bottom > 32;
+        });
+        masthead?.classList.toggle("on-night", Boolean(beneath?.classList.contains("is-night")));
+        masthead?.classList.toggle("is-scrolled", window.scrollY > 24);
         navLinks.forEach((link) => {
             if (link.hash === `#${active?.id}`)
                 link.setAttribute("aria-current", "location");
@@ -43,11 +57,12 @@ export function initializeNavigation(signal: AbortSignal) {
             direction = nextDirection;
             directionStartY = lastScrollY;
         }
-        if (nav && window.matchMedia("(max-width: 1279px)").matches) {
+        // Wide screens keep the chapter list in view while reading (SPEC 2.10).
+        if (masthead && window.matchMedia("(max-width: 1099px)").matches) {
             if (y < 120 || (direction < 0 && directionStartY - y >= 12)) {
-                nav.classList.remove("is-scroll-hidden");
-            } else if (direction > 0 && y - directionStartY >= 24 && !nav.contains(document.activeElement)) {
-                nav.classList.add("is-scroll-hidden");
+                masthead.classList.remove("is-scroll-hidden");
+            } else if (direction > 0 && y - directionStartY >= 24 && !masthead.contains(document.activeElement)) {
+                masthead.classList.add("is-scroll-hidden");
             }
         }
         lastScrollY = y;
@@ -55,12 +70,13 @@ export function initializeNavigation(signal: AbortSignal) {
         frame = requestAnimationFrame(updateLocation);
     }, { passive: true, signal });
     window.addEventListener("resize", () => {
-        nav?.classList.remove("is-scroll-hidden");
+        masthead?.classList.remove("is-scroll-hidden");
         lastScrollY = directionStartY = window.scrollY;
         direction = 0;
         updateLocation();
     }, { signal });
-    nav?.addEventListener("focusin", () => nav.classList.remove("is-scroll-hidden"), { signal });
+    masthead?.addEventListener("focusin", () => masthead.classList.remove("is-scroll-hidden"), { signal });
+    document.addEventListener("toggle", updateLocation, { capture: true, signal });
     // Anchor navigation stays native; focus follows the destination for keyboard readers.
     document
         .querySelectorAll<HTMLAnchorElement>('a[href^="#"]')
@@ -83,5 +99,5 @@ export function initializeNavigation(signal: AbortSignal) {
     window.addEventListener("hashchange", openHash, { signal });
     openHash();
     updateLocation();
-    signal.addEventListener("abort", () => { cancelAnimationFrame(frame); nav?.classList.remove("is-scroll-hidden"); }, { once: true });
+    signal.addEventListener("abort", () => { cancelAnimationFrame(frame); masthead?.classList.remove("is-scroll-hidden"); }, { once: true });
 }

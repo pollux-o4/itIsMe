@@ -3,6 +3,7 @@ import StoryLayout from '../layouts/StoryLayout.astro';
 import Introduction from '../components/story/Introduction.astro';
 import ProjectCase from '../components/story/ProjectCase.astro';
 import Archive from '../components/story/Archive.astro';
+import Timeline from '../components/story/Timeline.astro';
 import Background from '../components/story/Background.astro';
 import { portfolio } from '../lib/portfolio';
 ---
@@ -10,5 +11,6 @@ import { portfolio } from '../lib/portfolio';
   <Introduction/>
   {portfolio.projects.map(project => <ProjectCase project={project}/>)}
   <Archive/>
+  <Timeline/>
   <Background/>
 </StoryLayout>

@@ -1,0 +1,102 @@
+/* Split demo: why a shuffled split leaks the future, and the score journey after the fix. */
+.split-demo {
+  display: grid;
+  gap: 28px;
+  padding: clamp(20px, 3vw, 44px);
+  border: 1px solid var(--line-strong);
+  border-radius: 6px;
+  background: var(--paper-deep);
+}
+.split-panel { min-width: 0; }
+.split-toolbar { display: flex; flex-wrap: wrap; justify-content: space-between; align-items: center; gap: 12px; }
+.split-controls[hidden] { display: none; }
+.split-controls {
+  display: inline-flex;
+  padding: 4px;
+  border: 1px solid var(--line-strong);
+  border-radius: 999px;
+}
+.split-controls button {
+  min-height: 40px;
+  padding: 0 16px;
+  border-radius: 999px;
+  font-size: 14px;
+  font-weight: 650;
+  transition: background-color 200ms ease, color 200ms ease;
+}
+.split-controls button[aria-pressed="true"] { background: var(--ink); color: var(--paper); }
+.split-controls button:not([aria-pressed="true"]):hover { color: var(--signal-ink); }
+.split-axis {
+  display: flex;
+  justify-content: space-between;
+  margin-top: clamp(24px, 3vw, 40px);
+  font-family: var(--mono);
+  font-size: 12px;
+  letter-spacing: 0.06em;
+  color: var(--muted);
+}
+.split-cells {
+  display: grid;
+  grid-template-columns: repeat(30, minmax(0, 1fr));
+  gap: clamp(2px, 0.4vw, 5px);
+  align-items: end;
+  height: clamp(80px, 8vw, 120px);
+  margin-top: 10px;
+  padding-bottom: 12px;
+  border-bottom: 1px solid var(--line-strong);
+}
+.cell {
+  height: 70%;
+  border-radius: 3px;
+  background: var(--ink);
+  transition: background-color 420ms var(--ease-out), height 520ms var(--ease-out);
+  transition-delay: calc(var(--i) * 16ms);
+}
+[data-mode="random"] .cell[data-r],
+[data-mode="time"] .cell[data-t] { height: 100%; background: var(--signal); }
+.split-legend { display: flex; gap: 20px; margin-top: 14px; font-size: 13px; color: var(--muted); }
+.split-legend span { display: inline-flex; align-items: center; gap: 8px; }
+.split-legend span::before { content: ""; width: 12px; height: 12px; border-radius: 3px; }
+.key-train::before { background: var(--ink); }
+.key-test::before { background: var(--signal); }
+.split-note { margin-top: 16px; font-size: 17px; line-height: 1.7; color: var(--ink-soft); }
+.split-note b { color: var(--ink); font-weight: 720; }
+.split-demo[data-mode="random"] .note-time,
+.split-demo[data-mode="time"] .note-random { display: none; }
+
+.split-journey {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: clamp(10px, 1.6vw, 20px);
+  align-items: end;
+  padding-top: 24px;
+  border-top: 1px solid var(--line);
+}
+.split-journey li { display: grid; gap: 4px; }
+.journey-bar {
+  height: calc(var(--value) * clamp(90px, 9vw, 130px));
+  margin-bottom: 8px;
+  border-radius: 4px 4px 0 0;
+  background: var(--ink);
+}
+.split-journey li:last-child .journey-bar { background: var(--signal); }
+.split-journey .is-leak .journey-bar {
+  background: repeating-linear-gradient(-45deg, var(--muted) 0 3px, transparent 3px 8px);
+  outline: 1px solid var(--muted);
+  outline-offset: -1px;
+}
+.split-journey strong {
+  font-family: var(--serif);
+  font-weight: 400;
+  font-size: clamp(30px, 3vw, 48px);
+  line-height: 1;
+}
+.split-journey .is-leak strong { color: var(--muted); text-decoration: line-through; text-decoration-thickness: 2px; }
+.split-journey li:last-child strong { color: var(--signal-ink); }
+.split-journey span:not(.journey-bar) { font-size: 14px; font-weight: 680; }
+.split-journey small { font-size: 13px; color: var(--muted); }
+.split-demo > figcaption { margin-top: -8px; font-family: var(--sans); font-size: 14px; letter-spacing: 0; color: var(--ink-soft); }
+
+@media (max-width: 760px) {
+  .split-journey { grid-template-columns: repeat(2, minmax(0, 1fr)); row-gap: 24px; }
+}

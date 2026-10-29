@@ -1,32 +1,76 @@
 ---
-import { ArrowRight, ArrowUpRight } from 'lucide-react';
+import { ArrowDown, ArrowRight } from 'lucide-react';
 import { portfolio } from '../../lib/portfolio';
-import { site } from '../../lib/content';
-import ProjectPreview from '../ProjectPreview.astro';
-import PortraitIdentity from './PortraitIdentity.astro';
+import { portfolioImage as img } from '../../lib/content';
+import Emphasis from '../Emphasis.astro';
+const lines = portfolio.headline.split('\n');
+const [first] = portfolio.projects;
 ---
-  <section id="start" class="story-intro" data-chapter aria-labelledby="intro-title">
-    <div class="intro-top"><span class="kicker">AI & FULL-STACK</span><span class="edition">SELECTED WORK / 2025—2026</span></div>
-    <div class="intro-heading">
-      <div class="intro-copy">
-        <PortraitIdentity/>
-        <h1 id="intro-title">{portfolio.headline.split('\n').map((line,i)=>i===0?<>{line}{' '}<br/></>:<em>{line}</em>)}</h1>
-        <p class="intro-caption" data-intro>{site.intro}</p><p class="portrait-print-story">{portfolio.portrait.headline.replaceAll("\n", " ")}</p>
-        <div class="hero-actions"><a class="primary-link" href={`#${portfolio.projects[0].id}`}>프로젝트 보기 <span aria-hidden="true"><ArrowUpRight size={16}/></span></a><a href="#background">경력·학력 <span aria-hidden="true"><ArrowRight size={16}/></span></a></div>
+<section id="start" class="hero" data-chapter aria-labelledby="intro-title">
+  <div class="shell">
+    <div class="hero-meta">
+      <span>Portfolio <i>2025—26</i></span>
+      <span>{portfolio.role}</span>
+      <span>자료 기준 {portfolio.sourceDate}</span>
+    </div>
+    <div class="hero-grid">
+      {/* The portrait looks toward the viewer's right; it stays left of the words about him (SPEC 2.1). */}
+      <figure class="hero-portrait">
+        <img src={img('portrait')} width="362" height="509" alt={`${portfolio.name} 프로필 사진`} fetchpriority="high"/>
+        <figcaption><span>Fig. 00</span>{portfolio.name}, {portfolio.english}</figcaption>
+      </figure>
+      <div class="hero-words">
+        <p class="hero-motto">{portfolio.motto}</p>
+        <h1 id="intro-title" class="hero-title">
+          {lines.map((line, i) => <span class="line" style={`--line:${i}`}><span class={i === 1 ? 'mark' : undefined}>{line}</span></span>)}
+        </h1>
+        <div class="hero-about">
+          <p class="about-lead">{portfolio.about.lead}</p>
+          <p class="about-thesis"><Emphasis text={portfolio.about.thesis}/></p>
+          <p class="about-motivation">{portfolio.about.motivation}</p>
+        </div>
+        <dl class="hero-stats">
+          {portfolio.highlights.map(item => <div><dt>{item.label}</dt><dd>{item.value}</dd></div>)}
+        </dl>
       </div>
-      <ProjectPreview/>
     </div>
-    <div class="story-map" role="group" aria-label="대표 프로젝트 바로가기">
-      {portfolio.projects.map(project => (
-        <a href={`#${project.id}`} class={`map-card map-${project.kind}`}>
-          <span class="map-index">{project.number}</span>
-          <div class="map-label">
-            <span>{project.category}</span>
-            <strong>{project.cardTitle}</strong>
-            <small>내 역할 · {project.cardRole}</small>
-          </div>
-          <span class="map-go" aria-hidden="true"><ArrowRight size={18}/></span>
-        </a>
-      ))}
+    <a class="hero-scroll" href="#work"><ArrowDown size={18} aria-hidden="true"/>세 가지 질문으로 보기</a>
+  </div>
+</section>
+
+<section id="work" class="index" data-chapter aria-labelledby="work-title">
+  <div class="shell">
+    <div class="section-head">
+      <p class="label">Index — 대표 사례 3</p>
+      <h2 id="work-title">채용하는 분이 궁금해할<br/>세 가지 질문에 답합니다.</h2>
     </div>
-  </section>
+    <div class="index-body">
+      <ol class="question-list" role="list">
+        {portfolio.projects.map((project, i) => (
+          <li>
+            <a class="question" href={`#${project.id}`} data-preview-target={project.id}>
+              <span class="question-no">Q{i + 1}</span>
+              <span class="question-label">{project.question.label}?</span>
+              <span class="question-evidence"><Emphasis text={project.question.evidence}/></span>
+              <span class="question-case">
+                <span>Case {project.number} · {project.cardTitle}</span>
+                <small>내 역할 · {project.cardRole}</small>
+              </span>
+              <img class="question-thumb" src={img(project.cover)} width="320" height="200" alt="" loading="lazy"/>
+              <span class="question-go" aria-hidden="true"><ArrowRight size={22}/></span>
+            </a>
+          </li>
+        ))}
+      </ol>
+      {/* A fixed slot, never a floating image over text (SPEC 2.6). */}
+      <div class="preview-slot" aria-hidden="true">
+        {portfolio.projects.map(project => (
+          <figure class="preview-panel" data-preview={project.id} data-active={project.id === first.id ? '' : undefined}>
+            <div class="preview-frame"><img src={img(project.cover)} width="640" height="400" alt=""/></div>
+            <figcaption><span>Case {project.number}</span>{project.cardTitle} · {project.team}</figcaption>
+          </figure>
+        ))}
+      </div>
+    </div>
+  </div>
+</section>
