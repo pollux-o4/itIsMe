@@ -8,7 +8,7 @@ const journey = [
   { label: '섞어서 나눔', value: 0.98, note: '미래가 섞인 점수', leak: true },
   { label: '누수 제거', value: 0.57, note: '진짜 출발점' },
   { label: '특성 선택', value: 0.62, note: '중요도 0.005 이상' },
-  { label: '튜닝 + 시간순 검증', value: 0.81, note: '2023년으로 시험' },
+  { label: '튜닝 + 시간순 검증', value: 0.81, note: '2023년으로 테스트' },
 ];
 ---
 <figure class="split-demo" data-split data-mode="time">
@@ -21,13 +21,13 @@ const journey = [
       </div>
     </div>
     <div class="split-axis" aria-hidden="true"><span>2019</span><span>시간 →</span><span>2023</span></div>
-    <div class="split-cells" role="img" aria-label="2019년부터 2023년까지 30개 기간. 무작위로 섞으면 시험 기간 사이사이의 미래 데이터가 학습에 들어가고, 날짜순으로 나누면 2022년까지 학습하고 2023년으로 시험합니다.">
+    <div class="split-cells" role="img" aria-label="2019년부터 2023년까지 30개 기간. 무작위로 섞으면 테스트 기간 사이사이의 미래 데이터가 학습에 들어가고, 날짜순으로 나누면 2022년까지 학습하고 2023년으로 테스트합니다.">
       {cells.map(i => <span class="cell" style={`--i:${i}`} data-r={randomTest.has(i) ? '' : undefined} data-t={timeTest.has(i) ? '' : undefined}></span>)}
     </div>
-    <div class="split-legend" aria-hidden="true"><span class="key-train">학습</span><span class="key-test">시험</span></div>
+    <div class="split-legend" aria-hidden="true"><span class="key-train">학습</span><span class="key-test">테스트</span></div>
     <p class="split-note" aria-live="polite">
-      <span class="note-random">시험 기간 <b>뒤의 날짜</b>가 학습에 들어갑니다. 모델이 답을 미리 보고 0.98을 냈습니다.</span>
-      <span class="note-time"><b>2022년까지</b> 학습하고 <b>2023년</b>으로 시험합니다. 내일 가격을 맞히는 실제 조건과 같습니다.</span>
+      <span class="note-random">테스트 기간 <b>뒤의 날짜</b>가 학습에 들어갑니다. 모델이 답을 미리 보고 0.98을 냈습니다.</span>
+      <span class="note-time"><b>2022년까지</b> 학습하고 <b>2023년</b>으로 테스트합니다. 내일 가격을 맞히는 실제 조건과 같습니다.</span>
     </p>
   </div>
   <ol class="split-journey" role="list" aria-label="테스트 R² 변화">
