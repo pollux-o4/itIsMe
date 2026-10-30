@@ -52,9 +52,9 @@ window.print = () => printCalls++;
 window.scrollY = 0; window.innerHeight = 800;
 window.matchMedia = () => ({ matches: false });
 window.setTimeout = cb => { window.pendingTimeout = cb; return 1; };
-document.fonts = { ready: Promise.resolve() };
-document.images = [{ decode: () => Promise.reject(new Error('Unavailable image')) }, { loading: 'lazy', complete: false, decode: () => new Promise(() => {}) }];
-document.documentElement = { scrollHeight: 4000 };
+document.fonts = { ready: Promise.resolve(), load: () => Promise.resolve([]) };
+document.body = { textContent: 'Print fixture' };
+document.documentElement = new Element({ scrollHeight: 4000 });
 const selectors = {
   '.story-body': {}, '[data-split]': [split],
   '[data-preview]': panels, '[data-preview-target]': rows, '[data-disclosure]': details, '[data-print]': [printButton],
@@ -113,7 +113,7 @@ assert.equal(printButton.disabled, true, 'Print action should indicate preparati
 assert.equal(printButton.getAttribute('aria-busy'), 'true');
 emit(printButton, 'click');
 await flush();
-assert.equal(printCalls, 1, 'A failed or never-loading lazy image must not block or duplicate printing.');
+assert.equal(printCalls, 1, 'Repeated clicks must open only one print dialog.');
 assert.equal(printButton.disabled, false);
 assert.equal(printButton.getAttribute('aria-busy'), null);
 

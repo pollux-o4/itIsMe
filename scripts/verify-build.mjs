@@ -16,10 +16,13 @@ for (const page of pages) {
     !/(?:data-variant|data-preview-defaults|id="preview-studio")/.test(html),
     `Prototype configuration shipped in ${page}`,
   );
-  for (const match of html.matchAll(
+  const links = [...html.matchAll(
     /<(?:a|img|script|link)\b[^>]*?\b(?:href|src)="([^"]+)"/g,
-  )) {
-    const href = match[1];
+  )].map(match => match[1]);
+  const responsive = [...html.matchAll(/\bsrcset="([^"]+)"/g)]
+    .flatMap(match => match[1].split(',').map(candidate => candidate.trim().split(/\s+/)[0]));
+  const printSources = [...html.matchAll(/\bdata-print-src="([^"]+)"/g)].map(match => match[1]);
+  for (const href of [...links, ...responsive, ...printSources]) {
     if (!href.startsWith("/")) continue;
     assert(
       href.startsWith(`${base}/`),

@@ -2,8 +2,8 @@
 import { portfolio } from "../lib/portfolio";
 import { site, url, asset } from "../lib/content";
 import "../styles/global.css";
-import displayFont from "../assets/fonts/dm-sans.ttf?url";
-import boldFont from "../assets/fonts/dm-sans-bold.ttf?url";
+import displayFont from "../assets/fonts/dm-sans.woff2?url";
+import boldFont from "../assets/fonts/dm-sans-bold.woff2?url";
 interface Props {
   title?: string;
   description?: string;
@@ -30,14 +30,14 @@ const { title, description = site.description, active = "home" } = Astro.props;
       rel="preload"
       href={displayFont}
       as="font"
-      type="font/ttf"
+      type="font/woff2"
       crossorigin
     />
     <link
       rel="preload"
       href={boldFont}
       as="font"
-      type="font/ttf"
+      type="font/woff2"
       crossorigin
     />
   </head>

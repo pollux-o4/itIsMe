@@ -5,6 +5,7 @@ html {
 }
 @media (max-width: 1099px) { html { scroll-padding-top: 124px; } }
 body { margin: 0; }
+[hidden] { display: none !important; }
 .story-body {
   font-family: var(--sans);
   font-size: 17px;
@@ -97,6 +98,8 @@ body { margin: 0; }
 .pill:hover { background: var(--ink); color: var(--paper); border-color: var(--ink); }
 .pill:disabled { opacity: 0.6; cursor: progress; }
 .print-pending { display: none; }
+.print-status:empty { display: none; }
+.print-status { margin-top: 12px; font-size: 14px; }
 [aria-busy="true"] .print-label { display: none; }
 [aria-busy="true"] .print-pending { display: inline; }
 

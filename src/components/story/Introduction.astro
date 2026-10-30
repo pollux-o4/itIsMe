@@ -1,7 +1,7 @@
 ---
 import { ArrowDown, ArrowRight } from 'lucide-react';
 import { portfolio } from '../../lib/portfolio';
-import { portfolioImage as img } from '../../lib/content';
+import PortfolioImage from '../PortfolioImage.astro';
 import Emphasis from '../Emphasis.astro';
 const lines = portfolio.headline.split('\n');
 const [first] = portfolio.projects;
@@ -16,7 +16,7 @@ const [first] = portfolio.projects;
     <div class="hero-grid">
       {/* The portrait looks toward the viewer's right; it stays left of the words about him (SPEC 2.1). */}
       <figure class="hero-portrait">
-        <img src={img('portrait')} width="362" height="509" alt={`${portfolio.name} 프로필 사진`} fetchpriority="high"/>
+        <PortfolioImage name="portrait" width={362} height={509} alt={`${portfolio.name} 프로필 사진`} sizes="(max-width: 760px) 30vw, (max-width: 1480px) 32vw, 440px" priority/>
         <figcaption><span>Fig. 00</span>{portfolio.name}, {portfolio.english}</figcaption>
       </figure>
       <div class="hero-words">
@@ -56,7 +56,7 @@ const [first] = portfolio.projects;
                 <span>Case {project.number} · {project.cardTitle}</span>
                 <small>내 역할 · {project.cardRole}</small>
               </span>
-              <img class="question-thumb" src={img(project.cover)} width="320" height="200" alt="" loading="lazy"/>
+              <PortfolioImage class="question-thumb" name={project.cover} width={320} height={200} alt="" sizes="(max-width: 1099px) 320px, 1px"/>
               <span class="question-go" aria-hidden="true"><ArrowRight size={22}/></span>
             </a>
           </li>
@@ -66,7 +66,7 @@ const [first] = portfolio.projects;
       <div class="preview-slot" aria-hidden="true">
         {portfolio.projects.map(project => (
           <figure class="preview-panel" data-preview={project.id} data-active={project.id === first.id ? '' : undefined}>
-            <div class="preview-frame"><img src={img(project.cover)} width="640" height="400" alt=""/></div>
+            <div class="preview-frame"><PortfolioImage name={project.cover} width={640} height={400} alt="" sizes="(max-width: 1099px) 1px, 30vw"/></div>
             <figcaption><span>Case {project.number}</span>{project.cardTitle} · {project.team}</figcaption>
           </figure>
         ))}

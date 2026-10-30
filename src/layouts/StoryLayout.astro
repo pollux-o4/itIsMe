@@ -1,10 +1,13 @@
 ---
-import { site, url, asset, portfolioImage } from '../lib/content';
+import { site, url, asset } from '../lib/content';
 import { portfolio } from '../lib/portfolio';
 import '../styles/story.css';
-import displayFont from '../assets/fonts/pretendard-variable.woff2?url';
+import PortfolioImage from '../components/PortfolioImage.astro';
+import { criticalFonts } from '../lib/fonts';
+import numberFont from '../assets/fonts/instrument-serif-italic.woff2?url';
 import { Copy, Check, ArrowUpRight } from 'lucide-react';
 const [first, ...rest] = portfolio.email.split('@');
+const fonts = criticalFonts([portfolio.name, portfolio.english, portfolio.role, portfolio.motto, portfolio.headline, ...Object.values(portfolio.about), ...portfolio.projects.map(project => project.navigationLabel), ...portfolio.highlights.flatMap(item => [item.label, item.value]), '연락하기 자료 기준'].join(''));
 ---
 <!doctype html>
 <html lang="ko">
@@ -12,7 +15,8 @@ const [first, ...rest] = portfolio.email.split('@');
   <meta charset="UTF-8"/><meta name="viewport" content="width=device-width, initial-scale=1"/>
   <title>{site.title}</title><meta name="description" content={site.description}/><meta name="theme-color" content="#eeebe4"/>
   <link rel="icon" href={asset('/images/favicon.svg')}/><link rel="canonical" href={new URL(url(),Astro.site)}/>
-  <link rel="preload" href={displayFont} as="font" type="font/woff2" crossorigin/>
+  <link rel="preload" href={numberFont} as="font" type="font/woff2" crossorigin/>
+  {fonts.map(href => <link rel="preload" href={href} as="font" type="font/woff2" crossorigin/>)}
   <script type="application/ld+json" set:html={JSON.stringify({"@context":"https://schema.org","@type":"ProfilePage",mainEntity:{"@type":"Person",name:portfolio.name,jobTitle:portfolio.role,description:site.description,url:new URL(url(),Astro.site).href,sameAs:[site.github],alumniOf:{"@type":"CollegeOrUniversity",name:portfolio.education[0]?.title},knowsAbout:["Python","Machine learning","Computer vision","Next.js","FastAPI","Clinical data monitoring","Data quality assurance"]}}).replace(/</g,'\\u003c')}/>
 </head>
 <body class="story-body">
@@ -20,7 +24,7 @@ const [first, ...rest] = portfolio.email.split('@');
   <a class="skip-link" href="#main">본문으로 건너뛰기</a>
   <header class="masthead">
     <a class="brand" href="#start" aria-label={`${portfolio.name} 포트폴리오 처음으로`}>
-      <img class="brand-face" src={portfolioImage('portrait')} width="32" height="32" alt=""/><span class="brand-name">{portfolio.name}<small>{portfolio.english}</small></span>
+      <PortfolioImage class="brand-face" name="portrait" width={32} height={32} alt="" sizes="32px" priority/><span class="brand-name">{portfolio.name}<small>{portfolio.english}</small></span>
     </a>
     <nav class="story-nav" aria-label="포트폴리오 바로가기">
       {portfolio.projects.map(project => <a href={`#${project.id}`}><span>{project.number}</span>{project.navigationLabel}</a>)}
@@ -43,9 +47,10 @@ const [first, ...rest] = portfolio.email.split('@');
           <span class="copy-icon" aria-hidden="true"><Copy size={16}/></span><span class="copied-icon" aria-hidden="true"><Check size={16}/></span><span data-copy-label>이메일 복사</span>
         </button>
         <a class="pill" href={site.github} target="_blank" rel="noreferrer">GitHub ↗<span class="sr-only"> 새 창</span></a>
-        <button type="button" class="pill" data-print><span class="print-label">PDF로 저장</span><span class="print-pending">인쇄 준비 중</span></button>
+        <button type="button" class="pill" data-print hidden><span class="print-label">PDF로 저장</span><span class="print-pending">인쇄 준비 중</span></button>
       </div>
       <p class="sr-only" role="status" data-copy-status></p>
+      <p class="print-status" role="status" data-print-status></p>
       <div class="colophon">
         <span>© {new Date().getFullYear()} {portfolio.name}</span>
         <span>자료 기준 {portfolio.sourceDate}</span>

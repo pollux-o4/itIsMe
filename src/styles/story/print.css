@@ -14,7 +14,7 @@
     --masthead: 0px;
   }
   .story-body { font-size: 9.5pt; line-height: 1.55; background: #fff; color: #000; }
-  .masthead, .reading-progress, .skip-link, .preview-slot, .question-thumb, .work-thumb, .hero-scroll, .contact-actions,
+  .masthead, .reading-progress, .skip-link, .preview-slot, .question-thumb, .work-thumb, .hero-scroll, .contact-actions, .print-status,
   .split-controls, .disclosure-sign, .question-go, .archive-columns, .colophon a { display: none !important; }
   .shell { max-width: none; padding: 0; }
   .story-body *, .story-body *::before, .story-body *::after { animation: none !important; transition: none !important; }
