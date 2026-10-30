@@ -1,5 +1,4 @@
 ---
-import { ClientRouter } from 'astro:transitions';
 import { site, url, asset, portfolioImage } from '../lib/content';
 import { portfolio } from '../lib/portfolio';
 import '../styles/story.css';
@@ -15,7 +14,6 @@ const [first, ...rest] = portfolio.email.split('@');
   <link rel="icon" href={asset('/images/favicon.svg')}/><link rel="canonical" href={new URL(url(),Astro.site)}/>
   <link rel="preload" href={displayFont} as="font" type="font/woff2" crossorigin/>
   <script type="application/ld+json" set:html={JSON.stringify({"@context":"https://schema.org","@type":"ProfilePage",mainEntity:{"@type":"Person",name:portfolio.name,jobTitle:portfolio.role,description:site.description,url:new URL(url(),Astro.site).href,sameAs:[site.github],alumniOf:{"@type":"CollegeOrUniversity",name:portfolio.education[0]?.title},knowsAbout:["Python","Machine learning","Computer vision","Next.js","FastAPI","Clinical data monitoring","Data quality assurance"]}}).replace(/</g,'\\u003c')}/>
-  <ClientRouter/>
 </head>
 <body class="story-body">
   <div class="reading-progress" aria-hidden="true"><span></span></div>

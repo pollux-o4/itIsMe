@@ -31,7 +31,7 @@ const split = new Element({ dataset: { mode: 'time' } });
 split.children = { '.split-controls': splitControls, '[data-split-mode]': splitButtons };
 
 
-const panels = ['first-fixture', 'second-fixture'].map((id, i) => new Element({ dataset: { preview: id } }));
+const panels = ['first-fixture', 'second-fixture'].map(id => new Element({ dataset: { preview: id } }));
 panels[0].attrs.set('data-active', '');
 const rows = panels.map(panel => new Element({ dataset: { previewTarget: panel.dataset.preview } }));
 for (const node of [...panels, ...rows]) {
@@ -50,6 +50,7 @@ const document = new EventTarget(), window = new EventTarget();
 let printCalls = 0, copied = '', failCopy = false, frames = [];
 window.print = () => printCalls++;
 window.scrollY = 0; window.innerHeight = 800;
+window.matchMedia = () => ({ matches: false });
 window.setTimeout = cb => { window.pendingTimeout = cb; return 1; };
 document.fonts = { ready: Promise.resolve() };
 document.images = [{ decode: () => Promise.reject(new Error('Unavailable image')) }, { loading: 'lazy', complete: false, decode: () => new Promise(() => {}) }];
@@ -65,6 +66,7 @@ document.getElementById = () => null;
 const media = {}; const matchMedia = q => (media[q] ??= Object.assign(new EventTarget(), { matches: !q.includes('reduced') }));
 const sandbox = {
   document, window, matchMedia, AbortController, location: { hash: '' }, HTMLDetailsElement: Element, IntersectionObserver: undefined,
+  ResizeObserver: class { observe() {} disconnect() {} },
   navigator: { clipboard: { writeText: async value => { if (failCopy) throw new Error('denied'); copied = value; } } },
   requestAnimationFrame: cb => { frames.push(cb); return frames.length; }, cancelAnimationFrame: () => {}, clearTimeout: () => {},
   getComputedStyle: () => ({ top: '0px' }),
@@ -79,7 +81,7 @@ function load(file) {
   return module.exports;
 }
 load(resolve('src/scripts/story.ts'));
-emit(document, 'astro:page-load'); emit(document, 'astro:page-load');
+emit(window, 'pageshow', { persisted: true }); emit(window, 'pageshow', { persisted: true });
 
 // Split demo starts from the doubtful split, and the static fallback is the final one.
 assert.equal(splitControls.hidden, false);
@@ -126,7 +128,7 @@ assert.equal(copyLabel.textContent, '다시 복사'); assert(copyStatus.textCont
 
 // Disposal restores the static page and detaches handlers.
 emit(printButton, 'click');
-emit(document, 'astro:before-swap');
+emit(window, 'pagehide');
 await flush();
 assert.equal(printCalls, 1, 'Disposed page must not open a pending print dialog.');
 assert.equal(splitControls.hidden, true);

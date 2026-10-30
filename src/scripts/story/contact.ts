@@ -5,6 +5,7 @@ export function initializeContact(signal: AbortSignal) {
   if (!button || !label || !status || !navigator.clipboard?.writeText) return;
   let timer = 0;
   button.hidden = false;
+  button.disabled = false;
   button.addEventListener('click', async () => {
     button.disabled = true;
     clearTimeout(timer);
@@ -20,7 +21,7 @@ export function initializeContact(signal: AbortSignal) {
       label.textContent = '다시 복사';
       status.textContent = '복사하지 못했습니다. 이메일 주소를 직접 선택해 복사할 수 있습니다.';
     } finally {
-      button.disabled = false;
+      if (!signal.aborted) button.disabled = false;
     }
     if (signal.aborted) return;
     timer = window.setTimeout(() => {

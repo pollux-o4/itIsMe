@@ -1,4 +1,4 @@
-import { initializeNavigation } from './story/navigation';
+import { initializeAnchors, initializeNavigation } from './story/navigation';
 import { initializePrinting } from './story/printing';
 import { initializeReveal } from './story/reveal';
 import { initializeSplitDemo } from './story/split-demo';
@@ -11,6 +11,7 @@ function initializeStory() {
   if (!document.querySelector('.story-body')) return;
   const controller = new AbortController();
   dispose = () => controller.abort();
+  initializeAnchors(controller.signal);
   initializeNavigation(controller.signal);
   initializeReveal(controller.signal);
   initializeSplitDemo(controller.signal);
@@ -19,5 +20,6 @@ function initializeStory() {
   initializePrinting(controller.signal);
 }
 
-document.addEventListener('astro:page-load', initializeStory);
-document.addEventListener('astro:before-swap', () => dispose());
+initializeStory();
+window.addEventListener('pageshow', event => { if (event.persisted) initializeStory(); });
+window.addEventListener('pagehide', () => dispose());
