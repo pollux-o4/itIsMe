@@ -12,7 +12,9 @@ interface Props {
 }
 const { name, alt, class: className, width, sizes, priority = false } = Astro.props;
 const sources = import.meta.glob<{ default: ImageMetadata }>('../../public/images/portfolio/*.webp', { eager: true });
-const source = sources[`../../public/images/portfolio/${name}.webp`]?.default;
+const original = sources[`../../public/images/portfolio/${name}.webp`]?.default;
+// Preserve the intentional waist crop without enlarging the old thumbnail.
+const source = name === 'portrait' ? sources['../../public/images/portfolio/portrait-framed.webp']?.default : original;
 if (!source) throw new Error(`Missing portfolio image: ${name}`);
 const widths = [...new Set([160, 320, 640, 960, 1280, source.width].filter(value => value <= source.width))];
 ---

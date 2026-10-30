@@ -18,7 +18,7 @@ test('portrait uses the embedded original and enough pixels for a high-density d
       required: Math.ceil(displayed.getBoundingClientRect().width * devicePixelRatio),
     };
   });
-  expect(result.original).toEqual([922, 1383]);
-  expect(result.selected).toBeGreaterThanOrEqual(Math.min(result.required, 922));
+  expect(result.original).toEqual([724, 1018]);
+  expect(result.selected).toBeGreaterThanOrEqual(Math.min(result.required, 724));
   await context.close();
 });
