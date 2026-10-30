@@ -24,7 +24,6 @@ body { margin: 0; }
 .story-body :where(a) { color: inherit; text-decoration: none; }
 .story-body :where(button) { font: inherit; color: inherit; background: none; border: 0; padding: 0; cursor: pointer; }
 .story-body h1, .story-body h2, .story-body h3, .story-body h4 { text-wrap: balance; }
-.story-body p { text-wrap: pretty; }
 .story-body ::selection { background: var(--signal); color: #141311; }
 .story-body :focus-visible {
   outline: 2px solid var(--signal-ink);
