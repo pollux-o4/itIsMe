@@ -14,7 +14,9 @@
     "verify": "pnpm check:text-size && node scripts/check-portfolio.mjs && node scripts/check-architecture.mjs && node scripts/check-emphasis.mjs && node scripts/check-interactions.mjs && pnpm check && pnpm build && node scripts/verify-build.mjs && node scripts/check-story.mjs && node scripts/check-public-privacy.mjs",
     "artwork": "node scripts/render-artwork.mjs",
     "check:text-size": "node scripts/check-text-size.mjs",
-    "hooks:install": "git config --local core.hooksPath .githooks"
+    "hooks:install": "git config --local core.hooksPath .githooks",
+    "check:e2e": "pnpm build && playwright test",
+    "check:lighthouse": "node scripts/check-lighthouse.mjs"
   },
   "dependencies": {
     "@astrojs/react": "7.1.1",

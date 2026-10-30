@@ -23,7 +23,7 @@ flowchart TB
 
 ```mermaid
 flowchart TB
-  lifecycle["story.ts<br/>Astro 페이지 수명·AbortController"] --> nav["navigation<br/>현재 장·앵커 포커스·해시 펼침"]
+  lifecycle["story.ts<br/>네이티브 페이지 수명·AbortController"] --> nav["navigation<br/>현재 장·앵커 포커스·해시 펼침"]
   lifecycle --> reveal["reveal<br/>사례 제목 등장"]
   lifecycle --> split["split-demo<br/>무작위/시간순 분할 전환"]
   lifecycle --> slot["preview-slot<br/>질문 목록 고정 미리보기"]
@@ -35,7 +35,7 @@ flowchart TB
   print --> dom
 ```
 
-각 초기화는 동일한 `AbortSignal`을 받아 페이지 교체 시 이벤트·예약 프레임을 정리하고 정적 HTML 상태로 되돌린다. 분할 데모는 스크립트가 없으면 최종 상태(시간순 분할)를 보여 준다. 인쇄는 펼침 상태를 저장했다가 복원한다. 질문 목록의 미리보기는 고정된 칸 안에서만 바뀌고 글 위에 뜨지 않는다. 각 요소의 위치와 이유는 [화면 명세](../design/SPEC.md)에 있다.
+각 초기화는 동일한 `AbortSignal`을 받아 `pagehide`에서 이벤트·관찰자·예약 프레임을 정리하고 정적 HTML 상태로 되돌린다. 뒤로 가기의 bfcache 복원은 `pageshow.persisted`에서 재초기화한다. 분할 데모는 스크립트가 없으면 최종 상태(시간순 분할)를 보여 준다. 인쇄는 펼침 상태를 저장했다가 복원한다. 질문 목록의 미리보기는 고정된 칸 안에서만 바뀌고 글 위에 뜨지 않는다. 각 요소의 위치와 이유는 [화면 명세](../design/SPEC.md)에 있다.
 
 스타일은 `tokens → base → masthead → hero → case → visuals → sections → contact → print` 순서로 가져온다. 색은 토큰으로만 쓰며, `.is-night` 장은 같은 토큰을 다시 정의해 컴포넌트 수정 없이 어두운 면이 된다. 인쇄 규칙이 마지막에 앞선 규칙을 덮는 순서도 공개 인터페이스의 일부다.
 

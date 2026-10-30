@@ -12,6 +12,7 @@
 | 화면 명세(위치와 이유) | [SPEC](../design/SPEC.md) |
 | 사례·추가 작업·연표·이력 | [ProjectCase](../../src/components/story/ProjectCase.astro), [Archive](../../src/components/story/Archive.astro), [Timeline](../../src/components/story/Timeline.astro), [Background](../../src/components/story/Background.astro) |
 | 사례 증거 | [Exhibit](../../src/components/Exhibit.astro) (표시가 있는 그림), [ValidationFlow](../../src/components/ValidationFlow.astro) (분할 방식 데모) |
+| 이미지·글꼴 전달 | `PortfolioImage.astro`(반응형 크기·지연 로딩·인쇄 원본), `fonts.ts`(첫 화면 글자 범위의 빌드 시 우선 로딩) |
 | 강조 표식 | [Emphasis](../../src/components/Emphasis.astro), [emphasis.ts](../../src/lib/emphasis.ts) |
 | 브라우저 수명 | [story.ts](../../src/scripts/story.ts) |
 | 기능별 동작 | [navigation](../../src/scripts/story/navigation.ts), [reveal](../../src/scripts/story/reveal.ts), [split-demo](../../src/scripts/story/split-demo.ts), [preview-slot](../../src/scripts/story/preview-slot.ts), [contact](../../src/scripts/story/contact.ts), [printing](../../src/scripts/story/printing.ts) |

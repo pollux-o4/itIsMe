@@ -46,7 +46,7 @@ A의 연속형 본문에 넓은 화면의 고정 목차와 큰 제품 화면을 
 
 ## 검증과 배포
 
-`pnpm verify`는 화면 글씨의 최소 12px 검사와 강조 표식·텍스트 보존 검사, 타입 검사·빌드·내부 참조·이야기 콘텐츠 포함 검사를 실행합니다. 최초 설정 시 `pnpm hooks:install`을 실행하면 커밋할 때 스테이징된 CSS와 Astro 스타일의 글씨 크기도 검사합니다. 인쇄 전용 스타일과 이미지 속 글씨는 이 검사 범위에서 제외합니다. `pnpm build && pnpm preview`로 프로덕션을 확인합니다. 현재 검증 결과와 선택의 이유는 `QUALITY.md`에 있습니다. 디자인 수집 레퍼런스는 문서로 저장하지 않습니다.
+`pnpm verify`는 화면 글씨의 최소 12px 검사와 강조 표식·텍스트 보존 검사, 타입 검사·빌드·내부 참조·이야기 콘텐츠 포함 검사를 실행합니다. 최초 설정 시 `pnpm hooks:install`을 실행하면 커밋할 때 스테이징된 CSS와 Astro 스타일의 글씨 크기도 검사합니다. 인쇄 전용 스타일과 이미지 속 글씨는 이 검사 범위에서 제외합니다. `pnpm build && pnpm preview`로 프로덕션을 확인합니다. 브라우저 설치는 `pnpm exec playwright install --with-deps chromium firefox webkit`, E2E는 `pnpm check:e2e`입니다. 프로덕션 미리보기를 `pnpm preview --port 4322`로 실행한 뒤 `pnpm check:lighthouse`로 모바일·데스크톱 각 3회의 중앙값을 확인합니다. 측정 중에는 빌드·E2E를 함께 실행하지 않습니다. 결과·실패 스크린샷·추적은 Git에서 제외된 `output/`에 저장합니다. 현재 검증 결과와 선택의 이유는 `QUALITY.md`에 있습니다. 디자인 수집 레퍼런스는 문서로 저장하지 않습니다.
 
 현재 브랜치는 `codex/portfolio-private-safe`입니다. main 반영·원격 push·배포는 이번 작업에 포함하지 않았습니다. 기존 GitHub Actions 배포 대상은 `https://pollux-o4.github.io/itIsMe/`이며 이번 변경의 배포 성공을 확인한 주소는 아닙니다.
 
