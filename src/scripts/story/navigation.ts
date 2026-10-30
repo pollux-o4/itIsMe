@@ -4,7 +4,7 @@ export function initializeNavigation(signal: AbortSignal) {
   const nav = document.querySelector<HTMLElement>('.story-nav');
   const masthead = document.querySelector<HTMLElement>('.masthead');
   const progress = document.querySelector<HTMLElement>('.reading-progress span');
-  const narrow = window.matchMedia('(max-width: 1099px)');
+  const motion = window.matchMedia('(prefers-reduced-motion: reduce)');
   let lastY: number | undefined;
   let directionStartY = 0;
   let direction = 0;
@@ -28,6 +28,7 @@ export function initializeNavigation(signal: AbortSignal) {
   function updateLocation() {
     frame = 0;
     const state = readLocation();
+    lastY ??= window.scrollY;
     if (progress) progress.style.transform = `scaleX(${state.progress})`;
     masthead?.classList.toggle('on-night', state.night);
     masthead?.classList.toggle('is-scrolled', window.scrollY > 24);
@@ -39,7 +40,7 @@ export function initializeNavigation(signal: AbortSignal) {
     });
     const current = navLinks.find(link => link.hash === `#${activeId}`);
     if (nav && current && nav.scrollWidth > nav.clientWidth) {
-      nav.scrollTo({ left: current.offsetLeft - nav.clientWidth / 2 + current.offsetWidth / 2, behavior: 'instant' });
+      nav.scrollTo({ left: current.offsetLeft - nav.clientWidth / 2 + current.offsetWidth / 2, behavior: motion.matches ? 'instant' : 'smooth' });
     }
   }
 
@@ -54,7 +55,7 @@ export function initializeNavigation(signal: AbortSignal) {
       direction = nextDirection;
       directionStartY = lastY ?? y;
     }
-    if (masthead && narrow.matches) {
+    if (masthead) {
       if (y < 120 || (direction < 0 && directionStartY - y >= 12)) masthead.classList.remove('is-scroll-hidden');
       else if (direction > 0 && y - directionStartY >= 24 && !masthead.contains(document.activeElement)) masthead.classList.add('is-scroll-hidden');
     }
@@ -83,6 +84,7 @@ export function initializeNavigation(signal: AbortSignal) {
 }
 
 export function initializeAnchors(signal: AbortSignal) {
+  let destination: HTMLElement | null = null;
   function openHash() {
     const target = document.getElementById(location.hash.slice(1));
     if (target instanceof HTMLDetailsElement) target.open = true;
@@ -93,10 +95,20 @@ export function initializeAnchors(signal: AbortSignal) {
       const target = document.getElementById(link.hash.slice(1));
       if (!target) return;
       if (target instanceof HTMLDetailsElement) target.open = true;
+      destination = target;
       target.tabIndex = -1;
       target.focus({ preventScroll: true });
     }, { signal });
   });
   window.addEventListener('hashchange', openHash, { signal });
+  // Keep native history and animation; resizing must cancel a destination computed for the old layout.
+  window.addEventListener('resize', () => destination?.scrollIntoView({ behavior: 'instant', block: 'start' }), { signal });
+  document.addEventListener('scrollend', () => { destination = null; }, { signal });
+  const cancel = () => { destination = null; };
+  window.addEventListener('wheel', cancel, { passive: true, signal });
+  window.addEventListener('touchstart', cancel, { passive: true, signal });
+  window.addEventListener('keydown', event => {
+    if (['ArrowUp', 'ArrowDown', 'PageUp', 'PageDown', 'Home', 'End', 'Escape', ' '].includes(event.key)) cancel();
+  }, { signal });
   openHash();
 }
