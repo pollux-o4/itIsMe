@@ -1,4 +1,3 @@
-# shortcut: 원격 Pages 실행은 로컬 검증 범위 밖, 원격 push 후 워크플로 결과와 공개 주소 검증.
 name: Deploy portfolio to GitHub Pages
 
 on:
@@ -35,6 +34,7 @@ jobs:
           path: |
             output/playwright
             output/test-results
+      # shortcut: Pages 액션의 Node 20 폐기 경고는 Node 24 강제 실행으로 통과, Node 24 지원 버전 갱신 시 재검증.
       - uses: actions/upload-pages-artifact@v4
         with:
           path: dist
