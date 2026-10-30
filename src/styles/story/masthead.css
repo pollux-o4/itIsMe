@@ -73,7 +73,7 @@
   white-space: nowrap;
   transition: color 200ms ease, background-color 200ms ease;
 }
-.story-nav a span { font-family: var(--mono); font-size: 12px; opacity: 0.7; }
+.story-nav a span { font-family: var(--mono); font-size: 12px; }
 .story-nav a:hover { color: var(--ink); }
 .story-nav a[aria-current] { background: var(--ink); color: var(--paper); }
 

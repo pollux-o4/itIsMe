@@ -160,9 +160,7 @@ details[open] > .disclosure-content { animation: unfold 380ms var(--ease-out); }
 @media (prefers-reduced-motion: reduce) {
   html { scroll-behavior: auto; }
   .story-body *, .story-body *::before, .story-body *::after {
-    animation-duration: 1ms !important;
-    animation-delay: 0ms !important;
-    transition-duration: 1ms !important;
-    transition-delay: 0ms !important;
+    animation: none !important;
+    transition: none !important;
   }
 }
