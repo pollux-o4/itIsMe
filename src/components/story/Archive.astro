@@ -15,7 +15,7 @@ import Emphasis from '../Emphasis.astro';
       {portfolio.otherProjects.map((project, i) => <details class="work-row" data-disclosure id={project.id}>
         <summary>
           <span class="work-no">{String(i + 1).padStart(2, '0')}</span>
-          <PortfolioImage class="work-thumb" name={project.image} width={600} height={360} alt="" sizes="80px"/>
+          <PortfolioImage class="work-thumb" name={project.image} width={600} alt="" sizes="80px"/>
           <strong class="work-title">{project.title}</strong>
           <span class="work-type">{project.type}</span>
           <span class="work-duration">{project.duration}</span>
@@ -23,7 +23,7 @@ import Emphasis from '../Emphasis.astro';
           <span class="disclosure-sign" aria-hidden="true"><Plus size={20}/></span>
         </summary>
         <div class="disclosure-content work-body">
-          <PortfolioImage name={project.image} width={600} height={360} alt={project.imageAlt} sizes="(max-width: 760px) 90vw, 400px"/>
+          <PortfolioImage name={project.image} width={600} alt={project.imageAlt} sizes="(max-width: 760px) 90vw, 400px"/>
           <div>
             <p><Emphasis text={project.description}/></p>
             <small class="source-label">{project.duration.includes('개인') ? '개인 프로젝트' : '팀 프로젝트'} · 원본 p.{project.source}</small>

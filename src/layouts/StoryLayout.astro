@@ -24,7 +24,7 @@ const fonts = criticalFonts([portfolio.name, portfolio.english, portfolio.role, 
   <a class="skip-link" href="#main">본문으로 건너뛰기</a>
   <header class="masthead">
     <a class="brand" href="#start" aria-label={`${portfolio.name} 포트폴리오 처음으로`}>
-      <PortfolioImage class="brand-face" name="portrait" width={32} height={32} alt="" sizes="32px" priority/><span class="brand-name">{portfolio.name}<small>{portfolio.english}</small></span>
+      <PortfolioImage class="brand-face" name="portrait" width={32} alt="" sizes="32px" priority/><span class="brand-name">{portfolio.name}<small>{portfolio.english}</small></span>
     </a>
     <nav class="story-nav" aria-label="포트폴리오 바로가기">
       {portfolio.projects.map(project => <a href={`#${project.id}`}><span>{project.number}</span>{project.navigationLabel}</a>)}

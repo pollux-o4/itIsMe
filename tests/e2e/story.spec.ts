@@ -103,21 +103,23 @@ test('printing prepares every original and restores disclosure and responsive im
 });
 
 test('failed print images report an actionable error and allow retry', async ({ page }) => {
-  await page.route('**/images/portfolio/nutrition-flow.webp', route => route.abort());
   await page.goto('./');
+  const originalURL = new URL((await page.locator('.evidence-picture img').first().getAttribute('data-print-src'))!, page.url()).href;
+  await page.route(originalURL, route => route.abort());
   await page.getByRole('button', { name: 'PDF로 저장' }).click();
   await expect(page.locator('[data-print-status]')).toContainText('다시 시도');
   await expect(page.getByRole('button', { name: 'PDF로 저장' })).toBeEnabled();
   expect(await page.evaluate(() => window.printSnapshots)).toEqual([]);
-  await page.unroute('**/images/portfolio/nutrition-flow.webp');
+  await page.unroute(originalURL);
   await page.getByRole('button', { name: 'PDF로 저장' }).click();
   await expect.poll(() => page.evaluate(() => window.printSnapshots)).toEqual([{ open: true, ready: true, originals: true }]);
 });
 
 test('print timeout and page departure cancel pending preparation', async ({ page }) => {
   await page.clock.install();
-  await page.route('**/images/portfolio/nutrition-flow.webp', () => {});
   await page.goto('./');
+  const originalURL = new URL((await page.locator('.evidence-picture img').first().getAttribute('data-print-src'))!, page.url()).href;
+  await page.route(originalURL, () => {});
   await page.getByRole('button', { name: 'PDF로 저장' }).click();
   await expect(page.getByRole('button', { name: '인쇄 준비 중' })).toBeDisabled();
   await page.clock.runFor(11000);

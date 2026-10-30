@@ -8,7 +8,7 @@ const pct = (value: number) => `${(value * 100).toFixed(2)}%`;
 ---
 <figure class="exhibit">
   <div class="exhibit-frame" style={`aspect-ratio:${f.width}/${f.height}`}>
-    <PortfolioImage name={f.image} width={f.width} height={f.height} alt={f.alt} sizes="(max-width: 760px) 92vw, (max-width: 1480px) 60vw, 870px"/>
+    <PortfolioImage name={f.image} width={f.width} alt={f.alt} sizes="(max-width: 760px) 92vw, (max-width: 1480px) 60vw, 870px"/>
     {f.marks.map((mark, i) => (
       <span class="exhibit-mark" style={`left:${pct(mark.x)};top:${pct(mark.y)};width:${pct(mark.w)};height:${pct(mark.h)}`} aria-hidden="true">
         <b>{i + 1}</b>

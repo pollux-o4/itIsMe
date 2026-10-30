@@ -23,5 +23,3 @@ export async function publicProjects() {
     throw new Error("Project slugs must be unique.");
   return entries;
 }
-
-export const portfolioImage = (name: string) => asset(`/images/portfolio/${name}.webp`);
