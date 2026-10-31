@@ -1,0 +1,33 @@
+---
+import PortfolioImage from './PortfolioImage.astro';
+import type { Project } from '../lib/portfolio-schema';
+
+interface Props { kind: Project['kind'] }
+const { kind } = Astro.props;
+const sizes = '(max-width: 1099px) 50vw, 24vw';
+// The picture from the source portfolio that names each project at a glance.
+const cards = {
+  service: {
+    back: { name: 'case-nutrition-kcal', alt: '쉬림프 피자 563kcal과 탄수화물·단백질·지방을 보여 주는 앱 화면' },
+    front: { name: 'case-nutrition-result', alt: '피자 사진을 올리면 씨푸드 피자 90% 후보를 제시하는 앱 화면' },
+    caption: '실제 서비스 화면',
+  },
+  validation: {
+    back: { name: 'case-agri-prices', alt: '배, 양배추, 방울토마토 등 주요 과일·채소의 소매가격 증가율 차트' },
+    front: { name: 'case-agri-onions', alt: '중장비 옆에 쌓인 양파와 잎채소 더미' },
+    caption: '농산물 가격 변동 — 자료: 연합뉴스·aT',
+  },
+  safety: {
+    back: { name: 'case-engine-t24', alt: '엔진 5대의 센서값이 작동 주기 끝에 오르는 그래프' },
+    front: { name: 'case-engine-a380', alt: '비행 중 날개의 엔진 덮개가 찢겨 나간 모습과 파손된 엔진 근접 사진' },
+    caption: '2017년 A380 엔진 파손 사고 — 프로젝트 배경 자료',
+  },
+}[kind];
+---
+<figure class={`case-visual case-visual-${kind}`} data-reveal>
+  <div class="visual-stage">
+    <PortfolioImage class="visual-card visual-back" name={cards.back.name} alt={cards.back.alt} {sizes}/>
+    <PortfolioImage class="visual-card visual-front" name={cards.front.name} alt={cards.front.alt} {sizes}/>
+  </div>
+  <figcaption>{cards.caption}</figcaption>
+</figure>

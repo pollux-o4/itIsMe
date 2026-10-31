@@ -4,6 +4,7 @@ import type { Project } from '../../lib/portfolio-schema';
 import { portfolio } from '../../lib/portfolio';
 import Emphasis from '../Emphasis.astro';
 import Exhibit from '../Exhibit.astro';
+import CaseVisual from '../CaseVisual.astro';
 import ValidationFlow from '../ValidationFlow.astro';
 
 interface Props { project: Project }
@@ -28,6 +29,7 @@ const story = [
         {p.headline.split('\n').map(line => <span class="line"><span>{line}</span></span>)}
       </h2>
       <p class="case-name">{p.title.replaceAll('\n', ' ')}<span>{p.period} · {p.team}</span></p>
+      <CaseVisual kind={p.kind}/>
     </header>
 
     {/* Thirty seconds: role, what was done, what came of it (SPEC 4.4). */}

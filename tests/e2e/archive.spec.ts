@@ -36,3 +36,27 @@ test('A4 print stays portrait within its page budget', async ({ page, browserNam
   expect(pages).toBeLessThanOrEqual(18);
   expect(pdf).toMatch(/\/MediaBox\s*\[\s*0 0 59[45](\.\d+)? 84[12]/);
 });
+
+test('each case shows what the project is beside its title', async ({ page }) => {
+  for (const id of ['nutrition', 'agriculture', 'engine']) {
+    const visual = page.locator(`#${id} .case-visual`);
+    await visual.scrollIntoViewIfNeeded();
+    await expect(visual.locator('.visual-front')).toBeVisible();
+    await expect(visual.locator('.visual-back')).toHaveCount(1);
+  }
+  const pictures = page.locator('.case-visual img');
+  for (let i = 0; i < await pictures.count(); i++) await expect(pictures.nth(i)).not.toHaveAttribute('alt', '');
+  expect(await page.evaluate(() => document.documentElement.scrollWidth - innerWidth)).toBeLessThanOrEqual(0);
+});
+
+test('the case picture leaves the brief on the first screen', async ({ page }) => {
+  await page.locator('#engine .case-head').evaluate(el => window.scrollTo({ top: el.getBoundingClientRect().top + scrollY - 20, behavior: 'instant' }));
+  const brief = await page.locator('#engine .case-brief').boundingBox();
+  const viewport = page.viewportSize()!;
+  expect(brief!.y).toBeLessThan(viewport.height * 0.75);
+  if (viewport.width > 760) {
+    const title = await page.locator('#engine .case-title').boundingBox();
+    const visual = await page.locator('#engine .case-visual').boundingBox();
+    expect(visual!.x).toBeGreaterThanOrEqual(title!.x + title!.width - 1);
+  }
+});

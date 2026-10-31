@@ -224,7 +224,8 @@
 - **실제 자료가 설명용 그림을 이긴다:** 직접 그린 설명 그림(세 화면 흐름, 예측값 슬라이더)은 발표자료의 실제 화면·그래프로 바꿨다. 지친 사람에게는 "이 사람이 실제로 만든 것"이 가장 빠른 증거다. 예외는 Case 02의 분할 데모 하나다. 무작위 분할이 왜 미래를 새게 하는지는 실제 출력만으로 보이지 않아, 눌러서 바꿔 보는 그림이 주장 옆에 있다.
 - **Case 01만 어두운 이유:** 3.3.
 - **데이터:** `projects[].evidence[]` (`claim`, `why`, `visual` 또는 `figure{image,width,height,alt,caption,page,marks[]}`). 표시 좌표는 그림 크기에 대한 0–1 비율.
-- **파일:** `story/ProjectCase.astro`, `Exhibit.astro`, `ValidationFlow.astro`, `case.css`, `visuals.css`
+- **머리 그림:** 제목 옆에 카드 두 장을 겹쳐 무슨 프로젝트인지 먼저 보여 준다. 원본 포트폴리오에서 프로젝트를 바로 알아볼 사진을 고른다: 음식 앱 화면, 농산물 더미와 가격 차트, 파손된 A380 엔진과 센서 그래프. 첫 화면에서 요약을 밀어내지 않도록 760px 이하에서만 제목 아래로 내려간다. 좁은 화면에서는 제목 아래로 내려간다.
+- **파일:** `CaseVisual.astro`, `story/ProjectCase.astro`, `Exhibit.astro`, `ValidationFlow.astro`, `case.css`, `visuals.css`
 
 ### 4.5 그 밖의 작업 (`#archive`)
 

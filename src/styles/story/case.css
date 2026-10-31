@@ -49,7 +49,8 @@
 }
 .case-source:hover { color: var(--signal-ink); }
 .case-title {
-  grid-column: 1 / -1;
+  grid-column: 1 / span 7;
+  grid-row: 2;
   margin-top: clamp(36px, 5vw, 88px);
   font-size: clamp(46px, 8vw, 136px);
   font-weight: 820;
@@ -61,7 +62,8 @@
 .case-title.is-arrived .line > span { transform: none; transition: transform 1100ms var(--ease-out); }
 .case-title.is-arrived .line:nth-child(2) > span { transition-delay: 110ms; }
 .case-name {
-  grid-column: 1 / -1;
+  grid-column: 1 / span 7;
+  grid-row: 3;
   display: flex;
   flex-wrap: wrap;
   align-items: baseline;
@@ -78,6 +80,46 @@
   letter-spacing: 0.06em;
   color: var(--muted);
 }
+
+/* What the project is, before a word of it is read: two stacked cards beside the title. */
+.case-visual {
+  grid-column: 8 / -1;
+  grid-row: 2 / span 2;
+  align-self: end;
+  margin-top: clamp(36px, 5vw, 88px);
+}
+.visual-stage { position: relative; aspect-ratio: 13 / 10; }
+.visual-card {
+  position: absolute;
+  border-radius: 14px;
+  background: #fff;
+  box-shadow: 0 2px 6px rgb(20 19 17 / 0.12), 0 24px 48px -20px rgb(20 19 17 / 0.42);
+  transition: transform 620ms var(--spring), opacity 500ms ease;
+}
+.is-night .visual-card { box-shadow: 0 2px 6px rgb(0 0 0 / 0.4), 0 24px 48px -16px rgb(0 0 0 / 0.8); }
+.visual-back { transform: rotate(-2.5deg); }
+.visual-front { transform: rotate(1.5deg); }
+@media (hover: hover) {
+  .case-visual:hover .visual-back { transform: translate(-10px, -4px) rotate(-3.5deg); }
+  .case-visual:hover .visual-front { transform: translate(8px, 4px) rotate(2deg); }
+}
+.case-visual.is-waiting:not(.is-arrived) .visual-card { opacity: 0; transform: translateY(28px) scale(0.97); }
+.case-visual.is-arrived .visual-front { transition-delay: 90ms; }
+.case-visual figcaption {
+  margin-top: 16px;
+  font-family: var(--mono);
+  font-size: 12px;
+  letter-spacing: 0.04em;
+  text-align: right;
+  color: var(--muted);
+}
+.case-visual-service .visual-stage { aspect-ratio: 1.42; }
+.case-visual-service .visual-back { left: 12%; top: 3%; width: 39%; height: auto; }
+.case-visual-service .visual-front { right: 10%; top: 0; width: 45%; height: auto; }
+.case-visual-validation .visual-back { right: 0; top: 0; width: 66%; height: auto; }
+.case-visual-validation .visual-front { left: 0; bottom: 0; width: 52%; height: auto; }
+.case-visual-safety .visual-back { right: 0; top: 0; width: 56%; height: auto; }
+.case-visual-safety .visual-front { left: 0; bottom: 6%; width: 62%; height: auto; }
 
 /* The thirty-second brief: three answers in one band. */
 .case-brief {
@@ -320,6 +362,19 @@ summary:hover strong { color: var(--signal-ink); }
   .evidence-claim, .evidence-picture { grid-column: 1 / -1; }
   .evidence-claim { max-width: 40em; }
   .share-mine, .share-team { grid-column: 1 / -1; }
+}
+/* Phones stack the picture under the title, short enough to leave the brief on the first screen. */
+@media screen and (max-width: 760px) {
+  .case-title, .case-name { grid-column: 1 / -1; }
+  .case-visual { grid-column: 1 / -1; grid-row: auto; margin-top: 24px; }
+  .case-visual figcaption { margin-top: 10px; text-align: left; }
+  .visual-stage, .case-visual-service .visual-stage { aspect-ratio: auto; height: 200px; }
+  .case-visual-service .visual-back { left: 14%; width: 33%; }
+  .case-visual-service .visual-front { right: 16%; width: 37%; }
+  .case-visual-validation .visual-back { width: 52%; }
+  .case-visual-validation .visual-front { width: 46%; }
+  .case-visual-safety .visual-back { width: 48%; }
+  .case-visual-safety .visual-front { width: 62%; bottom: 0; }
 }
 @media (max-width: 760px) {
   .case-index { grid-column: 1 / span 6; }

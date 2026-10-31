@@ -70,7 +70,7 @@ test('no JavaScript and reduced motion retain readable content', async ({ browse
 test('enabling reduced motion during reading immediately reveals waiting titles', async ({ page }) => {
   await page.emulateMedia({ reducedMotion: 'no-preference' });
   await page.goto('./');
-  await expect(page.locator('[data-reveal].is-waiting')).toHaveCount(3);
+  await expect(page.locator('.case-title[data-reveal].is-waiting')).toHaveCount(3);
   await page.emulateMedia({ reducedMotion: 'reduce' });
   await expect(page.locator('[data-reveal].is-waiting')).toHaveCount(0);
   expect(await page.locator('[data-reveal] .line > span').evaluateAll(elements => elements.every(el => getComputedStyle(el).transform === 'none'))).toBe(true);
