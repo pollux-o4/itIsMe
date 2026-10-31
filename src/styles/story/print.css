@@ -72,7 +72,18 @@
   .question-label { font-size: 12.5pt; }
   .question-evidence { font-size: 9pt; }
 
-  .case-title { font-size: 30pt; margin-top: 6mm; }
+  .case-title { grid-column: 1 / span 7; font-size: 30pt; margin-top: 6mm; }
+  .case-name { grid-column: 1 / span 7; }
+  .case-visual { grid-column: 8 / -1; grid-row: 2 / span 2; justify-self: stretch; align-self: start; width: auto; margin-top: 4mm; }
+  .case-visual .visual-stage { aspect-ratio: 1.9; }
+  .case-visual-service .visual-back { left: 16%; top: 0; width: 30%; }
+  .case-visual-service .visual-front { right: 16%; width: 33%; }
+  .case-visual-validation .visual-back { width: 52%; }
+  .case-visual-validation .visual-front { left: 0; bottom: auto; top: 0; width: 44%; }
+  .case-visual-safety .visual-back { width: 42%; }
+  .case-visual-safety .visual-front { left: 0; bottom: auto; top: 0; width: 54%; }
+  .case-visual figcaption { margin-top: 1mm; font-size: 7.5pt; }
+  .visual-card { box-shadow: 0 0 0 0.5pt #999; opacity: 1 !important; transform: none !important; }
   .case-name { font-size: 12pt; margin-top: 3mm; }
   .case-brief, .case-share, .evidence-list { margin-top: 5mm; }
   .case-story li { padding: 1.5mm 0; break-inside: avoid; }
