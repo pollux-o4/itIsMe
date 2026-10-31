@@ -43,7 +43,7 @@ import Emphasis from '../Emphasis.astro';
         <div class="experience-details">
           {portfolio.experience.map(experience => <div>
             <h3>{experience.organization} · {experience.role}</h3>
-            <p><Emphasis text={experience.details}/></p><small>{experience.source}</small>
+            <p><Emphasis text={experience.details}/></p>
           </div>)}
         </div>
         <ul class="additional-list" role="list">

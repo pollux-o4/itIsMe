@@ -26,7 +26,7 @@ import Emphasis from '../Emphasis.astro';
           <PortfolioImage name={project.image} width={600} alt={project.imageAlt} sizes="(max-width: 760px) 90vw, 400px"/>
           <div>
             <p><Emphasis text={project.description}/></p>
-            <small class="source-label">{project.duration.includes('개인') ? '개인 프로젝트' : '팀 프로젝트'} · 원본 p.{project.source}</small>
+            <small class="source-label">{project.duration.includes('개인') ? '개인 프로젝트' : '팀 프로젝트'}</small>
             {project.presentation && <a class="pill" href={`https://drive.google.com/file/d/${project.presentation}/view`} target="_blank" rel="noreferrer">
               발표자료 ↗<span class="sr-only"> 새 창</span>
             </a>}
