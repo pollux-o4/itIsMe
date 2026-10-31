@@ -34,6 +34,8 @@
   --gutter: clamp(16px, 4vw, 56px);
   --gap: clamp(12px, 1.8vw, 28px);
   --ease-out: cubic-bezier(0.2, 0.8, 0.2, 1);
+  /* A damped spring with about 3% overshoot: settles like a macOS control, never bounces. */
+  --spring: linear(0, 0.089, 0.278, 0.486, 0.671, 0.815, 0.916, 0.979, 1.014, 1.029, 1.031, 1.028, 1.022, 1.015, 1.01, 1.005, 1.002, 1, 0.999, 0.999, 1);
   --masthead: 72px;
   color-scheme: light;
 }

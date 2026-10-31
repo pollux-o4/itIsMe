@@ -653,11 +653,30 @@
       ]
     }
   ],
+  "otherProjectCategories": [
+    {
+      "id": "vision",
+      "label": "비전",
+      "summary": "이미지를 다루는 모델을 구현하고 비교한 작업"
+    },
+    {
+      "id": "analysis",
+      "label": "분석",
+      "summary": "가설 검정, 입지 도출, 중퇴 예측"
+    },
+    {
+      "id": "productivity",
+      "label": "생산성",
+      "summary": "당일 논문을 수집해 Excel에 쌓은 작업"
+    }
+  ],
   "otherProjects": [
     {
       "id": "arxiv",
       "title": "arXiv 논문 수집",
-      "type": "수집",
+      "category": "productivity",
+      "highlight": "제목·초록·링크를 Excel에 누적 저장",
+      "type": "웹 수집",
       "duration": "6일 · 개인",
       "stack": "Selenium · Openpyxl",
       "description": "동적 페이지에서 당일 AI 논문의 제목·초록·링크를 수집해 **Excel에 누적 저장**했습니다.",
@@ -669,7 +688,9 @@
     {
       "id": "student",
       "title": "학생 성적 분석",
-      "type": "분석",
+      "category": "analysis",
+      "highlight": "DDA·EDA·CDA 후 통계 검정으로 가설 확인",
+      "type": "통계 검정",
       "duration": "6일 · 개인",
       "stack": "NumPy · pandas · SciPy",
       "description": "DDA·EDA·CDA로 데이터를 살피고 가설을 세웠습니다. **카이제곱 독립 검정과 Kruskal–Wallis H 검정**으로 가설을 확인했습니다.",
@@ -681,7 +702,9 @@
     {
       "id": "thumbnail",
       "title": "썸네일 감정 분석",
-      "type": "비전",
+      "category": "vision",
+      "highlight": "YOLO 얼굴 탐지 라벨링 보조, ViT·FaceNet 전이학습 비교",
+      "type": "전이학습 비교",
       "duration": "20일 · 팀",
       "stack": "TensorFlow · YOLO · OpenCV",
       "description": "YT-dlp·Google APIs로 썸네일과 메타데이터를 수집했습니다. YOLO 얼굴 탐지로 라벨링을 돕고 ViT·FaceNet 전이학습을 비교했습니다. 팀 분석에서는 감정보다 **구독자·좋아요 수와의 관계**가 더 크게 나타났습니다.",
@@ -693,7 +716,9 @@
     {
       "id": "city",
       "title": "들락날락 입지 분석",
-      "type": "공간",
+      "category": "analysis",
+      "highlight": "도보 15분 이내로 접근 가능한 입지 도출",
+      "type": "공간 분석",
       "duration": "14일 · 팀",
       "stack": "QGIS · GeoPandas · DBSCAN",
       "description": "9종의 공공데이터로 부산 어린이복합문화공간 후보지를 분석했습니다. 지하철·버스와 경사를 종합적으로 고려해 어린이가 **도보 15분 이내로 접근 가능한 입지**를 도출했습니다.",
@@ -705,7 +730,9 @@
     {
       "id": "dropout",
       "title": "대학생 중퇴 예측",
-      "type": "분석",
+      "category": "analysis",
+      "highlight": "팀 모델 정확도 89%",
+      "type": "예측 모델",
       "duration": "5일 · 팀",
       "stack": "pandas · scikit-learn",
       "description": "포르투갈 대학생 데이터를 EDA·PDA로 분석하고 중퇴 예측 모델을 만들었습니다. 팀 모델의 정확도는 **89%**입니다.",
@@ -717,7 +744,9 @@
     {
       "id": "vit",
       "title": "Vision Transformer 구현",
-      "type": "비전",
+      "category": "vision",
+      "highlight": "차원 변환을 시각 자료로 설명하고 구현·학습",
+      "type": "모델 구현",
       "duration": "14일 · 팀",
       "stack": "PyTorch · Python",
       "description": "차원 변환과 연산 과정을 분석해 시각 자료로 설명하고, PyTorch로 Vision Transformer 모델을 **구현·학습**했습니다.",

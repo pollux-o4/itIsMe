@@ -68,10 +68,13 @@ export const portfolioSchema = z
         }),
       )
       .length(3),
+    otherProjectCategories: z.array(z.object({ id, label: text, summary: text })).min(1),
     otherProjects: z.array(
       z.object({
         id,
         title: text,
+        category: id,
+        highlight: text,
         type: text,
         duration: text,
         stack: text,
@@ -109,6 +112,11 @@ export const portfolioSchema = z
     const reserved = new Set(['start', 'work', 'archive', 'timeline', 'background', 'contact', 'main']);
     if (new Set(ids).size !== ids.length || ids.some(id => reserved.has(id))) {
       context.addIssue({ code: 'custom', message: 'Chapter IDs must be unique and not reserved.' });
+    }
+    const categories = new Set(value.otherProjectCategories.map(item => item.id));
+    const used = new Set(value.otherProjects.map(item => item.category));
+    if (categories.size !== value.otherProjectCategories.length || [...categories].some(id => !used.has(id)) || [...used].some(id => !categories.has(id))) {
+      context.addIssue({ code: 'custom', path: ['otherProjects'], message: 'Every project needs a known category, and every category at least one project.' });
     }
     const years = new Set(value.timelineYears.map(item => item.year));
     value.timeline.forEach((entry, index) => {

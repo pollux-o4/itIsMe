@@ -15,6 +15,9 @@ function rejects(change) {
 rejects(p => p.projects[0].id = p.otherProjects[0].id);
 rejects(p => p.projects[0].id = 'archive');
 rejects(p => p.projects[0].id = 'work');
+rejects(p => p.otherProjects[0].category = 'unknown');
+rejects(p => delete p.otherProjects[0].highlight);
+rejects(p => p.otherProjectCategories.push({ id: 'empty', label: '빈 분류', summary: '작업 없음' }));
 rejects(p => delete p.projects[0].narrative.limits);
 rejects(p => p.projects[0].contribution.mine = []);
 rejects(p => p.projects[0].cover = '../portrait');

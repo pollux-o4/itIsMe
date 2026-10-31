@@ -326,6 +326,25 @@ content:
       label: 발표자료 URL
       type: string
       required: true
+  - name: otherProjectCategories
+    label: 더 많은 작업 분류
+    type: object
+    required: true
+    list: true
+    fields:
+    - name: id
+      label: id
+      type: string
+      required: true
+      readonly: true
+    - name: label
+      label: 분류 이름
+      type: string
+      required: true
+    - name: summary
+      label: 분류 설명
+      type: string
+      required: true
   - name: otherProjects
     label: 더 많은 작업
     type: object
@@ -341,8 +360,16 @@ content:
       label: 제목
       type: text
       required: true
+    - name: category
+      label: 분류 id
+      type: string
+      required: true
+    - name: highlight
+      label: 제목 아래 한 줄
+      type: string
+      required: true
     - name: type
-      label: type
+      label: 유형
       type: string
       required: true
     - name: duration
