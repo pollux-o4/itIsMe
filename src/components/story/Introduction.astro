@@ -1,10 +1,15 @@
 ---
 import { ArrowDown, ArrowRight } from 'lucide-react';
 import { portfolio } from '../../lib/portfolio';
+import site from '../../data/site.json';
+import siteQr from '../../assets/site-qr.svg?raw';
 import PortfolioImage from '../PortfolioImage.astro';
 import Emphasis from '../Emphasis.astro';
 const lines = portfolio.headline.split('\n');
 const [first] = portfolio.projects;
+const [school] = portfolio.education;
+const [job] = portfolio.experience;
+const siteUrl = new URL(import.meta.env.BASE_URL, Astro.site).href.replace('https://', '').replace(/\/$/, '');
 ---
 <section id="start" class="hero" data-chapter aria-labelledby="intro-title">
   <div class="shell">
@@ -12,6 +17,22 @@ const [first] = portfolio.projects;
       <span>Portfolio <i>2025—26</i></span>
       <span>{portfolio.role}</span>
       <span>자료 기준 {portfolio.sourceDate}</span>
+    </div>
+    {/* Paper answers the screening questions on the first sheet; the record stays in its own chapter. */}
+    <div class="hero-print-card">
+      <div>
+        <p class="hero-print-name"><strong>{portfolio.name}</strong> {portfolio.english}</p>
+        <p>{portfolio.email} · {site.github.replace('https://', '')}</p>
+        <dl>
+          <div><dt>학력</dt><dd>{school.title} {school.description}</dd></div>
+          <div><dt>경력</dt><dd>{job.organization} · {job.role} ({job.period})</dd></div>
+          <div><dt>자격</dt><dd>{portfolio.certifications.map(item => item.name).join(' · ')}</dd></div>
+        </dl>
+      </div>
+      <div class="hero-print-qr">
+        <Fragment set:html={siteQr}/>
+        <p>{siteUrl}<br/>웹에서 전체 보기</p>
+      </div>
     </div>
     <div class="hero-grid">
       {/* Keep the full-resolution portrait in the original PDF's display orientation. */}
@@ -42,7 +63,7 @@ const [first] = portfolio.projects;
   <div class="shell">
     <div class="section-head">
       <p class="label">Index — 대표 사례 3</p>
-      <h2 id="work-title">궁금해하실<br/>세 가지 질문에 답합니다.</h2>
+      <h2 id="work-title">궁금해하실 <br/>세 가지 질문에 답합니다.</h2>
     </div>
     <div class="index-body">
       <ol class="question-list" role="list">

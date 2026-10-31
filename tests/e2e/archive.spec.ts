@@ -19,3 +19,20 @@ test('hovering a row keeps its columns aligned', async ({ page, isMobile }) => {
   const after = await page.locator('#arxiv .work-title').boundingBox();
   expect(after!.x).toBeCloseTo(before!.x, 0);
 });
+
+test('paper wording replaces screen wording', async ({ page }) => {
+  await expect(page.locator('.print-text').first()).toBeHidden();
+  await page.emulateMedia({ media: 'print' });
+  await expect(page.locator('.print-text').first()).toBeVisible();
+  await expect(page.locator('.screen-text').first()).toBeHidden();
+  await expect(page.locator('.hero-print-card')).toBeVisible();
+});
+
+test('A4 print stays portrait within its page budget', async ({ page, browserName }, testInfo) => {
+  test.skip(browserName !== 'chromium' || testInfo.project.name !== 'chromium-1440', 'One PDF render is enough.');
+  await page.locator('#archive').evaluate(el => el.scrollIntoView());
+  const pdf = (await page.pdf({ preferCSSPageSize: true, printBackground: true })).toString('latin1');
+  const pages = pdf.match(/\/Type\s*\/Page\b/g)!.length;
+  expect(pages).toBeLessThanOrEqual(18);
+  expect(pdf).toMatch(/\/MediaBox\s*\[\s*0 0 59[45](\.\d+)? 84[12]/);
+});

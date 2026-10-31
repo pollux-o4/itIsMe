@@ -1,3 +1,4 @@
+.hero-print-card { display: none; }
 .hero {
   padding-top: calc(var(--masthead) + clamp(24px, 4vw, 56px));
   padding-bottom: clamp(64px, 9vw, 140px);
