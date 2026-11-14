@@ -85,7 +85,7 @@ test('same-hash chapter links reopen collapsed destinations', async ({ page }) =
     const link = document.querySelector<HTMLAnchorElement>('.brand')!;
     link.href = '#arxiv';
   });
-  await page.getByRole('link', { name: '주연석 포트폴리오 처음으로' }).press('Enter');
+  await page.getByRole('link', { name: '주연석 YEONSEOK JU 포트폴리오 처음으로' }).press('Enter');
   await expect(page.locator('#arxiv')).toHaveAttribute('open', '');
 });
 

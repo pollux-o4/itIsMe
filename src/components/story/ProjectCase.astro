@@ -38,7 +38,7 @@ const story = [
       <div><dt>한 일</dt><dd><Emphasis text={p.summary}/></dd></div>
       <div class="brief-result"><dt>{p.outcomeLabel}</dt><dd><Emphasis text={p.outcome}/><small>{p.outcomeNote}</small></dd></div>
     </dl>
-    <div class="case-tags" aria-label="주요 기술">{p.tags.map(tag => <span>{tag}</span>)}</div>
+    <div class="case-tags" role="group" aria-label="주요 기술">{p.tags.map(tag => <span>{tag}</span>)}</div>
 
     {/* Each picture sits beside the sentence it proves, with numbered marks (SPEC 2.11). */}
     <ol class="evidence-list" role="list">

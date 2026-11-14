@@ -13,7 +13,7 @@
   transition: transform 380ms var(--ease-out), background-color 240ms ease, color 240ms ease, border-color 240ms ease;
 }
 .masthead.is-scrolled {
-  background: color-mix(in srgb, var(--paper) 84%, transparent);
+  background: color-mix(in srgb, var(--paper) 92%, transparent);
   -webkit-backdrop-filter: blur(14px) saturate(1.2);
   backdrop-filter: blur(14px) saturate(1.2);
   border-bottom-color: var(--line);
