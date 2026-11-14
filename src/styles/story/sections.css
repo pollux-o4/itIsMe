@@ -199,7 +199,6 @@
 .timeline-list ul li { font-size: 15px; line-height: 1.55; color: var(--ink-soft); }
 .timeline-list ul li.kind-course { font-weight: 700; color: var(--ink); }
 .timeline-list ul li.kind-cert { font-weight: 650; color: var(--signal-ink); }
-.timeline-year.is-current .timeline-list > li:last-child ul li::before { box-shadow: 0 0 0 4px rgb(255 77 26 / 0.22); border-color: var(--signal); }
 
 /* Profile */
 .profile-grid {

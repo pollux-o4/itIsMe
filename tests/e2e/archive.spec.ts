@@ -5,8 +5,8 @@ test.beforeEach(async ({ page }) => {
 });
 
 test('classification and highlights read without a click', async ({ page }) => {
-  for (const name of [/비전/, /분석/, /생산성/]) await expect(page.locator('#archive').getByRole('heading', { level: 3, name })).toBeVisible();
-  await expect(page.locator('#archive .work-row')).toHaveCount(6);
+  for (const name of [/서비스/, /비전/, /분석/, /생산성/]) await expect(page.locator('#archive').getByRole('heading', { level: 3, name })).toBeVisible();
+  await expect(page.locator('#archive .work-row')).toHaveCount(7);
   await expect(page.locator('#dropout .work-highlight')).toContainText('89%');
   await expect(page.locator('#dropout .work-type')).toBeVisible();
 });

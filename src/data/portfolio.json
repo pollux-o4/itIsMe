@@ -10,7 +10,7 @@
     "motivation": "복잡하게 얽힌 세상의 데이터를 학습하고 예측하며, 사용자에게 개인화된 기능과 서비스를 제공하는 AI의 실용적 가치에 매료되었습니다. 그 가능성을 직접 구현하고자 AI 개발을 시작했습니다."
   },
   "email": "yeonseok.ju@gmail.com",
-  "sourceDate": "2026.02",
+  "sourceDate": "2026.03",
   "highlights": [
     {
       "value": "11",
@@ -655,6 +655,11 @@
   ],
   "otherProjectCategories": [
     {
+      "id": "service",
+      "label": "서비스",
+      "summary": "AI 모델을 배포까지 이어 간 2026년 작업"
+    },
+    {
       "id": "vision",
       "label": "비전",
       "summary": "이미지를 다루는 모델을 구현하고 비교한 작업"
@@ -671,6 +676,20 @@
     }
   ],
   "otherProjects": [
+    {
+      "id": "dabangrok",
+      "title": "다방록 입주 전후 분석",
+      "category": "service",
+      "highlight": "달라진 곳을 표시하는 리포트 · CI/CD 구축",
+      "type": "풀스택 서비스",
+      "duration": "2개월 · 팀",
+      "stack": "FastAPI · SAM · CLIP · GitHub Actions · AWS EC2",
+      "description": "입주·퇴거 사진을 정렬해 **달라진 곳을 표시하는 리포트** 서비스입니다. 5명 팀에서 백엔드·AI를 맡아 **전체 코드를 통합**하고, GitHub Actions부터 EC2까지 **CI/CD를 구축**했습니다.",
+      "source": "06–12",
+      "presentation": "12d3g9rmu5CqG9ILev27feQTJ3XJiHuiU",
+      "image": "dabang-detect",
+      "imageAlt": "퇴거 전 방 사진에서 새로 생긴 사람과 가방을 빨간 상자로 표시한 AI 변화 탐지 결과"
+    },
     {
       "id": "arxiv",
       "title": "arXiv 논문 수집",
@@ -885,10 +904,10 @@
       ]
     },
     {
-      "date": "2026.02",
+      "date": "2026.01–03",
       "items": [
         {
-          "text": "입주 전후 차이 분석 · 진행 중",
+          "text": "다방록 입주 전후 분석 · 팀",
           "kind": "project"
         }
       ]
@@ -963,9 +982,9 @@
       "note": "AI 프론티어 챌린지 해커톤 · 팀 프로젝트"
     },
     {
-      "date": "2026.02",
-      "title": "입주 전후 차이 분석 서비스",
-      "note": "팀 프로젝트 · 2026년 2월 진행 중"
+      "date": "2026.01–03",
+      "title": "다방록 입주 전후 분석 서비스",
+      "note": "팀 프로젝트 · 5명"
     }
   ],
   "recordNote": "정보처리기사는 필기 합격 단계입니다."
