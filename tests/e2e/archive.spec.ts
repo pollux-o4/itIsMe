@@ -20,6 +20,25 @@ test('hovering a row keeps its columns aligned', async ({ page, isMobile }) => {
   expect(after!.x).toBeCloseTo(before!.x, 0);
 });
 
+test('hovering a row shows what it holds, and opening it hands over', async ({ page, isMobile }) => {
+  test.skip(isMobile, 'Touch has no hover.');
+  const card = page.locator('.work-preview');
+  await page.emulateMedia({ reducedMotion: 'reduce' });
+  await page.locator('#vit > summary').scrollIntoViewIfNeeded();
+  await page.locator('#vit > summary').hover();
+  await expect(card).toHaveClass(/is-visible/);
+  await expect(card.locator('p')).toHaveText((await page.locator('#vit .work-body p').textContent())!);
+  await expect(card.locator('img')).toHaveJSProperty('complete', true);
+  const box = await card.boundingBox();
+  const viewport = page.viewportSize()!;
+  expect(box!.x + box!.width).toBeLessThanOrEqual(viewport.width);
+  expect(box!.y + box!.height).toBeLessThanOrEqual(viewport.height);
+  await page.locator('#vit > summary').click();
+  await expect(card).not.toHaveClass(/is-visible/);
+  await page.mouse.move(0, 0);
+  await expect(page.locator('#arxiv > summary')).toHaveCSS('opacity', '1');
+});
+
 test('paper wording replaces screen wording', async ({ page }) => {
   await expect(page.locator('.print-text').first()).toBeHidden();
   await page.emulateMedia({ media: 'print' });

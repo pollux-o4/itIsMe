@@ -54,6 +54,32 @@
 @media (hover: hover) {
   .work-row > summary:hover::before { opacity: 1; }
 }
+.work-preview {
+  position: fixed;
+  top: 0;
+  left: 0;
+  z-index: 40;
+  width: min(320px, calc(100vw - 32px));
+  pointer-events: none;
+  will-change: transform;
+}
+.work-preview > div {
+  overflow: hidden;
+  border-radius: 14px;
+  background: var(--ink);
+  color: var(--paper);
+  box-shadow: 0 2px 6px rgb(20 19 17 / 0.16), 0 28px 56px -18px rgb(20 19 17 / 0.5);
+  opacity: 0;
+  scale: 0.94;
+  transition: opacity 160ms ease, scale 160ms ease;
+}
+.work-preview.is-visible > div { opacity: 1; scale: 1; transition: opacity 200ms ease, scale 520ms var(--spring); }
+.work-preview img { display: block; width: 100%; aspect-ratio: 5 / 3; object-fit: contain; background: #fff; }
+.work-preview p { padding: 14px 16px 16px; font-size: 14px; line-height: 1.6; letter-spacing: -0.01em; }
+.work-preview .key-phrase { color: inherit; }
+@media (prefers-reduced-motion: reduce) {
+  .work-preview > div, .work-preview.is-visible > div { scale: 1; transition: opacity 120ms linear; }
+}
 .work-row > summary .disclosure-sign { width: 44px; height: 44px; justify-self: end; }
 .work-thumb {
   width: 88px;

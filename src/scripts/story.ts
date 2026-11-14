@@ -3,6 +3,7 @@ import { initializePrinting } from './story/printing';
 import { initializeReveal } from './story/reveal';
 import { initializeSplitDemo } from './story/split-demo';
 import { initializePreviewSlot } from './story/preview-slot';
+import { initializeWorkPreview } from './story/work-preview';
 import { initializeContact } from './story/contact';
 
 let dispose = () => {};
@@ -16,6 +17,7 @@ function initializeStory() {
   initializeReveal(controller.signal);
   initializeSplitDemo(controller.signal);
   initializePreviewSlot(controller.signal);
+  initializeWorkPreview(controller.signal);
   initializeContact(controller.signal);
   initializePrinting(controller.signal);
 }
