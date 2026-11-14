@@ -113,13 +113,45 @@
   text-align: right;
   color: var(--muted);
 }
-.case-visual-service .visual-stage { aspect-ratio: 1.42; }
+.case-visual-service .visual-stage { aspect-ratio: 1.46; }
+.case-visual-safety .visual-stage { aspect-ratio: 1.5; }
 .case-visual-service .visual-back { left: 12%; top: 3%; width: 39%; height: auto; }
 .case-visual-service .visual-front { right: 10%; top: 0; width: 45%; height: auto; }
-.case-visual-validation .visual-back { right: 0; top: 0; width: 66%; height: auto; }
-.case-visual-validation .visual-front { left: 0; bottom: 0; width: 52%; height: auto; }
+/* The produce names the project, the score window names the story. Height follows the content, so it never spills. */
+.case-visual-validation .visual-stage { display: grid; aspect-ratio: auto; }
+.case-visual-validation .visual-card { position: relative; }
+.case-visual-validation .visual-back { justify-self: end; width: 60%; height: auto; }
+.visual-window {
+  justify-self: start;
+  width: 86%;
+  margin-top: -28px;
+  overflow: hidden;
+  background: #111;
+  color: #eeebe4;
+}
+.visual-window.visual-front { transform: rotate(0.7deg); }
+.visual-window img { display: block; width: 100%; height: auto; padding: 8px 6px; }
+.visual-score {
+  display: flex;
+  align-items: flex-end;
+  justify-content: space-between;
+  gap: 10px;
+  padding: 12px 16px 12px;
+  border-bottom: 1px solid rgb(238 235 228 / 0.16);
+  font-size: 13px;
+  font-weight: 620;
+  letter-spacing: -0.01em;
+}
+.visual-score span { display: grid; gap: 6px; }
+.visual-score i { font-size: clamp(18px, 1.7vw, 24px); font-style: normal; line-height: 1; color: #a39e93; }
+.visual-score b, .visual-score s { font-size: clamp(20px, 2vw, 28px); font-weight: 760; letter-spacing: -0.03em; line-height: 1; white-space: nowrap; }
+.visual-score s { color: #a39e93; text-decoration-color: var(--signal); text-decoration-thickness: 2px; }
+.visual-score b { color: #ff7a52; }
+@media (hover: hover) {
+  .case-visual-validation:hover .visual-front { transform: translate(-6px, 3px) rotate(1deg); }
+}
 .case-visual-safety .visual-back { right: 0; top: 0; width: 56%; height: auto; }
-.case-visual-safety .visual-front { left: 0; bottom: 6%; width: 62%; height: auto; }
+.case-visual-safety .visual-front { left: 0; bottom: 0; width: 62%; height: auto; }
 
 /* The thirty-second brief: three answers in one band. */
 .case-brief {
@@ -363,16 +395,15 @@ summary:hover strong { color: var(--signal-ink); }
   .evidence-claim { max-width: 40em; }
   .share-mine, .share-team { grid-column: 1 / -1; }
 }
-/* Phones stack the picture under the title, short enough to leave the brief on the first screen. */
-@media screen and (max-width: 760px) {
+/* Phones stack the picture under the title. The stage scales with its width, so cards always fit it. */
+@media screen and (max-width: 599px) {
   .case-title, .case-name { grid-column: 1 / -1; }
-  .case-visual { grid-column: 1 / -1; grid-row: auto; margin-top: 24px; }
-  .case-visual figcaption { margin-top: 10px; text-align: left; }
-  .visual-stage, .case-visual-service .visual-stage { aspect-ratio: auto; height: 200px; }
+  .case-visual { grid-column: 1 / -1; grid-row: auto; width: min(100%, 440px); margin-top: 28px; }
+  .case-visual figcaption { margin-top: 14px; text-align: left; }
+  .visual-stage, .case-visual-service .visual-stage, .case-visual-safety .visual-stage { aspect-ratio: 1.79; }
   .case-visual-service .visual-back { left: 14%; width: 33%; }
   .case-visual-service .visual-front { right: 16%; width: 37%; }
-  .case-visual-validation .visual-back { width: 52%; }
-  .case-visual-validation .visual-front { width: 46%; }
+  .visual-window { width: 100%; margin-top: -18px; }
   .case-visual-safety .visual-back { width: 48%; }
   .case-visual-safety .visual-front { width: 62%; bottom: 0; }
 }

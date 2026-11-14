@@ -79,3 +79,25 @@ test('the case picture leaves the brief on the first screen', async ({ page }) =
     expect(visual!.x).toBeGreaterThanOrEqual(title!.x + title!.width - 1);
   }
 });
+
+test('case pictures stay clear of the text around them at any width', async ({ page }) => {
+  await page.emulateMedia({ reducedMotion: 'reduce' });
+  for (const width of [320, 390, 480, 599, 600, 680, 760, 761, 1024, 1440]) {
+    await page.setViewportSize({ width, height: 900 });
+    const gaps = await page.evaluate(() => ['nutrition', 'agriculture', 'engine'].map(id => {
+      const chapter = document.getElementById(id)!;
+      const box = (selector: string) => chapter.querySelector(selector)?.getBoundingClientRect();
+      const cards = [...chapter.querySelectorAll('.visual-card')].map(card => card.getBoundingClientRect());
+      const touches = (a: DOMRect, b: DOMRect) => a.left < b.right && b.left < a.right && a.top < b.bottom && b.top < a.bottom;
+      return {
+        id,
+        covered: ['.case-question', '.case-name', '.case-visual figcaption', '.case-brief']
+          .filter(selector => {
+            const b = box(selector);
+            return b ? cards.some(card => touches(card, b)) : false;
+          }),
+      };
+    }));
+    for (const gap of gaps) expect(gap.covered, `${gap.id} at ${width}px`).toEqual([]);
+  }
+});
