@@ -5,8 +5,8 @@ test.beforeEach(async ({ page }) => {
 });
 
 test('classification and highlights read without a click', async ({ page }) => {
-  for (const name of [/서비스/, /비전/, /분석/, /생산성/]) await expect(page.locator('#archive').getByRole('heading', { level: 3, name })).toBeVisible();
-  await expect(page.locator('#archive .work-row')).toHaveCount(7);
+  for (const name of [/^서비스/, /^개인 프로젝트/, /비전/, /분석/, /생산성/]) await expect(page.locator('#archive').getByRole('heading', { level: 3, name })).toBeVisible();
+  await expect(page.locator('#archive .work-row')).toHaveCount(11);
   await expect(page.locator('#dropout .work-highlight')).toContainText('89%');
   await expect(page.locator('#dropout .work-type')).toBeVisible();
 });
@@ -52,7 +52,7 @@ test('A4 print stays portrait within its page budget', async ({ page, browserNam
   await page.locator('#archive').evaluate(el => el.scrollIntoView());
   const pdf = (await page.pdf({ preferCSSPageSize: true, printBackground: true })).toString('latin1');
   const pages = pdf.match(/\/Type\s*\/Page\b/g)!.length;
-  expect(pages).toBeLessThanOrEqual(18);
+  expect(pages).toBeLessThanOrEqual(19); // 11 archive rows after the 2026 shipped apps joined
   expect(pdf).toMatch(/\/MediaBox\s*\[\s*0 0 59[45](\.\d+)? 84[12]/);
 });
 

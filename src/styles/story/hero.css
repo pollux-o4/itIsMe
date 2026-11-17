@@ -113,8 +113,6 @@
 }
 .about-motivation {
   margin-top: 6px;
-  padding-left: 18px;
-  border-left: 3px solid var(--signal);
   font-size: clamp(16px, 1.2vw, 18px);
   line-height: 1.8;
   color: var(--ink-soft);

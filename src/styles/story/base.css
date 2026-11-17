@@ -165,3 +165,11 @@ details[open] > .disclosure-content { animation: unfold 380ms var(--ease-out); }
     transition: none !important;
   }
 }
+
+/* Text links keep their look but get a 44px hit area (WCAG 2.5.5). */
+.hero-scroll, .case-source, .colophon a { position: relative; }
+.hero-scroll::after, .case-source::after, .colophon a::after {
+  content: "";
+  position: absolute;
+  inset: -12px -6px;
+}

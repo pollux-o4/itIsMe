@@ -20,7 +20,13 @@ import Emphasis from '../Emphasis.astro';
         </article>)}
       </div>
       <div class="profile-col">
-        <h3 class="label">학력 · 교육</h3>
+        <h3 class="label">교육</h3>
+        {portfolio.training.map(course => <article class="profile-item">
+          <time>{course.period}</time>
+          <h4>{course.title}</h4>
+          <p>{course.description}</p>
+        </article>)}
+        <h3 class="label profile-subhead">학력</h3>
         {portfolio.education.map(education => <article class="profile-item">
           <time>{education.period}</time>
           <h4>{education.title}</h4>

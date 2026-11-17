@@ -83,6 +83,8 @@ export const portfolioSchema = z
         image: id,
         imageAlt: text,
         presentation: z.string().regex(/^[a-zA-Z0-9_-]*$/),
+        // Shipped work points at the thing itself instead of slides.
+        links: z.array(z.object({ label: text, href: webLink })).optional(),
       }),
     ),
     timelineYears: z.array(z.object({ year: z.string().regex(/^\d{4}$/), note: text })).min(1),
@@ -101,7 +103,11 @@ export const portfolioSchema = z
         source: text,
       }),
     ),
+    // Profile lists run newest first; education is degrees, training is courses.
     education: z.array(
+      z.object({ period: text, title: text, description: text }),
+    ).min(1),
+    training: z.array(
       z.object({ period: text, title: text, description: text }),
     ),
     certifications: z.array(z.object({ date: text, name: text })),

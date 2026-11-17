@@ -212,6 +212,7 @@
 .profile-col:nth-child(2) { grid-column: 6 / span 4; }
 .profile-col:nth-child(3) { grid-column: 10 / span 3; }
 .profile-col > .label { padding-bottom: 12px; border-bottom: 1px solid var(--line-strong); }
+.profile-col > .profile-subhead { margin-top: 40px; }
 .profile-item { padding: 22px 0; border-bottom: 1px solid var(--line); }
 .profile-item time { font-family: var(--mono); font-size: 12px; letter-spacing: 0.04em; color: var(--muted); }
 .profile-item h4 { margin-top: 6px; font-size: 21px; font-weight: 740; letter-spacing: -0.035em; line-height: 1.35; }

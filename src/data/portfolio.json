@@ -2,7 +2,7 @@
   "name": "주연석",
   "english": "YEONSEOK JU",
   "role": "AI · Full-stack Developer",
-  "motto": "가능성을 제한하지 않는 개발자, 주연석입니다.",
+  "motto": "쓰는 사람의 하루가 조금 나아지도록.",
   "headline": "높은 점수보다\n믿을 수 있는\n결과를 추구합니다.",
   "about": {
     "lead": "머릿속 아이디어를 실제 사용자에게 가치를 주는 프로덕트로 구현하는 데 집중합니다.",
@@ -10,11 +10,11 @@
     "motivation": "복잡하게 얽힌 세상의 데이터를 학습하고 예측하며, 사용자에게 개인화된 기능과 서비스를 제공하는 AI의 실용적 가치에 매료되었습니다. 그 가능성을 직접 구현하고자 AI 개발을 시작했습니다."
   },
   "email": "yeonseok.ju@gmail.com",
-  "sourceDate": "2026.03",
+  "sourceDate": "2026.11",
   "highlights": [
     {
-      "value": "11",
-      "label": "2025년에 수행한 프로젝트"
+      "value": "16",
+      "label": "2025–26년에 수행한 프로젝트"
     },
     {
       "value": "11개월",
@@ -291,7 +291,7 @@
       "number": "02",
       "category": "머신러닝",
       "title": "농산물\n가격 예측",
-      "headline": "컨닝하던 AI를\n바로잡았습니다.",
+      "headline": "커닝하던 AI를\n바로잡았습니다.",
       "navigationLabel": "농산물 가격",
       "cardTitle": "농산물 가격 예측",
       "cardRole": "데이터 수집·전처리·발표",
@@ -657,7 +657,12 @@
     {
       "id": "service",
       "label": "서비스",
-      "summary": "AI 모델을 배포까지 이어 간 2026년 작업"
+      "summary": "AI 모델을 배포까지 이어 간 2026년 팀 작업"
+    },
+    {
+      "id": "shipped",
+      "label": "개인 프로젝트",
+      "summary": "혼자 기획·개발·배포까지 한 2026년 작업"
     },
     {
       "id": "vision",
@@ -689,6 +694,102 @@
       "presentation": "12d3g9rmu5CqG9ILev27feQTJ3XJiHuiU",
       "image": "dabang-detect",
       "imageAlt": "퇴거 전 방 사진에서 새로 생긴 사람과 가방을 빨간 상자로 표시한 AI 변화 탐지 결과"
+    },
+    {
+      "id": "silmari",
+      "title": "실마리 계획 앱",
+      "category": "shipped",
+      "highlight": "하나의 계획을 목록·타임라인·원형으로 · 웹·Android 배포",
+      "type": "풀스택 서비스",
+      "duration": "2개월 · 개인",
+      "stack": "React · TypeScript · Capacitor · Firebase",
+      "description": "할 일을 **목록·타임라인·원형 계획표**로 같은 데이터에서 보는 로컬 우선 계획 앱입니다. 웹과 Android 앱, Firebase 서버·결제·관리자까지 **혼자 만들어 운영**합니다.",
+      "source": "Silmari 저장소 · Google Play",
+      "presentation": "",
+      "image": "silmari-plan",
+      "imageAlt": "실마리 원형 보기 화면. 오늘의 시간표와 할 일 입력 칸",
+      "links": [
+        {
+          "label": "웹에서 쓰기",
+          "href": "https://silmari-todo.web.app/app/"
+        },
+        {
+          "label": "Google Play",
+          "href": "https://play.google.com/store/apps/details?id=com.poneul.silmari"
+        }
+      ]
+    },
+    {
+      "id": "memoivy",
+      "title": "MemoIvy 메모 캔버스",
+      "category": "shipped",
+      "highlight": "메모를 캔버스에서 잇는 Linux 앱 · Snap Store 배포",
+      "type": "데스크톱 앱",
+      "duration": "1개월 · 개인",
+      "stack": "Rust · GTK · Snap",
+      "description": "메모를 적고, 프로젝트로 묶고, **캔버스에서 연결**하는 Linux 메모 앱입니다. 되돌리기·자동 저장까지 구현하고 **Snap Store에 배포**했습니다.",
+      "source": "GitHub MemoIvy",
+      "presentation": "",
+      "image": "memoivy-canvas",
+      "imageAlt": "MemoIvy 캔버스. 색상별 메모 네 개와 작업 순서를 잇는 연결선",
+      "links": [
+        {
+          "label": "Snap Store",
+          "href": "https://snapcraft.io/memoivy"
+        },
+        {
+          "label": "코드",
+          "href": "https://github.com/pollux-o4/MemoIvy"
+        }
+      ]
+    },
+    {
+      "id": "md2ebook",
+      "title": "md2ebook 책 리더",
+      "category": "shipped",
+      "highlight": "Markdown을 오프라인 책 리더 한 파일로 · VS Code 확장",
+      "type": "개발 도구",
+      "duration": "3개월 · 개인",
+      "stack": "HTML · Python · VS Code Extension",
+      "description": "쓰던 `.md`를 외부 의존성 없는 **단일 HTML 책 리더**로 바꾸는 에이전트 스킬입니다. **VS Code Marketplace**에 확장으로도 배포했습니다.",
+      "source": "GitHub md2ebook",
+      "presentation": "",
+      "image": "md2ebook-reader",
+      "imageAlt": "md2ebook 책 리더 화면. 페이지 넘김과 목차",
+      "links": [
+        {
+          "label": "VS Code 확장",
+          "href": "https://marketplace.visualstudio.com/items?itemName=pollux-o4.markdown-ebook-reader"
+        },
+        {
+          "label": "코드",
+          "href": "https://github.com/pollux-o4/md2ebook"
+        }
+      ]
+    },
+    {
+      "id": "design-home",
+      "title": "Design Home",
+      "category": "shipped",
+      "highlight": "UI 트렌드 15종 라이브 데모 · 디자인 검토 도구",
+      "type": "웹 · 개발 도구",
+      "duration": "4개월 · 개인",
+      "stack": "JavaScript · Playwright",
+      "description": "UI 트렌드와 패턴을 **라이브 데모로 공부하는 사이트**와, 프로젝트 화면을 기준 컴포넌트와 비교하는 **디자인 검토 도구**입니다.",
+      "source": "GitHub design-home",
+      "presentation": "",
+      "image": "design-home",
+      "imageAlt": "Design Home 사이트의 UI 트렌드 데모 화면",
+      "links": [
+        {
+          "label": "사이트",
+          "href": "https://pollux-o4.github.io/design-home/"
+        },
+        {
+          "label": "코드",
+          "href": "https://github.com/pollux-o4/design-home"
+        }
+      ]
     },
     {
       "id": "arxiv",
@@ -782,7 +883,7 @@
     },
     {
       "year": "2026",
-      "note": "실서비스 프로젝트 고도화 및 도메인 확장"
+      "note": "AI 서비스 실무와 직접 운영하는 개인 프로젝트"
     }
   ],
   "timeline": [
@@ -911,16 +1012,61 @@
           "kind": "project"
         }
       ]
+    },
+    {
+      "date": "2026.03–04",
+      "items": [
+        {
+          "text": "이스트소프트 AI 서비스 개발 · 프리랜서",
+          "kind": "project"
+        }
+      ]
+    },
+    {
+      "date": "2026.06–08",
+      "items": [
+        {
+          "text": "md2ebook · VS Code 확장 배포",
+          "kind": "project"
+        }
+      ]
+    },
+    {
+      "date": "2026.08",
+      "items": [
+        {
+          "text": "Design Home 공개",
+          "kind": "project"
+        }
+      ]
+    },
+    {
+      "date": "2026.09",
+      "items": [
+        {
+          "text": "실마리 웹·Android 출시",
+          "kind": "project"
+        }
+      ]
+    },
+    {
+      "date": "2026.11",
+      "items": [
+        {
+          "text": "MemoIvy · Snap Store 배포",
+          "kind": "project"
+        }
+      ]
     }
   ],
   "experience": [
     {
-      "period": "2024.08–12",
-      "organization": "에버트라이",
-      "role": "임상연구 운영 (SaMD CRA)",
-      "summary": "의료 소프트웨어 **임상연구 3건**의 운영·데이터 모니터링",
-      "details": "다기관 2건과 단일기관 1건의 임상연구를 담당했습니다. 계약·연구비 예산을 검토하고 병원 인력을 교육했습니다. **임상 데이터를 모니터링**하며 PI·CRC·Sponsor 사이의 업무를 조율했습니다.",
-      "source": "이력서 p.1"
+      "period": "2026.03–04",
+      "organization": "이스트소프트 · 프리랜서",
+      "role": "AI 서비스 개발 프로젝트",
+      "summary": "AI 서비스 PoC에서 **결제 기능·코드 통합·내부 배포**와 **추론 요청 모니터링 관리자 페이지** 구축",
+      "details": "AI 서비스 PoC의 결제 기능 개발, 코드 통합 및 내부 배포를 수행했습니다. Flutter 기반 Android 앱 개발에 참여하고 주요 기능·오류를 검수했습니다. Voice Cloning 모델을 샌드박스에서 비교·평가했고, 외부 AI 모델 API와 연동해 추론 요청의 접수·처리·성공·실패를 확인하는 관리자 페이지를 구축했습니다. **프리랜서 용역 계약(8주)** 으로 참여했습니다.",
+      "source": "용역계약서 · LinkedIn"
     },
     {
       "period": "2025.10–11",
@@ -929,6 +1075,14 @@
       "summary": "**Labelbox** 기반 음성 데이터 라벨링·품질 검수",
       "details": "**주기적으로 개정되는 가이드라인**에 맞춰 음성 데이터를 라벨링하고 검수했습니다. QC를 거친 **평균 작업 정확도는 93%**입니다.",
       "source": "이력서 p.1"
+    },
+    {
+      "period": "2024.08–12",
+      "organization": "에버트라이",
+      "role": "임상연구 운영 (SaMD CRA)",
+      "summary": "의료 소프트웨어 **임상연구 3건**의 운영·데이터 모니터링",
+      "details": "다기관 2건과 단일기관 1건의 임상연구를 담당했습니다. 계약·연구비 예산을 검토하고 병원 인력을 교육했습니다. **임상 데이터를 모니터링**하며 PI·CRC·Sponsor 사이의 업무를 조율했습니다.",
+      "source": "이력서 p.1"
     }
   ],
   "education": [
@@ -936,45 +1090,47 @@
       "period": "2019.02–2025.08",
       "title": "건양대학교",
       "description": "임상의약학 학사 · 3.94 / 4.5"
+    }
+  ],
+  "training": [
+    {
+      "period": "2025.07–12",
+      "title": "인공지능사관학교",
+      "description": "6기 컴퓨터 비전 과정 수료"
     },
     {
       "period": "2025.02–06",
       "title": "이스트캠프 와썹",
       "description": "AI 모델 개발 9기 수료"
-    },
-    {
-      "period": "2025.07–12",
-      "title": "인공지능사관학교",
-      "description": "6기 컴퓨터 비전 과정 수료"
     }
   ],
   "certifications": [
     {
-      "date": "2025.04",
-      "name": "SQLD"
-    },
-    {
-      "date": "2025",
-      "name": "ADsP"
-    },
-    {
-      "date": "2025.10",
-      "name": "인공지능활용능력"
+      "date": "—",
+      "name": "정보처리기사 필기"
     },
     {
       "date": "2025.11",
       "name": "빅데이터분석기사"
     },
     {
-      "date": "—",
-      "name": "정보처리기사 필기"
+      "date": "2025.10",
+      "name": "인공지능활용능력"
+    },
+    {
+      "date": "2025",
+      "name": "ADsP"
+    },
+    {
+      "date": "2025.04",
+      "name": "SQLD"
     }
   ],
   "additional": [
     {
-      "date": "2025.09",
-      "title": "독거노인·치매 환자 사회적 고립 완화 AI 헬스케어",
-      "note": "온라인 해커톤 · 팀 프로젝트"
+      "date": "2026.01–03",
+      "title": "다방록 입주 전후 분석 서비스",
+      "note": "팀 프로젝트 · 5명"
     },
     {
       "date": "2025.10",
@@ -982,9 +1138,9 @@
       "note": "AI 프론티어 챌린지 해커톤 · 팀 프로젝트"
     },
     {
-      "date": "2026.01–03",
-      "title": "다방록 입주 전후 분석 서비스",
-      "note": "팀 프로젝트 · 5명"
+      "date": "2025.09",
+      "title": "독거노인·치매 환자 사회적 고립 완화 AI 헬스케어",
+      "note": "온라인 해커톤 · 팀 프로젝트"
     }
   ],
   "recordNote": "정보처리기사는 필기 합격 단계입니다."
