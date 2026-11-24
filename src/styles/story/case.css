@@ -328,13 +328,11 @@
 .share-team li { font-size: 16px; line-height: 1.5; }
 .share-team li::before { content: "— "; }
 
-.case-disclosure,
-.profile-detail {
+.case-disclosure {
   margin-top: clamp(40px, 5vw, 72px);
   border-block: 1px solid var(--line-strong);
 }
-.case-disclosure > summary,
-.profile-detail > summary {
+.case-disclosure > summary {
   display: grid;
   grid-template-columns: repeat(12, minmax(0, 1fr));
   column-gap: var(--gap);
@@ -342,17 +340,14 @@
   padding: 20px 0;
 }
 .case-disclosure > summary .label { grid-column: 1 / span 3; }
-.case-disclosure > summary strong,
-.profile-detail > summary strong {
+.case-disclosure > summary strong {
   grid-column: 4 / span 8;
   font-size: clamp(20px, 2vw, 28px);
   font-weight: 720;
   letter-spacing: -0.035em;
   transition: color 200ms ease;
 }
-.profile-detail > summary strong { grid-column: 1 / span 11; }
-.case-disclosure > summary .disclosure-sign,
-.profile-detail > summary .disclosure-sign { grid-column: 12; justify-self: end; }
+.case-disclosure > summary .disclosure-sign { grid-column: 12; justify-self: end; }
 summary:hover strong { color: var(--signal-ink); }
 .disclosure-content { padding-bottom: clamp(32px, 4vw, 64px); }
 
@@ -420,9 +415,6 @@ summary:hover strong { color: var(--signal-ink); }
   .case-disclosure > summary { grid-template-columns: minmax(0, 1fr) 48px; row-gap: 4px; }
   .case-disclosure > summary .label, .case-disclosure > summary strong { grid-column: 1; }
   .case-disclosure > summary .disclosure-sign { grid-column: 2; grid-row: 1 / span 2; }
-  .profile-detail > summary { grid-template-columns: minmax(0, 1fr) 48px; }
-  .profile-detail > summary strong { grid-column: 1; }
-  .profile-detail > summary .disclosure-sign { grid-column: 2; }
   .facts dd { font-size: 30px; }
   .detail-text { grid-template-columns: 1fr; }
 }

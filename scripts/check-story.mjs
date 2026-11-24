@@ -56,17 +56,6 @@ for (const other of p.otherProjects) {
     `Missing other project: ${other.id}`,
   );
 }
-for (const experience of p.experience) {
-  assert(
-    includesText(experience.summary),
-    `Missing work summary: ${experience.organization}`,
-  );
-  assert(
-    includesText(experience.details),
-    `Missing work evidence: ${experience.organization}`,
-  );
-}
-assert(html.includes(p.recordNote), "Missing conflicting-source note");
 const structured = JSON.parse(
   html.match(/<script type="application\/ld\+json">([\s\S]*?)<\/script>/)[1],
 );
@@ -74,7 +63,7 @@ assert.equal(structured.mainEntity.name, p.name);
 assert.equal(structured.mainEntity.jobTitle, p.role);
 assert.equal(
   (html.match(/<details[^>]*data-disclosure/g) || []).length,
-  p.projects.length + p.otherProjects.length + 1,
+  p.projects.length + p.otherProjects.length,
 );
 assert(!html.includes("예시 프로젝트"), "Sample work leaked into portfolio");
 // Copy speaks plainly; disclaimers belong in an interview, not on the page (SPEC 3.6).

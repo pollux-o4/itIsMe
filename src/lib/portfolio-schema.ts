@@ -92,15 +92,11 @@ export const portfolioSchema = z
       date: z.string().regex(/^\d{4}\.\d{2}(?:–\d{2})?$/),
       items: z.array(z.object({ text, kind: z.enum(["course", "project", "cert"]) })).min(1),
     })),
-    recordNote: text,
     experience: z.array(
       z.object({
         period: text,
         organization: text,
         role: text,
-        summary: text,
-        details: text,
-        source: text,
       }),
     ),
     // Profile lists run newest first; education is degrees, training is courses.
@@ -111,7 +107,6 @@ export const portfolioSchema = z
       z.object({ period: text, title: text, description: text }),
     ),
     certifications: z.array(z.object({ date: text, name: text })),
-    additional: z.array(z.object({ date: text, title: text, note: text })),
   })
   .superRefine((value, context) => {
     const ids = [...value.projects, ...value.otherProjects].map(item => item.id);

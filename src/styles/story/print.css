@@ -103,13 +103,13 @@
   .case-share { grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 3mm; }
   .share-mine, .share-team { grid-column: auto; }
   .case-disclosure > summary .label { visibility: hidden; }
-  .case-disclosure, .profile-detail { margin-top: 4mm; }
-  .case-share, .profile-detail, .detail-text > *, .case-story { break-inside: avoid; }
-  .case-disclosure > summary, .profile-detail > summary { break-after: avoid; }
+  .case-disclosure { margin-top: 4mm; }
+  .case-share, .detail-text > *, .case-story { break-inside: avoid; }
+  .case-disclosure > summary { break-after: avoid; }
   .detail-text p, .case-story p { orphans: 3; widows: 3; }
-  .case-disclosure > summary strong, .profile-detail > summary strong { font-size: 12pt; }
+  .case-disclosure > summary strong { font-size: 12pt; }
   .facts dd { font-size: 16pt; }
-  .detail-text p, .work-body p, .experience-details p { font-size: 9pt; line-height: 1.6; }
+  .detail-text p, .work-body p { font-size: 9pt; line-height: 1.6; }
   /* Columns, not grid rows: Chromium otherwise pushes the whole grid to the next sheet and leaves a gap. */
   .detail-text { display: block; columns: 2; column-gap: 6mm; margin-top: 2.5mm; }
   .detail-text > div { margin-bottom: 2.5mm; }
