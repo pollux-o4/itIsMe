@@ -1022,7 +1022,8 @@
       "items": [
         {
           "text": "이스트소프트 AI 서비스 개발 · 프리랜서",
-          "kind": "project"
+          "kind": "project",
+          "career": true
         }
       ]
     },

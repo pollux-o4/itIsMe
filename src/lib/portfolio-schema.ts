@@ -90,7 +90,8 @@ export const portfolioSchema = z
     timelineYears: z.array(z.object({ year: z.string().regex(/^\d{4}$/), note: text })).min(1),
     timeline: z.array(z.object({
       date: z.string().regex(/^\d{4}\.\d{2}(?:–\d{2})?$/),
-      items: z.array(z.object({ text, kind: z.enum(["course", "project", "cert"]) })).min(1),
+      // career marks paid work: shown in the timeline, left out of the project count.
+      items: z.array(z.object({ text, kind: z.enum(["course", "project", "cert"]), career: z.boolean().optional() })).min(1),
     })),
     experience: z.array(
       z.object({
