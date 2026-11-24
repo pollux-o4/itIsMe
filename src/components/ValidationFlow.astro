@@ -5,8 +5,8 @@ const randomTest = new Set([3, 8, 12, 17, 22, 26]);
 const timeTest = new Set(cells.slice(-6));
 // The score journey reported in the deck (team result after the leak fix).
 const journey = [
-  { label: '섞어서 나눔', value: 0.98, note: '미래가 섞인 점수', leak: true },
-  { label: '누수 제거', value: 0.57, note: '진짜 출발점' },
+  { label: '섞어서 나눔', value: 0.98, note: '미래 값이 섞인 점수', leak: true },
+  { label: '누수 제거', value: 0.57, note: '누수 없는 기준점' },
   { label: '특성 선택', value: 0.62, note: '중요도 0.005 이상' },
   { label: '튜닝 + 시간순 검증', value: 0.81, note: '2023년으로 테스트' },
 ];
@@ -26,8 +26,8 @@ const journey = [
     </div>
     <div class="split-legend" aria-hidden="true"><span class="key-train">학습 데이터</span><span class="key-test">테스트 데이터</span></div>
     <p class="split-note" aria-live="polite">
-      <span class="note-random">테스트할 날짜의 <b>앞뒤 인접한 데이터</b>가 학습에 들어갑니다. 모델이 근처 날짜를 커닝하고 0.98을 기록했습니다.</span>
-      <span class="note-time"><b>2019~2022년</b>으로 학습하고 <b>2023년</b>으로 테스트합니다. 과거 데이터로 내일 가격을 맞히는 실제 환경과 동일하게 했습니다.</span>
+      <span class="note-random">테스트할 날짜의 <b>앞뒤 인접한 데이터</b>가 학습에 들어갑니다. 모델이 가까운 날짜 값을 보고 0.98을 냈습니다.</span>
+      <span class="note-time"><b>2019~2022년</b>으로 학습하고 <b>2023년</b>으로 테스트합니다. 미래를 모르는 실제 예측과 같은 조건입니다.</span>
     </p>
   </div>
   <ol class="split-journey" role="list" aria-label="테스트 R² 변화">
