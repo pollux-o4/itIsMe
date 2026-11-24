@@ -1,51 +1,50 @@
+import { createChapterMap } from './shared/chapter-map';
+import { reducedMotion } from './shared/media';
+import { createSelection } from './shared/selection';
+
+const scrollKeys = new Set(['ArrowUp', 'ArrowDown', 'PageUp', 'PageDown', 'Home', 'End', 'Escape', ' ']);
+
 export function initializeNavigation(signal: AbortSignal) {
   const navLinks = [...document.querySelectorAll<HTMLAnchorElement>('.story-nav a')];
   const sections = [...document.querySelectorAll<HTMLElement>('[data-chapter]')];
   const nav = document.querySelector<HTMLElement>('.story-nav');
   const masthead = document.querySelector<HTMLElement>('.masthead');
   const progress = document.querySelector<HTMLElement>('.reading-progress span');
-  const motion = window.matchMedia('(prefers-reduced-motion: reduce)');
+  const motion = reducedMotion();
+  const chapters = createChapterMap(sections);
+  const current = createSelection(navLinks, link => link.hash.slice(1), (link, on) => {
+    if (on) link.setAttribute('aria-current', 'location'); else link.removeAttribute('aria-current');
+  });
   let lastY: number | undefined;
   let directionStartY = 0;
   let direction = 0;
   let frame = 0;
-  let activeId = '';
-
-  function readLocation() {
-    const readingEdge = Math.max(140, window.innerHeight * 0.25);
-    // Read geometry together before changing styles or scrolling the chapter list.
-    const chapters = sections.map(section => ({ section, rect: section.getBoundingClientRect() }));
-    const active = chapters.filter(chapter => chapter.rect.top <= readingEdge).at(-1) ?? chapters[0];
-    const beneath = chapters.find(chapter => chapter.rect.top <= 32 && chapter.rect.bottom > 32);
-    const scrollable = document.documentElement.scrollHeight - window.innerHeight;
-    return {
-      id: active?.section.id ?? '',
-      night: Boolean(beneath?.section.classList.contains('is-night')),
-      progress: scrollable > 0 ? Math.min(1, Math.max(0, window.scrollY / scrollable)) : 0,
-    };
-  }
+  let readingEdge = 0;
+  const measureViewport = () => { readingEdge = Math.max(140, window.innerHeight * 0.25); };
+  measureViewport();
 
   function updateLocation() {
     frame = 0;
-    const state = readLocation();
-    lastY ??= window.scrollY;
+    const y = window.scrollY;
+    const state = chapters.locate(y, readingEdge);
+    lastY ??= y;
     if (progress) progress.style.transform = `scaleX(${state.progress})`;
-    masthead?.classList.toggle('on-night', state.night);
-    masthead?.classList.toggle('is-scrolled', window.scrollY > 24);
-    if (activeId === state.id) return;
-    activeId = state.id;
-    navLinks.forEach(link => {
-      if (link.hash === `#${activeId}`) link.setAttribute('aria-current', 'location');
-      else link.removeAttribute('aria-current');
-    });
-    const current = navLinks.find(link => link.hash === `#${activeId}`);
-    if (nav && current && nav.scrollWidth > nav.clientWidth) {
-      nav.scrollTo({ left: current.offsetLeft - nav.clientWidth / 2 + current.offsetWidth / 2, behavior: motion.matches ? 'instant' : 'smooth' });
+    masthead?.classList.toggle('on-night', Boolean(state.beneath?.classList.contains('is-night')));
+    masthead?.classList.toggle('is-scrolled', y > 24);
+    const id = state.active?.id ?? '';
+    if (!current.select(id)) return;
+    const link = current.get(id);
+    if (nav && link && nav.scrollWidth > nav.clientWidth) {
+      nav.scrollTo({ left: link.offsetLeft - nav.clientWidth / 2 + link.offsetWidth / 2, behavior: motion.matches ? 'instant' : 'smooth' });
     }
   }
 
   function scheduleLocation() {
     if (!frame) frame = requestAnimationFrame(updateLocation);
+  }
+  function relayout() {
+    chapters.invalidate();
+    scheduleLocation();
   }
 
   function updateMasthead() {
@@ -66,15 +65,16 @@ export function initializeNavigation(signal: AbortSignal) {
   window.addEventListener('scroll', updateMasthead, { passive: true, signal });
   window.addEventListener('resize', () => {
     masthead?.classList.remove('is-scroll-hidden');
-    activeId = '';
+    measureViewport();
     lastY = directionStartY = window.scrollY;
     direction = 0;
-    scheduleLocation();
+    relayout();
   }, { signal });
   masthead?.addEventListener('focusin', () => masthead.classList.remove('is-scroll-hidden'), { signal });
-  document.addEventListener('toggle', scheduleLocation, { capture: true, signal });
+  document.addEventListener('toggle', relayout, { capture: true, signal });
   // Observe layout first: even reading scrollY during initialization forces a full reflow.
-  const observer = new ResizeObserver(scheduleLocation);
+  // Any chapter resizing moves every chapter below it, so one change invalidates the whole map.
+  const observer = new ResizeObserver(relayout);
   sections.forEach(section => observer.observe(section));
   signal.addEventListener('abort', () => {
     observer.disconnect();
@@ -89,17 +89,17 @@ export function initializeAnchors(signal: AbortSignal) {
     const target = document.getElementById(location.hash.slice(1));
     if (target instanceof HTMLDetailsElement) target.open = true;
   }
-  document.querySelectorAll<HTMLAnchorElement>('a[href^="#"]').forEach(link => {
-    link.addEventListener('click', event => {
-      if (event.button !== 0 || event.metaKey || event.ctrlKey || event.shiftKey || event.altKey) return;
-      const target = document.getElementById(link.hash.slice(1));
-      if (!target) return;
-      if (target instanceof HTMLDetailsElement) target.open = true;
-      destination = target;
-      target.tabIndex = -1;
-      target.focus({ preventScroll: true });
-    }, { signal });
-  });
+  // One delegated listener instead of one per in-page link.
+  document.addEventListener('click', event => {
+    if (event.button !== 0 || event.metaKey || event.ctrlKey || event.shiftKey || event.altKey) return;
+    const link = (event.target as Element | null)?.closest?.<HTMLAnchorElement>('a[href^="#"]');
+    const target = link && document.getElementById(link.hash.slice(1));
+    if (!target) return;
+    if (target instanceof HTMLDetailsElement) target.open = true;
+    destination = target;
+    target.tabIndex = -1;
+    target.focus({ preventScroll: true });
+  }, { signal });
   window.addEventListener('hashchange', openHash, { signal });
   // Keep native history and animation; resizing must cancel a destination computed for the old layout.
   window.addEventListener('resize', () => destination?.scrollIntoView({ behavior: 'instant', block: 'start' }), { signal });
@@ -108,7 +108,7 @@ export function initializeAnchors(signal: AbortSignal) {
   window.addEventListener('wheel', cancel, { passive: true, signal });
   window.addEventListener('touchstart', cancel, { passive: true, signal });
   window.addEventListener('keydown', event => {
-    if (['ArrowUp', 'ArrowDown', 'PageUp', 'PageDown', 'Home', 'End', 'Escape', ' '].includes(event.key)) cancel();
+    if (scrollKeys.has(event.key)) cancel();
   }, { signal });
   openHash();
 }
