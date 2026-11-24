@@ -1,6 +1,8 @@
+import { reducedMotion } from './shared/media';
+
 // Only chapter titles arrive; body copy is never hidden behind scroll.
 export function initializeReveal(signal: AbortSignal) {
-  const motion = matchMedia('(prefers-reduced-motion: reduce)');
+  const motion = reducedMotion();
   if (motion.matches || !('IntersectionObserver' in window)) return;
   const targets = document.querySelectorAll<HTMLElement>('[data-reveal]');
   const observer = new IntersectionObserver((entries) => {
