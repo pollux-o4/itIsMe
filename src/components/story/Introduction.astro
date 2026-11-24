@@ -1,4 +1,5 @@
 ---
+import StorySection from './parts/StorySection.astro';
 import { ArrowDown, ArrowRight } from 'lucide-react';
 import { portfolio } from '../../lib/portfolio';
 import site from '../../data/site.json';
@@ -59,12 +60,8 @@ const siteUrl = new URL(import.meta.env.BASE_URL, Astro.site).href.replace('http
   </div>
 </section>
 
-<section id="work" class="index" data-chapter aria-labelledby="work-title">
-  <div class="shell">
-    <div class="section-head">
-      <p class="label">대표 사례 3</p>
-      <h2 id="work-title">궁금해하실 <br/>세 가지 질문에 답합니다.</h2>
-    </div>
+<StorySection id="work" class="index" label={`대표 사례 ${portfolio.projects.length}`}>
+    <Fragment slot="title">궁금해하실 <br/>세 가지 질문에 답합니다.</Fragment>
     <div class="index-body">
       <ol class="question-list" role="list">
         {portfolio.projects.map((project, i) => (
@@ -93,5 +90,4 @@ const siteUrl = new URL(import.meta.env.BASE_URL, Astro.site).href.replace('http
         ))}
       </div>
     </div>
-  </div>
-</section>
+</StorySection>

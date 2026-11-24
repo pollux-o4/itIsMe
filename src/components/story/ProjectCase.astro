@@ -1,4 +1,5 @@
 ---
+import { twoDigit } from '../../lib/format';
 import { Plus } from 'lucide-react';
 import type { Project } from '../../lib/portfolio-schema';
 import { portfolio } from '../../lib/portfolio';
@@ -44,7 +45,7 @@ const story = [
     <ol class="evidence-list" role="list">
       {p.evidence.map((item, i) => {
         const Visual = item.visual ? visuals[item.visual] : undefined;
-        const label = `증거 ${String(i + 1).padStart(2, '0')}`;
+        const label = `증거 ${twoDigit(i + 1)}`;
         return (
           <li class="evidence">
             <div class="evidence-claim">

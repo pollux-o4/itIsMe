@@ -1,41 +1,26 @@
 ---
 import { portfolio } from '../../lib/portfolio';
+import StorySection from './parts/StorySection.astro';
+import ProfileItem from './parts/ProfileItem.astro';
 ---
-<section id="background" class="background" data-chapter aria-labelledby="background-title">
-  <div class="shell">
-    <div class="section-head">
-      <p class="label">이력</p>
-      <h2 id="background-title">데이터를 다루는 일은<br/>개발 전부터 해 왔습니다.</h2>
+<StorySection id="background" class="background" label="이력">
+  <Fragment slot="title">데이터를 다루는 일은<br/>개발 전부터 해 왔습니다.</Fragment>
+  <div class="profile-grid">
+    <div class="profile-col">
+      <h3 class="label">경력</h3>
+      {portfolio.experience.map(item => <ProfileItem period={item.period} title={item.role} note={item.organization} noteClass="profile-org"/>)}
     </div>
-    <div class="profile-grid">
-      <div class="profile-col">
-        <h3 class="label">경력</h3>
-        {portfolio.experience.map(experience => <article class="profile-item">
-          <time>{experience.period}</time>
-          <h4>{experience.role}</h4>
-          <span class="profile-org">{experience.organization}</span>
-        </article>)}
-      </div>
-      <div class="profile-col">
-        <h3 class="label">교육</h3>
-        {portfolio.training.map(course => <article class="profile-item">
-          <time>{course.period}</time>
-          <h4>{course.title}</h4>
-          <p>{course.description}</p>
-        </article>)}
-        <h3 class="label profile-subhead">학력</h3>
-        {portfolio.education.map(education => <article class="profile-item">
-          <time>{education.period}</time>
-          <h4>{education.title}</h4>
-          <p>{education.description}</p>
-        </article>)}
-      </div>
-      <div class="profile-col">
-        <h3 class="label">자격</h3>
-        <ul class="cert-list" role="list">
-          {portfolio.certifications.map(certification => <li><span>{certification.name}</span><time>{certification.date}</time></li>)}
-        </ul>
-      </div>
+    <div class="profile-col">
+      <h3 class="label">교육</h3>
+      {portfolio.training.map(item => <ProfileItem period={item.period} title={item.title} note={item.description}/>)}
+      <h3 class="label profile-subhead">학력</h3>
+      {portfolio.education.map(item => <ProfileItem period={item.period} title={item.title} note={item.description}/>)}
+    </div>
+    <div class="profile-col">
+      <h3 class="label">자격</h3>
+      <ul class="cert-list" role="list">
+        {portfolio.certifications.map(certification => <li><span>{certification.name}</span><time>{certification.date}</time></li>)}
+      </ul>
     </div>
   </div>
-</section>
+</StorySection>

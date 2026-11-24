@@ -3,6 +3,8 @@ import { Plus } from 'lucide-react';
 import { portfolio } from '../../lib/portfolio';
 import PortfolioImage from '../PortfolioImage.astro';
 import Emphasis from '../Emphasis.astro';
+import StorySection from './parts/StorySection.astro';
+import { twoDigit } from '../../lib/format';
 
 const groups = portfolio.otherProjectCategories.map(category => ({
   ...category,
@@ -12,19 +14,15 @@ const groups = portfolio.otherProjectCategories.map(category => ({
 let number = 0;
 const total = portfolio.otherProjects.length;
 ---
-<section id="archive" class="archive" data-chapter aria-labelledby="archive-title">
-  <div class="shell">
-    <div class="section-head">
-      <p class="label">그 밖의 작업 {String(total).padStart(2, '0')}</p>
-      <h2 id="archive-title">직접 운영하는 앱부터 비전·분석까지<br/>범위를 넓힌 작업들.</h2>
-    </div>
+<StorySection id="archive" class="archive" label={`그 밖의 작업 ${twoDigit(total)}`}>
+    <Fragment slot="title">직접 운영하는 앱부터 비전·분석까지<br/>범위를 넓힌 작업들.</Fragment>
     <div class="archive-list">
       <div class="archive-columns" aria-hidden="true"><span>No.</span><span></span><span>프로젝트</span><span>유형</span><span>기간 · 형태</span><span>주요 기술</span></div>
       {groups.map(group => <section class="archive-group" aria-labelledby={`archive-${group.id}`}>
           <h3 class="archive-group-head" id={`archive-${group.id}`}>{group.label} <span>{group.summary}</span></h3>
           {group.projects.map(project => <details class="work-row" data-disclosure id={project.id}>
             <summary>
-              <span class="work-no">{String(++number).padStart(2, '0')}</span>
+              <span class="work-no">{twoDigit(++number)}</span>
               <PortfolioImage class="work-thumb" name={project.image} width={600} alt="" sizes="80px"/>
               <span class="work-name">
                 <strong class="work-title">{project.title}</strong>
@@ -52,5 +50,4 @@ const total = portfolio.otherProjects.length;
           </details>)}
       </section>)}
     </div>
-  </div>
-</section>
+</StorySection>

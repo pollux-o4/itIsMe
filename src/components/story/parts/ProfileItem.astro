@@ -1,0 +1,10 @@
+---
+interface Props { period: string; title: string; note: string; noteClass?: string }
+const { period, title, note, noteClass } = Astro.props;
+const Note = noteClass ? 'span' : 'p';
+---
+<article class="profile-item">
+  <time>{period}</time>
+  <h4>{title}</h4>
+  <Note class={noteClass}>{note}</Note>
+</article>
