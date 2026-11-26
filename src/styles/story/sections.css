@@ -169,6 +169,8 @@
   padding-top: 18px;
   border-top: 1px solid var(--line-strong);
 }
+/* The key reads as the first year's legend, so it sits on it instead of floating between head and list. */
+.timeline-key + .timeline-year { margin-top: clamp(20px, calc(var(--fit) * 2), 28px); }
 .year-head { grid-column: 1 / span 3; }
 .year-head h3 {
   font-family: var(--serif);
