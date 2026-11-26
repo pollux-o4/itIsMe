@@ -37,7 +37,11 @@ export const portfolioSchema = z
     about: z.object({ lead: text, thesis: text, motivation: text }),
     email: z.email(),
     sourceDate: text,
-    highlights: z.array(z.object({ value: text, label: text })).min(1),
+    // A highlight states its value, or names a metric the page derives from the record (SSoT).
+    highlights: z
+      .array(z.object({ value: text.optional(), metric: z.enum(["projects"]).optional(), label: text }))
+      .min(1)
+      .refine(items => items.every(item => Boolean(item.value) !== Boolean(item.metric)), { message: 'Each highlight needs exactly one of value or metric.' }),
     projects: z
       .array(
         z.object({
@@ -85,7 +89,9 @@ export const portfolioSchema = z
         source: text,
         image: id,
         imageAlt: text,
-        presentation: z.string().regex(/^[a-zA-Z0-9_-]*$/),
+        scope: z.enum(["solo", "team"]),
+        // Google Drive file id of the slides; the page builds the link.
+        deck: z.string().regex(/^[a-zA-Z0-9_-]+$/).optional(),
         // Shipped work points at the thing itself instead of slides.
         links: z.array(z.object({ label: text, href: webLink })).optional(),
       }),

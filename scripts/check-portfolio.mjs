@@ -17,6 +17,8 @@ rejects(p => p.projects[0].id = 'archive');
 rejects(p => p.projects[0].id = 'work');
 rejects(p => p.otherProjects[0].category = 'unknown');
 rejects(p => delete p.otherProjects[0].highlight);
+rejects(p => delete p.otherProjects[0].scope);
+rejects(p => p.highlights[0].value = '17');
 rejects(p => p.otherProjectCategories.push({ id: 'empty', label: '빈 분류', summary: '작업 없음' }));
 rejects(p => delete p.projects[0].narrative.limits);
 rejects(p => p.projects[0].contribution.mine = []);

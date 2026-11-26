@@ -1,4 +1,4 @@
-import type { Portfolio } from "./portfolio";
+import type { Portfolio } from "./portfolio-schema";
 
 type Timeline = Portfolio["timeline"];
 type Item = Timeline[number]["items"][number];
@@ -8,6 +8,9 @@ const isCareer = (item: Item) => item.career === true;
 /** Projects only; paid career work is counted in the profile, not here (SPEC 4.6). */
 const isProject = (item: Item) => item.kind === "project" && !isCareer(item);
 const isBar = (item: Item) => item.kind === "course" || isCareer(item);
+
+/** Projects the record holds; the profile highlight reads this instead of a typed number. */
+export const projectCount = (timeline: Timeline) => timeline.reduce((sum, entry) => sum + entry.items.filter(isProject).length, 0);
 
 export const releaseLabel: Record<Release, string> = { live: "운영 중", ended: "배포 종료" };
 

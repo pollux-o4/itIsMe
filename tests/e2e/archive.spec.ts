@@ -1,12 +1,13 @@
 import { expect, test } from '@playwright/test';
+import portfolio from '../../src/data/portfolio.json' with { type: 'json' };
 
 test.beforeEach(async ({ page }) => {
   await page.goto('./#archive');
 });
 
 test('classification and highlights read without a click', async ({ page }) => {
-  for (const name of [/^서비스/, /^개인 프로젝트/, /비전/, /분석/, /생산성/]) await expect(page.locator('#archive').getByRole('heading', { level: 3, name })).toBeVisible();
-  await expect(page.locator('#archive .work-row')).toHaveCount(11);
+  for (const { label } of portfolio.otherProjectCategories) await expect(page.locator('#archive').getByRole('heading', { level: 3, name: new RegExp(`^${label}`) })).toBeVisible();
+  await expect(page.locator('#archive .work-row')).toHaveCount(portfolio.otherProjects.length);
   await expect(page.locator('#dropout .work-highlight')).toContainText('89%');
   await expect(page.locator('#dropout .work-type')).toBeVisible();
 });
