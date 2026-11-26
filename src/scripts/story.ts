@@ -6,6 +6,7 @@ import { initializePreviewSlot } from './story/preview-slot';
 import { initializeWorkPreview } from './story/work-preview';
 import { initializeContact } from './story/contact';
 import { initializeExhibitViewer } from './story/exhibit-viewer';
+import { initializeFullscreenOffer } from './story/fullscreen-offer';
 
 let dispose = () => {};
 function initializeStory() {
@@ -21,6 +22,7 @@ function initializeStory() {
   initializeWorkPreview(controller.signal);
   initializeContact(controller.signal);
   initializeExhibitViewer(controller.signal);
+  initializeFullscreenOffer(controller.signal);
   initializePrinting(controller.signal);
 }
 

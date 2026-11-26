@@ -1,0 +1,43 @@
+/* Fullscreen offer: a quiet pill at the bottom edge that rises in once and never blocks the page. */
+.fullscreen-offer {
+  position: fixed;
+  left: 50%;
+  bottom: 24px;
+  z-index: 60;
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  padding: 8px 8px 8px 20px;
+  border-radius: 999px;
+  background: rgb(20 19 17 / 0.88);
+  color: var(--paper);
+  box-shadow: 0 18px 40px -16px rgb(20 19 17 / 0.55);
+  backdrop-filter: blur(12px);
+  opacity: 0;
+  translate: -50% 16px;
+  transition: opacity 300ms ease, translate 520ms var(--spring);
+}
+.fullscreen-offer.is-visible { opacity: 1; translate: -50% 0; }
+.fullscreen-offer p { font-size: 14px; line-height: 1.4; white-space: nowrap; }
+.fullscreen-go {
+  padding: 10px 16px;
+  border-radius: 999px;
+  background: var(--paper);
+  color: var(--ink);
+  font-size: 14px;
+  font-weight: 650;
+  transition: scale 200ms ease;
+}
+.fullscreen-go:active { scale: 0.96; }
+.fullscreen-skip {
+  display: grid;
+  place-items: center;
+  width: 36px;
+  height: 36px;
+  border-radius: 50%;
+  color: rgb(255 255 255 / 0.7);
+  transition: background 200ms ease, color 200ms ease;
+}
+.fullscreen-skip:hover { background: rgb(255 255 255 / 0.12); color: #fff; }
+@media (prefers-reduced-motion: reduce) { .fullscreen-offer { translate: -50% 0; transition: opacity 120ms linear; } }
+@media print { .fullscreen-offer { display: none; } }
