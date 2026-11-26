@@ -29,23 +29,11 @@ export const legend = (items: Item[]) =>
 
 export const barLabel = (bar: Item) => labelOf[isCareer(bar) ? "career" : "course"];
 
-const monthIndex = (date: string) => {
-  const [year, month] = date.slice(0, 7).split(".").map(Number);
-  return year * 12 + month;
-};
-
 /** Last month the timeline reaches, e.g. "2026.11–12" → "2026.12"; the record's own end, not the page's source date. */
 export const lastMonth = (timeline: Timeline) => {
   const date = timeline.at(-1)!.date;
   return date.includes("–") ? `${date.slice(0, 5)}${date.split("–")[1]}` : date;
 };
-
-/** Inclusive month span from the first entry to the source date. */
-export const spanMonths = (timeline: Timeline, until: string) =>
-  monthIndex(until) - monthIndex(timeline[0].date) + 1;
-
-export const projectCount = (timeline: Timeline) =>
-  timeline.reduce((sum, entry) => sum + entry.items.filter(isProject).length, 0);
 
 /** Entries grouped under their year heading in one pass. */
 export const groupByYear = (timeline: Timeline, years: Portfolio["timelineYears"]) => {

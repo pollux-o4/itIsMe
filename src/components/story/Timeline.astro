@@ -1,6 +1,6 @@
 ---
 import { portfolio } from '../../lib/portfolio';
-import { barLabel, groupByYear, lastMonth, legend, placeYear, projectCount, releaseLabel, splitLabel, spanMonths, stackCerts } from '../../lib/timeline';
+import { barLabel, groupByYear, lastMonth, legend, placeYear, releaseLabel, splitLabel, stackCerts } from '../../lib/timeline';
 import { Award } from 'lucide-react';
 import PortfolioImage from '../PortfolioImage.astro';
 import StorySection from './parts/StorySection.astro';
@@ -19,7 +19,7 @@ const range = (from: number, to: number) => from === to ? `${from}월` : `${from
 const col = (month: number, end = month) => `grid-column:${(month - 1) % 6 + 1} / ${(end - 1) % 6 + 2}`;
 ---
 <StorySection id="timeline" class="timeline" label={`연표 · ${timeline[0]?.date} → ${lastMonth(timeline)}`}>
-  <Fragment slot="title">{spanMonths(timeline, lastMonth(timeline))}개월 동안,<br/>프로젝트 {projectCount(timeline)}개.</Fragment>
+  <Fragment slot="title">지식의 축적을 넘어,<br/>기술의 실현으로.</Fragment>
   <ul class="timeline-key" role="list" aria-label="연표 범례">
     {key.map(item => <li class={`key-${item.kind}`}>{item.kind === 'cert' ? <Award className="cert-icon" size={16} strokeWidth={2} aria-hidden="true"/> : <i aria-hidden="true"></i>}{item.label}<b>{item.count}</b></li>)}
   </ul>
