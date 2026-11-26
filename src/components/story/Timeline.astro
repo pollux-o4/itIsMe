@@ -1,9 +1,9 @@
 ---
 import { portfolio } from '../../lib/portfolio';
-import { barLabel, groupByYear, lastMonth, legend, placeYear, releaseLabel, splitLabel, stackCerts } from '../../lib/timeline';
+import { barLabel, groupByYear, lastMonth, legend, placeYear, splitLabel, stackCerts } from '../../lib/timeline';
 import { Award } from 'lucide-react';
-import PortfolioImage from '../PortfolioImage.astro';
 import StorySection from './parts/StorySection.astro';
+import TimelineTile from './parts/TimelineTile.astro';
 
 const { timeline, timelineYears, projects, otherProjects } = portfolio;
 const latest = timelineYears.at(-1)?.year;
@@ -37,24 +37,8 @@ const col = (month: number, end = month) => `grid-column:${(month - 1) % 6 + 1} 
             <ol class="track-tiles" role="list" aria-label={`${year.year}년 ${first}–${last}월 프로젝트`}>
               {/* A crowded month stacks upward in its own column, so every tile sits on its month. */}
               {months.map(month => {
-                const tiles = year.tiles.filter(tile => tile.month === month);
-                return tiles.length > 0 && <li style={col(month)}><ul role="list">{tiles.map(tile => (
-                  <li class={`tile${tile.release ? ` is-${tile.release}` : ''}`}>
-                    {/* A tile with a write-up links to it in place: cases are chapters, archive rows open on arrival. */}
-                    <Fragment>{(() => {
-                      const Tag = tile.ref ? 'a' : 'div';
-                      return <Tag class="tile-body" href={tile.ref ? `#${tile.ref}` : undefined}>
-                        <span class="tile-media">
-                          {tile.image
-                            ? <PortfolioImage name={tile.image} alt="" square={96}/>
-                            : <span class="tile-blank" aria-hidden="true"></span>}
-                        </span>
-                        {/* The ring and the legend carry the status; screen readers hear it with the month. */}
-                        <span class="tile-name"><span class="sr-only">{month}월: </span>{splitLabel(tile.text).name}<span class="sr-only">{splitLabel(tile.text).note}{tile.release && `, ${releaseLabel[tile.release]}`}</span></span>
-                      </Tag>;
-                    })()}</Fragment>
-                  </li>
-                ))}</ul></li>;
+                const tiles = year.tilesByMonth.get(month);
+                return tiles && <li style={col(month)}><ul role="list">{tiles.map(tile => <TimelineTile tile={tile}/>)}</ul></li>;
               })}
             </ol>
             <div class="track-axis" aria-hidden="true">

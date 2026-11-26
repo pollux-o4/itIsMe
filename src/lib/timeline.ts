@@ -40,8 +40,7 @@ export const lastMonth = (timeline: Timeline) => {
 
 /** Entries grouped under their year heading in one pass. */
 export const groupByYear = (timeline: Timeline, years: Portfolio["timelineYears"]) => {
-  const byYear = new Map(years.map(year => [year.year, [] as Timeline]));
-  for (const entry of timeline) byYear.get(entry.date.slice(0, 4))?.push(entry);
+  const byYear = groupBy(timeline, entry => entry.date.slice(0, 4));
   return years.map(year => ({ ...year, entries: byYear.get(year.year) ?? [] }));
 };
 
@@ -68,11 +67,26 @@ export const placeYear = (entries: Timeline, imageOf: (ref: string) => string | 
       image: item.image ?? (item.ref ? imageOf(item.ref) : undefined),
     }));
   });
-  return {
-    tiles: placed.filter(isProject),
-    bars: placed.filter(isBar),
-    certs: placed.filter(item => item.kind === "cert"),
-  };
+  const lanes = { tiles: [] as typeof placed, bars: [] as typeof placed, certs: [] as typeof placed };
+  for (const item of placed) {
+    const lane = laneOf(item);
+    if (lane) lanes[lane].push(item);
+  }
+  return { ...lanes, tilesByMonth: groupBy(lanes.tiles, tile => tile.month) };
+};
+
+/** Which track an item is drawn on; one rule per lane, so placement is a single pass. */
+const laneOf = (item: Item) => isProject(item) ? "tiles" : isBar(item) ? "bars" : item.kind === "cert" ? "certs" : undefined;
+
+/** Buckets items by key in one pass, keeping their order. */
+export const groupBy = <T, K>(items: readonly T[], keyOf: (item: T) => K) => {
+  const groups = new Map<K, T[]>();
+  for (const item of items) {
+    const key = keyOf(item);
+    const group = groups.get(key);
+    if (group) group.push(item); else groups.set(key, [item]);
+  }
+  return groups;
 };
 
 /** Splits "이름 · 팀" into the visible name and the role note, which stays for screen readers only. */
