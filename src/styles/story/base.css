@@ -115,9 +115,9 @@ body { margin: 0; }
 .section-head h2 {
   grid-column: 1 / -1;
   padding-top: 12px;
-  font-size: clamp(36px, calc(var(--fit) * 5.2), 84px);
+  font-size: var(--t-display);
   font-weight: 780;
-  letter-spacing: -0.055em;
+  letter-spacing: -0.04em;
   line-height: 1.04;
 }
 

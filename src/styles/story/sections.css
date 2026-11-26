@@ -116,7 +116,7 @@
 }
 .work-no { font-family: var(--serif); font-style: italic; font-size: 18px; color: var(--muted); }
 .work-name { display: grid; gap: 4px; min-width: 0; }
-.work-title { font-size: clamp(20px, calc(var(--fit) * 2), 30px); font-weight: 740; letter-spacing: -0.045em; line-height: 1.25; }
+.work-title { font-size: var(--t-head); font-weight: 740; letter-spacing: -0.045em; line-height: 1.25; }
 .work-highlight { font-size: 14px; line-height: 1.5; color: var(--ink-soft); }
 .work-meta { display: contents; }
 .work-type, .work-duration, .work-stack { font-size: 14px; line-height: 1.5; color: var(--muted); }
@@ -174,7 +174,7 @@
   font-family: var(--serif);
   font-style: italic;
   font-weight: 400;
-  font-size: clamp(56px, calc(var(--fit) * 6.4), 104px);
+  font-size: var(--t-title);
   line-height: 0.9;
   letter-spacing: -0.02em;
 }
@@ -191,7 +191,7 @@
   display: block;
   font-family: var(--serif);
   font-style: italic;
-  font-size: clamp(28px, calc(var(--fit) * 2.4), 38px);
+  font-size: var(--t-head);
   line-height: 1;
 }
 .timeline-list time small { margin-left: 3px; font-family: var(--sans); font-style: normal; font-size: 14px; color: var(--muted); }

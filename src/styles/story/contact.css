@@ -6,15 +6,15 @@
 }
 .contact-title {
   margin-top: 22px;
-  font-size: clamp(46px, calc(var(--fit) * 8.6), 150px);
+  font-size: var(--t-display);
   font-weight: 820;
-  letter-spacing: -0.068em;
+  letter-spacing: -0.04em;
   line-height: 1;
 }
 .contact-lede {
   max-width: 32em;
   margin-top: clamp(20px, calc(var(--fit) * 2.4), 32px);
-  font-size: clamp(18px, calc(var(--fit) * 1.6), 22px);
+  font-size: var(--t-head);
   line-height: 1.6;
   color: var(--muted);
 }
@@ -26,7 +26,7 @@
   margin-top: clamp(44px, calc(var(--fit) * 6), 88px);
   padding-bottom: 8px;
   border-bottom: 2px solid currentColor;
-  font-size: clamp(24px, calc(var(--fit) * 4.4), 72px);
+  font-size: var(--t-title);
   font-weight: 700;
   letter-spacing: -0.045em;
   line-height: 1.15;

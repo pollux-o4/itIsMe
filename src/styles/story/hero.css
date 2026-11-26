@@ -61,16 +61,16 @@
 }
 .hero-words { grid-column: 5 / -1; min-width: 0; }
 .hero-motto {
-  font-size: clamp(18px, calc(var(--fit) * 1.6), 22px);
+  font-size: var(--t-head);
   font-weight: 620;
   letter-spacing: -0.02em;
   color: var(--ink-soft);
 }
 .hero-title {
   margin-top: clamp(14px, calc(var(--fit) * 1.6), 24px);
-  font-size: clamp(44px, calc(var(--fit) * 7.2), 124px);
+  font-size: var(--t-display);
   font-weight: 820;
-  letter-spacing: -0.066em;
+  letter-spacing: -0.04em;
   line-height: 1;
 }
 .hero-title .line,
@@ -106,14 +106,14 @@
 }
 .about-lead { font-size: 16px; color: var(--muted); }
 .about-thesis {
-  font-size: clamp(21px, calc(var(--fit) * 1.9), 28px);
+  font-size: var(--t-head);
   font-weight: 720;
   letter-spacing: -0.035em;
   line-height: 1.45;
 }
 .about-motivation {
   margin-top: 6px;
-  font-size: clamp(16px, calc(var(--fit) * 1.2), 18px);
+  font-size: var(--t-body);
   line-height: 1.8;
   color: var(--ink-soft);
 }
@@ -133,7 +133,7 @@
 .hero-stats div + div { padding-left: 14px; border-left: 1px solid var(--line); }
 .hero-stats dd {
   font-family: var(--serif);
-  font-size: clamp(34px, calc(var(--fit) * 3.2), 54px);
+  font-size: var(--t-head);
   line-height: 1;
   letter-spacing: -0.02em;
 }
@@ -200,9 +200,9 @@
 .question[data-previewing] .question-no { color: var(--signal-ink); }
 .question-label {
   grid-column: 2;
-  font-size: clamp(28px, calc(var(--fit) * 3.3), 52px);
+  font-size: var(--t-title);
   font-weight: 780;
-  letter-spacing: -0.055em;
+  letter-spacing: -0.04em;
   line-height: 1.12;
 }
 .question-evidence {
@@ -324,7 +324,9 @@
     /* Leaves room under the face for the caption and the scroll cue. */
     max-height: calc(var(--screen-room) - 70px);
   }
-  .hero-title { font-size: clamp(44px, calc(var(--fit) * 5.6), 124px); }
+  /* The title leads this screen; the face steps back to a narrower column. */
+  .hero-portrait { grid-column: 1 / span 3; }
+  .hero-words { grid-column: 4 / -1; }
   .hero-about { gap: 10px; margin-top: clamp(16px, calc(var(--fit) * 1.9), 56px); }
   .about-motivation { line-height: 1.7; }
   .hero-stats { margin-top: clamp(16px, calc(var(--fit) * 1.9), 56px); }
