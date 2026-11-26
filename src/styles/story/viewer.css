@@ -1,0 +1,87 @@
+/* Evidence picture: the whole frame is the zoom target; the corner sign says so. */
+.exhibit-frame { cursor: zoom-in; }
+.exhibit-zoom {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  align-items: flex-end;
+  justify-content: flex-end;
+  padding: 10px;
+  border-radius: inherit;
+  cursor: inherit;
+}
+.exhibit-zoom svg {
+  box-sizing: content-box;
+  padding: 9px;
+  border-radius: 50%;
+  background: rgb(20 19 17 / 0.72);
+  color: #fff;
+  backdrop-filter: blur(8px);
+  opacity: 0.0;
+  scale: 0.9;
+  transition: opacity 200ms ease, scale 360ms var(--spring);
+}
+.exhibit-frame:hover .exhibit-zoom svg, .exhibit-zoom:focus-visible svg { opacity: 1; scale: 1; }
+@media (hover: none) { .exhibit-zoom svg { opacity: 1; scale: 1; } }
+
+.is-viewing { overflow: hidden; }
+.viewer {
+  position: fixed;
+  inset: 0;
+  width: 100%;
+  max-width: none;
+  height: 100%;
+  max-height: none;
+  margin: 0;
+  padding: 0;
+  border: 0;
+  background: transparent;
+  color: var(--paper);
+  cursor: zoom-out;
+}
+.viewer[open] { display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 20px; }
+.viewer::backdrop { background: rgb(20 19 17 / 0.9); backdrop-filter: blur(6px); animation: viewer-fade 320ms ease both; }
+.viewer.is-closing::backdrop { animation: viewer-fade 300ms ease reverse both; }
+.viewer-stage {
+  position: relative;
+  flex: none;
+  border-radius: 8px;
+  background: #fff;
+  box-shadow: 0 30px 80px -20px rgb(0 0 0 / 0.6);
+  transform-origin: 0 0;
+}
+.viewer-stage img { width: 100%; height: 100%; object-fit: contain; border-radius: inherit; }
+.viewer-text {
+  max-width: calc(100% - 48px);
+  font-family: var(--mono);
+  font-size: 13px;
+  line-height: 1.6;
+  color: rgb(255 255 255 / 0.72);
+  cursor: auto;
+  animation: viewer-fade 320ms ease 180ms both;
+}
+.viewer.is-closing .viewer-text { animation: viewer-fade 120ms ease reverse both; }
+.viewer-text .exhibit-caption { font-family: var(--sans); font-size: 15px; color: #fff; }
+.viewer-text .exhibit-caption > span:first-child { margin-right: 10px; font-family: var(--serif); font-style: italic; font-size: 15px; color: #fff; }
+.viewer-text .exhibit-keys { margin-top: 8px; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); column-gap: 24px; }
+.viewer-text .exhibit-keys li { font-family: var(--sans); font-size: 14px; color: rgb(255 255 255 / 0.84); }
+.viewer-text .exhibit-source { display: block; margin-top: 6px; }
+.viewer-close {
+  position: fixed;
+  top: 16px;
+  right: 16px;
+  display: grid;
+  place-items: center;
+  width: 44px;
+  height: 44px;
+  border-radius: 50%;
+  background: rgb(255 255 255 / 0.12);
+  color: #fff;
+  transition: background 200ms ease;
+}
+.viewer-close:hover { background: rgb(255 255 255 / 0.24); }
+@keyframes viewer-fade { from { opacity: 0; } }
+@media (prefers-reduced-motion: reduce) {
+  .viewer::backdrop, .viewer-text { animation-duration: 120ms; animation-delay: 0ms; }
+}
+@media print { .exhibit-zoom, .viewer { display: none; } }

@@ -5,6 +5,7 @@ import { initializeSplitDemo } from './story/split-demo';
 import { initializePreviewSlot } from './story/preview-slot';
 import { initializeWorkPreview } from './story/work-preview';
 import { initializeContact } from './story/contact';
+import { initializeExhibitViewer } from './story/exhibit-viewer';
 
 let dispose = () => {};
 function initializeStory() {
@@ -19,6 +20,7 @@ function initializeStory() {
   initializePreviewSlot(controller.signal);
   initializeWorkPreview(controller.signal);
   initializeContact(controller.signal);
+  initializeExhibitViewer(controller.signal);
   initializePrinting(controller.signal);
 }
 
