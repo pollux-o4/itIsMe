@@ -446,12 +446,20 @@ summary:hover strong { color: var(--signal-ink); }
     One reading path: claim, then its numbered keys, in the left column; the picture
     beside them carries only the matching numbers. The eye moves sideways, never back up.
   */
-  .evidence { grid-template-rows: auto 1fr; align-items: start; }
-  .evidence-claim { grid-row: 1; }
+  /*
+    The proof starts level with the claim headline, never above it: the eye enters at the
+    headline, reads across to the picture and never climbs back. Rows: index, headline,
+    reason, keys, then slack for a tall picture.
+  */
+  .evidence { grid-template-rows: auto auto auto auto 1fr; row-gap: 0; align-items: start; }
+  .evidence-claim { display: contents; }
+  .evidence-no { grid-column: 1 / span 4; grid-row: 1; margin-bottom: 16px; }
+  .evidence-claim h3 { grid-column: 1 / span 4; grid-row: 2; margin-top: 0; }
+  .evidence-claim p { grid-column: 1 / span 4; grid-row: 3; }
   .evidence-picture, .evidence-picture > .exhibit { display: contents; }
-  .evidence-picture > :not(.exhibit) { grid-column: 5 / -1; grid-row: 1 / span 2; }
-  .exhibit-frame { grid-column: 5 / -1; grid-row: 1 / span 2; }
-  .exhibit figcaption { grid-column: 1 / span 4; grid-row: 2; margin-top: 8px; padding-top: 18px; border-top: 1px solid var(--line); }
+  .evidence-picture > :not(.exhibit) { grid-column: 5 / -1; grid-row: 2 / -1; }
+  .exhibit-frame { grid-column: 5 / -1; grid-row: 2 / -1; }
+  .exhibit figcaption { grid-column: 1 / span 4; grid-row: 4; margin-top: 32px; padding-top: 18px; border-top: 1px solid var(--line); }
   .case-title, .case-visual { margin-top: clamp(28px, calc(var(--fit) * 2.5), 72px); }
   .evidence-list { margin-top: clamp(48px, calc(var(--fit) * 5), 112px); }
 }
