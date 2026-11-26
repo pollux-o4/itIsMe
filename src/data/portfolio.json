@@ -809,7 +809,7 @@
       "description": "독거노인·치매 환자의 고립을 줄이려고 **표정 분석 결과와 음성 텍스트를 LLM이 함께 판단**해 공감 대화를 이어 가는 서비스를 설계했습니다. 컴퓨터 비전 담당으로 MobileNet·ViT 등 **표정 인식 모델 후보를 비교**했습니다.",
       "source": "인공지능사관학교 온라인 해커톤 발표자료",
       "image": "health-emotion",
-      "imageAlt": "기본 ViT와 3 epoch ViT 모델이 방송 영상 속 얼굴의 표정을 분류한 프레임 비교",
+      "imageAlt": "웹캠 감정 분석기 화면. 얼굴을 탐지해 Sad 46.8%, Neutral 35.9%로 분석하고 누적 통계를 보여 준다",
       "scope": "team",
       "deck": "1R7kqyfooO_2POCXucRGGsSuR-wynf6hC"
     },
