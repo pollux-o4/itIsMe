@@ -8,8 +8,9 @@ on:
 permissions:
   contents: read
 
+# Per branch: a dev push queued behind a main deploy must not replace (cancel) it.
 concurrency:
-  group: github-pages
+  group: pages-${{ github.ref }}
   cancel-in-progress: false
 
 jobs:
