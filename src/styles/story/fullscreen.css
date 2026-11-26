@@ -7,6 +7,8 @@
   display: flex;
   align-items: center;
   gap: 14px;
+  width: max-content;
+  max-width: calc(100vw - 32px);
   padding: 8px 8px 8px 20px;
   border-radius: 999px;
   background: rgb(var(--scrim) / 0.88);
@@ -18,7 +20,7 @@
   transition: opacity 300ms ease, translate 520ms var(--spring);
 }
 .fullscreen-offer.is-visible { opacity: 1; translate: -50% 0; }
-.fullscreen-offer p { font-size: 14px; line-height: 1.4; white-space: nowrap; }
+.fullscreen-offer p { min-width: 0; font-size: 14px; line-height: 1.4; text-wrap: balance; word-break: keep-all; }
 .fullscreen-go {
   padding: 10px 16px;
   border-radius: 999px;
@@ -26,9 +28,21 @@
   color: var(--ink);
   font-size: 14px;
   font-weight: 650;
+  white-space: nowrap;
+  flex: none;
   transition: scale 200ms ease;
 }
 .fullscreen-go:active { scale: 0.96; }
-.fullscreen-skip { width: 36px; height: 36px; background: none; }
-@media (prefers-reduced-motion: reduce) { .fullscreen-offer { translate: -50% 0; transition: opacity 120ms linear; } }
+.fullscreen-skip { flex: none; width: 36px; height: 36px; background: none; }
+/* Narrow screens: the sentence takes its own line so the button keeps one line. */
+@media (max-width: 520px) {
+  /* Pinned by both edges: a centred fixed box wider than half the screen widens the mobile layout viewport. */
+  .fullscreen-offer { display: grid; grid-template-columns: minmax(0, 1fr) auto; left: 12px; right: 12px; width: auto; max-width: none; translate: 0 16px; bottom: 12px; padding: 14px 8px 8px 18px; border-radius: 20px; row-gap: 8px; }
+  .fullscreen-offer p { grid-column: 1; }
+  .fullscreen-skip { grid-column: 2; grid-row: 1; align-self: start; margin-top: -6px; }
+  .fullscreen-go { grid-column: 1 / -1; justify-self: stretch; }
+  .fullscreen-offer.is-visible { translate: 0 0; }
+}
+@media (prefers-reduced-motion: reduce) and (min-width: 521px) { .fullscreen-offer { translate: -50% 0; transition: opacity 120ms linear; } }
 @media print { .fullscreen-offer { display: none; } }
+@media (prefers-reduced-motion: reduce) and (max-width: 520px) { .fullscreen-offer { translate: 0 0; transition: opacity 120ms linear; } }

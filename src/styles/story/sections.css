@@ -1,5 +1,5 @@
-.archive, .timeline, .background { padding-block: var(--chapter-pad); }
-.archive + .timeline, .timeline + .background { padding-top: 0; }
+.archive, .timeline { padding-block: var(--chapter-pad); }
+.archive + .timeline { padding-top: 0; }
 
 /* Archive: an index table grouped by field; each row opens in place. */
 .archive-list { margin-top: clamp(40px, calc(var(--fit) * 6), 88px); }
@@ -140,39 +140,34 @@
 .work-body p { font-size: 17px; line-height: 1.8; color: var(--ink-soft); max-width: 40em; }
 .source-label { font-family: var(--mono); font-size: 12px; letter-spacing: 0.04em; color: var(--muted); }
 
-/* Timeline: years carry a sentence of their own, entries carry a kind (SPEC 2.4). */
+/* Timeline: each year is a 12-month axis — project tiles above, course bars and certificates below (SPEC 4.6). */
+/* Key: each sample is drawn exactly like its mark on the axis, and carries the count it stands for. */
 .timeline-key {
   display: flex;
   flex-wrap: wrap;
-  gap: 8px 22px;
+  gap: 10px 28px;
   margin-top: clamp(32px, calc(var(--fit) * 4), 56px);
-  font-size: 13px;
-  color: var(--muted);
+  font-size: 14px;
+  color: var(--ink-soft);
 }
-.timeline-key span, .timeline-list ul li { display: flex; align-items: baseline; gap: 9px; }
-.timeline-key span::before, .timeline-list ul li::before {
-  content: "";
-  flex: none;
-  width: 8px;
-  height: 8px;
-  border-radius: 2px;
-  transform: translateY(-1px);
-}
-.kind-course::before { background: var(--ink); }
-.kind-project::before { border: 1.5px solid var(--muted); }
-.timeline-key .kind-cert::before, .timeline-list .kind-cert::before { background: var(--signal); border-radius: 50%; }
+.timeline-key li { display: flex; align-items: center; gap: 9px; }
+.timeline-key b { font-family: var(--mono); font-size: 13px; font-weight: 600; color: var(--muted); font-variant-numeric: tabular-nums; }
+.timeline-key i { flex: none; display: block; width: 14px; height: 14px; }
+.key-project i { border-radius: 3px; background: color-mix(in srgb, var(--ink) 22%, transparent); }
+.key-live i, .key-ended i { border-radius: 3px; background: color-mix(in srgb, var(--ink) 10%, transparent); }
+.key-live i { box-shadow: 0 0 0 2px var(--signal); }
+.key-ended i { outline: 1.5px dashed var(--muted); outline-offset: 1px; }
+.key-course i, .key-career i { height: 10px; width: 22px; border-radius: 999px; background: color-mix(in srgb, var(--ink) 14%, transparent); box-shadow: inset 0 0 0 1px color-mix(in srgb, var(--ink) 10%, transparent); }
+.key-career i { background: var(--ink); box-shadow: none; }
 .timeline-year {
   display: grid;
   grid-template-columns: repeat(12, minmax(0, 1fr));
   column-gap: var(--gap);
-  row-gap: 24px;
+  align-items: end;
   margin-top: clamp(36px, calc(var(--fit) * 5), 72px);
-  padding-top: 18px;
-  border-top: 1px solid var(--line-strong);
 }
-/* The key reads as the first year's legend, so it sits on it instead of floating between head and list. */
-.timeline-key + .timeline-year { margin-top: clamp(20px, calc(var(--fit) * 2), 28px); }
-.year-head { grid-column: 1 / span 3; }
+.timeline-key + .timeline-year { margin-top: clamp(16px, calc(var(--fit) * 2), 24px); }
+.year-head { grid-column: 1 / span 3; padding-bottom: 72px; }
 .year-head h3 {
   font-family: var(--serif);
   font-style: italic;
@@ -180,59 +175,73 @@
   font-size: var(--t-title);
   line-height: 0.9;
   letter-spacing: -0.02em;
+  color: var(--ink-soft);
 }
-.year-head p { margin-top: 14px; max-width: 14em; font-size: 15px; line-height: 1.6; color: var(--ink-soft); }
-.timeline-year.is-current .year-head h3 { color: var(--ink); }
-.timeline-list {
-  grid-column: 4 / -1;
-  display: grid;
-  grid-template-columns: repeat(3, minmax(0, 1fr));
-  column-gap: var(--gap);
-}
-.timeline-list > li { padding: 4px 0 30px; border-bottom: 1px solid var(--line); }
-.timeline-list time {
+.year-head p { margin-top: 14px; max-width: 14em; font-size: 15px; line-height: 1.6; color: var(--muted); }
+.timeline-year.is-current .year-head h3 { color: var(--signal-ink); }
+/* relative: sr-only labels inside must not escape the scroller and widen the page. */
+/* Two six-month halves share row tracks (subgrid), so tiles, axis, bars and certificates line up across the seam. */
+.track { grid-column: 4 / -1; min-width: 0; display: grid; grid-template-columns: 1fr 1fr; grid-template-rows: repeat(4, auto); column-gap: 8px; }
+.track-half { grid-row: 1 / -1; display: grid; grid-template-rows: subgrid; grid-template-columns: repeat(6, minmax(0, 1fr)); column-gap: 8px; }
+.track-half > * { grid-column: 1 / -1; display: grid; grid-template-columns: subgrid; }
+.track-tiles { align-items: end; }
+.track-tiles ul { display: flex; flex-direction: column-reverse; gap: 10px; }
+/* Rows reserved for name (2 lines) and status, so images stay level whether or not a tile has a status. */
+.tile-body { display: grid; grid-template-rows: auto auto 15px; gap: 7px; color: inherit; text-decoration: none; border-radius: 6px; outline-offset: 4px; }
+.tile-media { position: relative; display: block; border-radius: 6px; box-shadow: 0 0 0 1px color-mix(in srgb, var(--ink) 10%, transparent); transition: translate 260ms cubic-bezier(.2, .8, .2, 1), box-shadow 260ms cubic-bezier(.2, .8, .2, 1); }
+.tile img, .tile-blank { display: block; width: 100%; height: auto; aspect-ratio: 1; object-fit: cover; border-radius: 6px; background: var(--line); }
+.tile-blank { background: repeating-linear-gradient(135deg, var(--line) 0 6px, transparent 6px 12px); }
+/* Release state, said twice: the ring (solid signal = serving now, dashed grey = shipped then taken down) and a caption. */
+.tile.is-live .tile-media { box-shadow: 0 0 0 2px var(--signal); }
+.tile.is-ended .tile-media { outline: 1.5px dashed var(--muted); outline-offset: 2px; }
+.tile-status { grid-row: 3; margin-top: -3px; font-size: 12px; font-weight: 700; line-height: 1.2; color: var(--muted); white-space: nowrap; }
+.is-live .tile-status { color: var(--signal-ink); }
+.tile-name { display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; overflow: hidden; min-height: 2.6em; font-size: 12px; font-weight: 650; line-height: 1.3; color: var(--ink); word-break: keep-all; }
+/* Linked tiles lift on hover and focus, the affordance Apple uses for tappable media. */
+a.tile-body:hover .tile-media, a.tile-body:focus-visible .tile-media { translate: 0 -3px; box-shadow: 0 0 0 1px color-mix(in srgb, var(--ink) 14%, transparent), 0 10px 22px -10px rgb(0 0 0 / 0.35); }
+.tile.is-live a.tile-body:hover .tile-media, .tile.is-live a.tile-body:focus-visible .tile-media { box-shadow: 0 0 0 2px var(--signal), 0 10px 22px -10px rgb(0 0 0 / 0.35); }
+a.tile-body:hover .tile-name { text-decoration: underline; text-underline-offset: 3px; }
+@media (prefers-reduced-motion: reduce) { .tile-media { transition: none; } a.tile-body:hover .tile-media, a.tile-body:focus-visible .tile-media { translate: none; } }
+.track-axis { margin-top: 10px; padding-top: 8px; border-top: 1px solid var(--line-strong); }
+.track-axis span { position: relative; font-family: var(--mono); font-size: 12px; color: var(--muted); }
+.track-axis span::before { content: ""; position: absolute; left: 0; top: -14px; width: 1px; height: 6px; background: var(--line-strong); }
+.track-bars { grid-auto-flow: row dense; row-gap: 10px; margin-top: 12px; }
+/* Spans: the capsule is exactly the period; its label starts under it and may run to the half's end. */
+.track-bars li { display: grid; gap: 7px; min-width: 0; font-size: 12px; color: var(--ink-soft); }
+.bar-span {
   display: block;
-  font-family: var(--serif);
-  font-style: italic;
-  font-size: var(--t-head);
-  line-height: 1;
+  width: calc((100% + 8px) * var(--n) / var(--m) - 8px);
+  height: 10px;
+  border-radius: 999px;
+  background: color-mix(in srgb, var(--ink) 14%, transparent);
+  box-shadow: inset 0 0 0 1px color-mix(in srgb, var(--ink) 10%, transparent);
 }
-.timeline-list time small { margin-left: 3px; font-family: var(--sans); font-style: normal; font-size: 14px; color: var(--muted); }
-.timeline-list ul { display: grid; gap: 7px; margin-top: 14px; }
-.timeline-list ul li { font-size: 15px; line-height: 1.55; color: var(--ink-soft); }
-.timeline-list ul li.kind-course { font-weight: 700; color: var(--ink); }
-.timeline-list ul li.kind-cert { font-weight: 650; color: var(--signal-ink); }
-
-/* Profile */
-.profile-grid {
-  display: grid;
-  grid-template-columns: repeat(12, minmax(0, 1fr));
-  column-gap: var(--gap);
-  row-gap: 48px;
-  margin-top: clamp(40px, calc(var(--fit) * 6), 88px);
+/* Paid work is solid ink, the strongest mark after the signal colour, so it never reads as another course. */
+.is-career .bar-span { background: var(--ink); box-shadow: none; }
+.bar-label { display: flex; align-items: baseline; gap: 6px; min-width: 0; white-space: nowrap; }
+.bar-label em { flex: none; padding: 1px 6px; border-radius: 4px; background: color-mix(in srgb, var(--ink) 9%, transparent); font-style: normal; font-weight: 700; color: var(--ink); }
+.is-career .bar-label em { background: var(--ink); color: var(--paper); }
+.bar-name { min-width: 0; overflow: hidden; text-overflow: ellipsis; }
+.bar-range { flex: none; font-family: var(--mono); color: var(--muted); font-variant-numeric: tabular-nums; }
+/* The half that continues a span from the other half shows only the capsule's tail. */
+.track-bars li[aria-hidden="true"] .bar-span { border-top-left-radius: 0; border-bottom-left-radius: 0; }
+.track-certs { grid-auto-flow: row dense; grid-auto-rows: 18px; row-gap: 6px; margin-top: 14px; }
+.track-certs li { display: flex; align-items: center; gap: 6px; height: 18px; translate: -8px 0; font-size: 12px; font-weight: 650; color: var(--signal-ink); white-space: nowrap; }
+/* Certificates: a medal glyph (lucide Award) reads as "earned" without the key; the stroke stays in the signal ink. */
+.cert-icon { flex: none; color: var(--signal-ink); }
+/* The medal sits on its month tick; a sparse dotted leader joins it to the axis, under the bars so it never crosses a label. */
+.track-half > .cert-guide {
+  grid-row: 3 / 5;
+  display: block;
+  justify-self: start;
+  width: 1px;
+  margin: 6px 0 calc(var(--below) * 24px + 21px);
+  background: repeating-linear-gradient(to bottom, color-mix(in srgb, var(--signal) 55%, transparent) 0 2px, transparent 2px 7px);
 }
-.profile-col:nth-child(1) { grid-column: 1 / span 5; }
-.profile-col:nth-child(2) { grid-column: 6 / span 4; }
-.profile-col:nth-child(3) { grid-column: 10 / span 3; }
-.profile-col > .label { padding-bottom: 12px; border-bottom: 1px solid var(--line-strong); }
-.profile-col > .profile-subhead { margin-top: 40px; }
-.profile-item { padding: 22px 0; border-bottom: 1px solid var(--line); }
-.profile-item time { font-family: var(--mono); font-size: 12px; letter-spacing: 0.04em; color: var(--muted); }
-.profile-item h4 { margin-top: 6px; font-size: 21px; font-weight: 740; letter-spacing: -0.035em; line-height: 1.35; }
-.profile-org { display: block; margin-top: 2px; font-size: 14px; color: var(--muted); }
-.profile-item p { margin-top: 10px; font-size: 16px; line-height: 1.7; color: var(--ink-soft); }
-.cert-list li {
-  display: flex;
-  justify-content: space-between;
-  align-items: baseline;
-  gap: 12px;
-  padding: 18px 0;
-  border-bottom: 1px solid var(--line);
-  font-size: 17px;
-  font-weight: 680;
-  letter-spacing: -0.02em;
-}
-.cert-list time { font-family: var(--mono); font-size: 12px; font-weight: 400; color: var(--muted); }
+.track-bars, .track-certs { position: relative; z-index: 1; }
+.track-bars li > * { position: relative; }
+.bar-span { background: color-mix(in srgb, var(--ink) 14%, var(--paper)); }
+.bar-label { width: fit-content; max-width: 100%; padding-right: 6px; background: var(--paper); }
 
 @media (max-width: 1099px) {
   .archive-columns { display: none; }
@@ -249,10 +258,8 @@
   .work-body img { max-width: 480px; }
   .year-head { grid-column: 1 / -1; display: flex; align-items: baseline; gap: 20px; }
   .year-head p { margin-top: 0; max-width: none; }
-  .timeline-list { grid-column: 1 / -1; }
-  .profile-col:nth-child(1) { grid-column: 1 / -1; }
-  .profile-col:nth-child(2) { grid-column: 1 / span 7; }
-  .profile-col:nth-child(3) { grid-column: 8 / -1; }
+  .track { grid-column: 1 / -1; }
+  .year-head { padding-bottom: 20px; }
 }
 @media (max-width: 760px) {
   .work-body img, .work-body > div { grid-column: 1 / -1; }
@@ -260,9 +267,14 @@
   .work-thumb { width: 64px; }
   .year-head { display: block; }
   .year-head p { margin-top: 10px; }
-  .timeline-list { grid-template-columns: 1fr; }
-  .timeline-list > li { display: grid; grid-template-columns: 96px minmax(0, 1fr); padding: 16px 0; }
-  .timeline-list time { font-size: 26px; white-space: nowrap; }
-  .timeline-list ul { margin-top: 0; }
-  .profile-col:nth-child(n) { grid-column: 1 / -1; }
+  .track { grid-template-columns: 1fr; grid-template-rows: repeat(8, auto); row-gap: 0; }
+  .track-half + .track-half { grid-row: 5 / 9; margin-top: 28px; }
+  .track-half:first-child { grid-row: 1 / 5; }
 }
+/* Late-year certificates put the label left of the dot, which still sits on the month tick; the year end has no room after it. */
+.track-certs li.is-end { flex-direction: row-reverse; justify-self: start; translate: calc(-100% + 8px) 0; }
+/* Rows are named explicitly: the certificate leaders also live in the half's grid and must not shift auto-placement. */
+.track-half > .track-tiles { grid-row: 1; }
+.track-half > .track-axis { grid-row: 2; }
+.track-half > .track-bars { grid-row: 3; }
+.track-half > .track-certs { grid-row: 4; }

@@ -183,5 +183,8 @@ details[open] > .disclosure-content { animation: unfold 380ms var(--ease-out); }
   inset: -12px -6px;
 }
 
+/* Page scrollbar: a thin thumb in the ink tone on a clear track, so the browser chrome matches the paper. */
+html { scrollbar-width: thin; scrollbar-color: color-mix(in srgb, var(--ink) 30%, transparent) transparent; }
+
 /* scroll-lock.ts: the page scrollbar keeps its width (no shift) but fades out behind the modal. */
 .is-scroll-locked { scrollbar-color: transparent transparent; }

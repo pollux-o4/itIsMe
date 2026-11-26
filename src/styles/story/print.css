@@ -27,11 +27,11 @@
   .story-body *, .story-body *::before, .story-body *::after { animation: none !important; transition: none !important; }
   .story-main > [data-chapter] { content-visibility: visible !important; }
   .hero-title .line > span, .case-title .line > span { transform: none !important; }
-  .hero, .index, .case, .archive, .timeline, .background, .contact { padding: 0 !important; }
+  .hero, .index, .case, .archive, .timeline, .contact { padding: 0 !important; }
   .index { margin-top: 5mm; }
   .contact { margin-top: 10mm; }
   /* Each chapter starts a sheet, so one sheet can be read, or pulled out, on its own. */
-  .case, .archive, .timeline, .background { break-before: page; }
+  .case, .archive, .timeline { break-before: page; }
 
   /* Whose this is and the screening facts, before the pitch. */
   .hero-print-card { display: flex; justify-content: space-between; gap: 6mm; padding: 3mm 0; border-bottom: 1px solid #000; font-size: 9pt; line-height: 1.45; }
@@ -63,7 +63,7 @@
   .question-list { grid-column: 1 / -1; }
   .timeline-year { margin-top: 6mm; padding-top: 3mm; break-inside: avoid; }
   .year-head h3 { font-size: 26pt; }
-  .timeline-list > li { padding-bottom: 3mm; }
+  .track { break-inside: avoid; }
   .hero-stats dd { font-size: 19pt; }
   .hero-stats dt { font-size: 8.5pt; }
   .section-head h2 { font-size: 20pt; }
@@ -117,7 +117,7 @@
   .detail-text h3 { font-size: 11pt; }
   .detail-text p { margin-top: 1mm; }
   .facts { margin-top: 3mm; }
-  .work-row, .timeline-list > li, .profile-item { break-inside: avoid; }
+  .work-row, .track { break-inside: avoid; }
   .case-links { break-before: avoid; margin-top: 2mm; }
   .case-links a { min-height: 0; padding-block: 1mm; }
 
@@ -164,9 +164,7 @@
   .work-body p { line-height: 1.5; font-size: 8.5pt; }
   .source-label { font-size: 8pt; }
   .work-body .pill { min-height: 0; padding: 0; border: 0; font-size: 8.5pt; text-decoration: underline; }
-  .timeline-list time { font-size: 14pt; }
-  .timeline-list ul li { font-size: 8.5pt; }
-  .profile-item h4 { font-size: 12pt; }
+  .tile-name, .track-bars li, .track-certs li { font-size: 7pt; }
   .contact-title { font-size: 26pt; }
   .contact-lede { font-size: 11pt; }
   .contact-mail { font-size: 18pt; color: #000; }

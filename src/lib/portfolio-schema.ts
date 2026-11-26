@@ -94,7 +94,11 @@ export const portfolioSchema = z
     timeline: z.array(z.object({
       date: z.string().regex(/^\d{4}\.\d{2}(?:–\d{2})?$/),
       // career marks paid work: shown in the timeline, left out of the project count.
-      items: z.array(z.object({ text, kind: z.enum(["course", "project", "cert"]), career: z.boolean().optional() })).min(1),
+      items: z.array(z.object({
+        text, kind: z.enum(["course", "project", "cert"]), career: z.boolean().optional(),
+        // ref: project id whose image becomes the tile (image: own tile for work without a project page); release: live = still serving, ended = shipped then taken down; until: last month of a course.
+        ref: id.optional(), image: id.optional(), release: z.enum(["live", "ended"]).optional(), until: z.string().regex(/^\d{4}\.\d{2}$/).optional(),
+      })).min(1),
     })),
     experience: z.array(
       z.object({
@@ -103,18 +107,14 @@ export const portfolioSchema = z
         role: text,
       }),
     ),
-    // Profile lists run newest first; education is degrees, training is courses.
     education: z.array(
       z.object({ period: text, title: text, description: text }),
     ).min(1),
-    training: z.array(
-      z.object({ period: text, title: text, description: text }),
-    ),
     certifications: z.array(z.object({ date: text, name: text })),
   })
   .superRefine((value, context) => {
     const ids = [...value.projects, ...value.otherProjects].map(item => item.id);
-    const reserved = new Set(['start', 'work', 'archive', 'timeline', 'background', 'contact', 'main']);
+    const reserved = new Set(['start', 'work', 'archive', 'timeline', 'contact', 'main']);
     if (new Set(ids).size !== ids.length || ids.some(id => reserved.has(id))) {
       context.addIssue({ code: 'custom', message: 'Chapter IDs must be unique and not reserved.' });
     }
@@ -128,6 +128,11 @@ export const portfolioSchema = z
       if (!years.has(entry.date.slice(0, 4))) {
         context.addIssue({ code: 'custom', path: ['timeline', index, 'date'], message: 'Every timeline entry needs a matching year heading.' });
       }
+      entry.items.forEach((item, at) => {
+        if (item.ref && !ids.includes(item.ref)) {
+          context.addIssue({ code: 'custom', path: ['timeline', index, 'items', at, 'ref'], message: 'Timeline ref must name a project id.' });
+        }
+      });
     });
   });
 
