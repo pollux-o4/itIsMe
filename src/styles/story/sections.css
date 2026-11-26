@@ -2,7 +2,7 @@
 .archive + .timeline, .timeline + .background { padding-top: 0; }
 
 /* Archive: an index table grouped by field; each row opens in place. */
-.archive-list { margin-top: clamp(40px, 6vw, 88px); }
+.archive-list { margin-top: clamp(40px, calc(var(--fit) * 6), 88px); }
 
 .archive-columns,
 .work-row > summary {
@@ -26,7 +26,7 @@
   flex-wrap: wrap;
   align-items: baseline;
   gap: 2px 14px;
-  padding: clamp(18px, 1.8vw, 24px) 0 8px;
+  padding: clamp(18px, calc(var(--fit) * 1.8), 24px) 0 8px;
   border-bottom: 1px solid var(--line);
   font-size: 19px;
   font-weight: 740;
@@ -38,7 +38,7 @@
 .work-row > summary {
   position: relative;
   isolation: isolate;
-  padding: clamp(18px, 2vw, 26px) 0;
+  padding: clamp(18px, calc(var(--fit) * 2), 26px) 0;
 }
 /* The highlight sits behind the row, so columns stay aligned with the rows around it. */
 .work-row > summary::before {
@@ -116,7 +116,7 @@
 }
 .work-no { font-family: var(--serif); font-style: italic; font-size: 18px; color: var(--muted); }
 .work-name { display: grid; gap: 4px; min-width: 0; }
-.work-title { font-size: clamp(20px, 2vw, 30px); font-weight: 740; letter-spacing: -0.045em; line-height: 1.25; }
+.work-title { font-size: clamp(20px, calc(var(--fit) * 2), 30px); font-weight: 740; letter-spacing: -0.045em; line-height: 1.25; }
 .work-highlight { font-size: 14px; line-height: 1.5; color: var(--ink-soft); }
 .work-meta { display: contents; }
 .work-type, .work-duration, .work-stack { font-size: 14px; line-height: 1.5; color: var(--muted); }
@@ -144,7 +144,7 @@
   display: flex;
   flex-wrap: wrap;
   gap: 8px 22px;
-  margin-top: clamp(32px, 4vw, 56px);
+  margin-top: clamp(32px, calc(var(--fit) * 4), 56px);
   font-size: 13px;
   color: var(--muted);
 }
@@ -165,7 +165,7 @@
   grid-template-columns: repeat(12, minmax(0, 1fr));
   column-gap: var(--gap);
   row-gap: 24px;
-  margin-top: clamp(36px, 5vw, 72px);
+  margin-top: clamp(36px, calc(var(--fit) * 5), 72px);
   padding-top: 18px;
   border-top: 1px solid var(--line-strong);
 }
@@ -174,7 +174,7 @@
   font-family: var(--serif);
   font-style: italic;
   font-weight: 400;
-  font-size: clamp(56px, 6.4vw, 104px);
+  font-size: clamp(56px, calc(var(--fit) * 6.4), 104px);
   line-height: 0.9;
   letter-spacing: -0.02em;
 }
@@ -191,7 +191,7 @@
   display: block;
   font-family: var(--serif);
   font-style: italic;
-  font-size: clamp(28px, 2.4vw, 38px);
+  font-size: clamp(28px, calc(var(--fit) * 2.4), 38px);
   line-height: 1;
 }
 .timeline-list time small { margin-left: 3px; font-family: var(--sans); font-style: normal; font-size: 14px; color: var(--muted); }
@@ -206,7 +206,7 @@
   grid-template-columns: repeat(12, minmax(0, 1fr));
   column-gap: var(--gap);
   row-gap: 48px;
-  margin-top: clamp(40px, 6vw, 88px);
+  margin-top: clamp(40px, calc(var(--fit) * 6), 88px);
 }
 .profile-col:nth-child(1) { grid-column: 1 / span 5; }
 .profile-col:nth-child(2) { grid-column: 6 / span 4; }

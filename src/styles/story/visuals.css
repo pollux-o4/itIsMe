@@ -2,7 +2,7 @@
 .split-demo {
   display: grid;
   gap: 28px;
-  padding: clamp(20px, 3vw, 44px);
+  padding: clamp(20px, calc(var(--fit) * 3), 44px);
   border: 1px solid var(--line-strong);
   border-radius: 6px;
   background: var(--paper-deep);
@@ -29,7 +29,7 @@
 .split-axis {
   display: flex;
   justify-content: space-between;
-  margin-top: clamp(24px, 3vw, 40px);
+  margin-top: clamp(24px, calc(var(--fit) * 3), 40px);
   font-family: var(--mono);
   font-size: 12px;
   letter-spacing: 0.06em;
@@ -38,9 +38,9 @@
 .split-cells {
   display: grid;
   grid-template-columns: repeat(30, minmax(0, 1fr));
-  gap: clamp(2px, 0.4vw, 5px);
+  gap: clamp(2px, calc(var(--fit) * 0.4), 5px);
   align-items: end;
-  height: clamp(80px, 8vw, 120px);
+  height: clamp(80px, calc(var(--fit) * 8), 120px);
   margin-top: 10px;
   padding-bottom: 12px;
   border-bottom: 1px solid var(--line-strong);
@@ -67,14 +67,14 @@
 .split-journey {
   display: grid;
   grid-template-columns: repeat(4, minmax(0, 1fr));
-  gap: clamp(10px, 1.6vw, 20px);
+  gap: clamp(10px, calc(var(--fit) * 1.6), 20px);
   align-items: end;
   padding-top: 24px;
   border-top: 1px solid var(--line);
 }
 .split-journey li { display: grid; gap: 4px; }
 .journey-bar {
-  height: calc(var(--value) * clamp(90px, 9vw, 130px));
+  height: calc(var(--value) * clamp(90px, calc(var(--fit) * 9), 130px));
   margin-bottom: 8px;
   border-radius: 4px 4px 0 0;
   background: var(--ink);
@@ -88,7 +88,7 @@
 .split-journey strong {
   font-family: var(--serif);
   font-weight: 400;
-  font-size: clamp(30px, 3vw, 48px);
+  font-size: clamp(30px, calc(var(--fit) * 3), 48px);
   line-height: 1;
 }
 .split-journey .is-leak strong { color: var(--muted); text-decoration: line-through; text-decoration-thickness: 2px; }
