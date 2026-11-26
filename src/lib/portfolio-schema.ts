@@ -14,8 +14,9 @@ const evidence = z
         image: id,
         width: z.number().int().positive(),
         height: z.number().int().positive(),
-        // Body-text size inside the picture, in source pixels; lets text-heavy crops render at reading size.
-        textPx: z.number().positive().optional(),
+        // Largest and smallest text inside the picture, in source pixels (SPEC 2.11 picture text).
+        textMax: z.number().positive().optional(),
+        textMin: z.number().positive().optional(),
         alt: text,
         caption: text,
         page: text.optional(),

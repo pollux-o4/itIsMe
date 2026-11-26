@@ -238,12 +238,13 @@
 
 .exhibit-frame {
   /*
-    One zoom for every crop: text inside a picture renders at --picture-text, a step
-    under body copy, so a screenshot never shouts over the claim beside it.
-    --source-text is the picture's own text size; slide exports default to 23.33px (the old 0.6 zoom).
+    A picture is read after its claim, so its text stays under body copy: the largest
+    text renders at most --picture-max, unless that would push the smallest text under
+    --picture-min, where legibility wins. Unmeasured slide exports keep the 0.6 zoom.
   */
-  --picture-text: 14;
-  --frame-cap: calc(var(--source-width) * var(--picture-text) / var(--source-text, 23.33) * 1px);
+  --picture-max: 15;
+  --picture-min: 10.5;
+  --frame-cap: calc(var(--source-width) * max(var(--picture-max) / var(--text-max, 25), var(--picture-min) / var(--text-min, 1000)) * 1px);
   max-width: var(--frame-cap);
   position: relative;
   border: 1px solid var(--line);

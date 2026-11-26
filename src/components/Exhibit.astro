@@ -7,7 +7,7 @@ const { figure: f, label } = Astro.props;
 const pct = (value: number) => `${(value * 100).toFixed(2)}%`;
 ---
 <figure class="exhibit">
-  <div class="exhibit-frame" style={`aspect-ratio:${f.width}/${f.height};--ratio:${(f.width / f.height).toFixed(4)};--source-width:${f.width}${f.textPx ? `;--source-text:${f.textPx}` : ''}`}>
+  <div class="exhibit-frame" style={`aspect-ratio:${f.width}/${f.height};--ratio:${(f.width / f.height).toFixed(4)};--source-width:${f.width}${f.textMax ? `;--text-max:${f.textMax}` : ''}${f.textMin ? `;--text-min:${f.textMin}` : ''}`}>
     <PortfolioImage name={f.image} width={f.width} alt={f.alt} sizes="(max-width: 760px) 92vw, (max-width: 1240px) 60vw, 750px"/>
     {f.marks.map((mark, i) => (
       <span class="exhibit-mark" style={`left:${pct(mark.x)};top:${pct(mark.y)};width:${pct(mark.w)};height:${pct(mark.h)}`} aria-hidden="true">
