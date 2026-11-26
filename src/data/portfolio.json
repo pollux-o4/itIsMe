@@ -995,9 +995,10 @@
       "date": "2025.10",
       "items": [
         {
-          "text": "한우 체형 분석 · 해커톤",
+          "text": "한우 체형 분석 · 급여관리 서비스 해커톤",
           "kind": "project",
-          "image": "hanwoo-preview"
+          "image": "hanwoo-preview",
+          "release": "ended"
         },
         {
           "text": "인공지능활용능력",
