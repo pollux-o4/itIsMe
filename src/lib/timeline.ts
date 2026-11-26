@@ -1,9 +1,33 @@
 import type { Portfolio } from "./portfolio";
 
 type Timeline = Portfolio["timeline"];
-export type TimelineKind = Timeline[number]["items"][number]["kind"];
+type Item = Timeline[number]["items"][number];
+export type Release = NonNullable<Item["release"]>;
 
-export const kindLabel: Record<TimelineKind, string> = { course: "교육", project: "작업", cert: "자격" };
+const isCareer = (item: Item) => item.career === true;
+/** Projects only; paid career work is counted in the profile, not here (SPEC 4.6). */
+const isProject = (item: Item) => item.kind === "project" && !isCareer(item);
+const isBar = (item: Item) => item.kind === "course" || isCareer(item);
+
+export const releaseLabel: Record<Release, string> = { live: "운영 중", ended: "배포 종료" };
+
+/** Legend categories, one rule each: the key's counts and the bars' tags read the same table. */
+const legendRules = [
+  { kind: "project", label: "프로젝트", test: isProject },
+  { kind: "live", label: releaseLabel.live, test: (item: Item) => item.release === "live" },
+  { kind: "ended", label: releaseLabel.ended, test: (item: Item) => item.release === "ended" },
+  { kind: "course", label: "교육", test: (item: Item) => item.kind === "course" },
+  { kind: "career", label: "실무", test: isCareer },
+  { kind: "cert", label: "자격증", test: (item: Item) => item.kind === "cert" },
+] as const;
+type LegendKind = (typeof legendRules)[number]["kind"];
+const labelOf = Object.fromEntries(legendRules.map(rule => [rule.kind, rule.label])) as Record<LegendKind, string>;
+
+/** Each category with how many items it holds, so the key doubles as the section's summary. */
+export const legend = (items: Item[]) =>
+  legendRules.map(({ kind, label, test }) => ({ kind, label, count: items.filter(test).length }));
+
+export const barLabel = (bar: Item) => labelOf[isCareer(bar) ? "career" : "course"];
 
 const monthIndex = (date: string) => {
   const [year, month] = date.slice(0, 7).split(".").map(Number);
@@ -20,9 +44,8 @@ export const lastMonth = (timeline: Timeline) => {
 export const spanMonths = (timeline: Timeline, until: string) =>
   monthIndex(until) - monthIndex(timeline[0].date) + 1;
 
-/** Projects only; paid career work is counted in the profile, not here (SPEC 4.6). */
 export const projectCount = (timeline: Timeline) =>
-  timeline.reduce((sum, entry) => sum + entry.items.filter(item => item.kind === "project" && !item.career).length, 0);
+  timeline.reduce((sum, entry) => sum + entry.items.filter(isProject).length, 0);
 
 /** Entries grouped under their year heading in one pass. */
 export const groupByYear = (timeline: Timeline, years: Portfolio["timelineYears"]) => {
@@ -31,7 +54,6 @@ export const groupByYear = (timeline: Timeline, years: Portfolio["timelineYears"
   return years.map(year => ({ ...year, entries: byYear.get(year.year) ?? [] }));
 };
 
-type Item = Timeline[number]["items"][number];
 export type Placed = Item & { month: number; end: number; image?: string };
 
 /** Month (1–12) where an entry starts and ends inside its year; ranges like "2025.05–06" end at the second month. */
@@ -55,9 +77,8 @@ export const placeYear = (entries: Timeline, imageOf: (ref: string) => string | 
       image: item.image ?? (item.ref ? imageOf(item.ref) : undefined),
     }));
   });
-  const isBar = (item: Placed) => item.kind === "course" || item.career === true;
   return {
-    tiles: placed.filter(item => item.kind === "project" && !isBar(item)),
+    tiles: placed.filter(isProject),
     bars: placed.filter(isBar),
     certs: placed.filter(item => item.kind === "cert"),
   };
@@ -67,4 +88,14 @@ export const placeYear = (entries: Timeline, imageOf: (ref: string) => string | 
 export const splitLabel = (text: string) => {
   const at = text.indexOf(" · ");
   return at < 0 ? { name: text, note: "" } : { name: text.slice(0, at), note: text.slice(at) };
+};
+
+/** A certificate within two months of the previous one drops a row, since its label would run into that one. */
+export const stackCerts = <T extends { month: number }>(certs: T[]) => {
+  let previous: { month: number; row: number } | undefined;
+  return certs.map(cert => {
+    const row = previous && cert.month - previous.month <= 2 ? previous.row + 1 : 1;
+    previous = { month: cert.month, row };
+    return { cert, row };
+  });
 };

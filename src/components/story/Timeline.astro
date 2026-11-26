@@ -1,6 +1,6 @@
 ---
 import { portfolio } from '../../lib/portfolio';
-import { groupByYear, lastMonth, placeYear, projectCount, splitLabel, spanMonths } from '../../lib/timeline';
+import { barLabel, groupByYear, lastMonth, legend, placeYear, projectCount, releaseLabel, splitLabel, spanMonths, stackCerts } from '../../lib/timeline';
 import { Award } from 'lucide-react';
 import PortfolioImage from '../PortfolioImage.astro';
 import StorySection from './parts/StorySection.astro';
@@ -14,26 +14,7 @@ const images = new Map<string, string>([
 const years = groupByYear(timeline, timelineYears).map(year => ({ ...year, ...placeYear(year.entries, ref => images.get(ref)) }));
 // Two six-month halves: one line on wide screens, stacked on narrow ones, so the axis never scrolls sideways.
 const halves = [1, 7].map(first => Array.from({ length: 6 }, (_, index) => first + index));
-// A certificate within two months of the previous one drops a row, since its label would run into that one.
-const certRows = <T extends { month: number }>(certs: T[]) => {
-  let previous: { month: number; row: number } | undefined;
-  return certs.map(cert => {
-    const row = previous && cert.month - previous.month <= 2 ? previous.row + 1 : 1;
-    previous = { month: cert.month, row };
-    return { cert, row };
-  });
-};
-const all = years.flatMap(year => [...year.tiles, ...year.bars, ...year.certs]);
-// The key counts what it names, so it doubles as the section's summary.
-const key = [
-  { kind: 'project', label: '프로젝트', count: all.filter(item => item.kind === 'project' && !item.career).length },
-  { kind: 'live', label: '운영 중', count: all.filter(item => item.release === 'live').length },
-  { kind: 'ended', label: '배포 종료', count: all.filter(item => item.release === 'ended').length },
-  { kind: 'course', label: '교육', count: all.filter(item => item.kind === 'course').length },
-  { kind: 'career', label: '실무', count: all.filter(item => item.career).length },
-  { kind: 'cert', label: '자격증', count: all.filter(item => item.kind === 'cert').length },
-];
-const releaseLabel = { live: '운영 중', ended: '배포 종료' } as const;
+const key = legend(years.flatMap(year => [...year.tiles, ...year.bars, ...year.certs]));
 const range = (from: number, to: number) => from === to ? `${from}월` : `${from}–${to}월`;
 const col = (month: number, end = month) => `grid-column:${(month - 1) % 6 + 1} / ${(end - 1) % 6 + 2}`;
 ---
@@ -86,12 +67,12 @@ const col = (month: number, end = month) => `grid-column:${(month - 1) % 6 + 1} 
                 // The row runs to the half's end so the label has room; --n of --m columns is the span itself.
                 return <li class={bar.career ? 'is-career' : undefined} style={`${col(from, last)};--n:${to - from + 1};--m:${last - from + 1}`} aria-hidden={continued ? 'true' : undefined}>
                   <span class="bar-span" aria-hidden="true"></span>
-                  {!continued && <span class="bar-label"><em>{bar.career ? '실무' : '교육'}</em><span class="bar-name">{splitLabel(bar.text).name}<span class="sr-only">{splitLabel(bar.text).note}</span></span><span class="bar-range"><span class="sr-only">, </span>{range(bar.month, bar.end)}</span></span>}
+                  {!continued && <span class="bar-label"><em>{barLabel(bar)}</em><span class="bar-name">{splitLabel(bar.text).name}<span class="sr-only">{splitLabel(bar.text).note}</span></span><span class="bar-range"><span class="sr-only">, </span>{range(bar.month, bar.end)}</span></span>}
                 </li>;
               })}
             </ul>
             {(() => {
-              const placed = certRows(year.certs.filter(cert => cert.month >= first && cert.month <= last));
+              const placed = stackCerts(year.certs.filter(cert => cert.month >= first && cert.month <= last));
               const rows = Math.max(0, ...placed.map(({ row }) => row));
               return <>
                 {/* Leader from the month's place under the axis down to its medal: sparse, behind the bars. */}
