@@ -85,3 +85,10 @@
   .viewer::backdrop, .viewer-text { animation-duration: 120ms; animation-delay: 0ms; }
 }
 @media print { .exhibit-zoom, .viewer { display: none; } }
+
+/* Zoom layer: the stage clips, the canvas scales; the browser leaves gestures to the script. */
+.viewer-stage { overflow: hidden; touch-action: none; }
+.viewer-canvas { position: absolute; inset: 0; transform-origin: 0 0; }
+.viewer-stage.is-zoomed { cursor: grab; }
+.viewer-stage.is-zoomed:active { cursor: grabbing; }
+.viewer-hint { margin-top: 10px; font-family: var(--mono); font-size: 12px; color: rgb(255 255 255 / 0.5); }

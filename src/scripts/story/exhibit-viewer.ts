@@ -1,4 +1,5 @@
-import { reducedMotion } from './shared/media';
+import { finePointer, reducedMotion } from './shared/media';
+import { attachPanZoom } from './viewer-pan-zoom';
 
 // Evidence lightbox: a picture grows from its place into the largest box of its own ratio, then returns there.
 const EDGE = 0.92; // share of the viewport the picture may take on its limiting side
@@ -19,6 +20,7 @@ export function initializeExhibitViewer(signal: AbortSignal) {
   const text = dialog.querySelector<HTMLElement>('.viewer-text')!;
   let source: HTMLElement | null = null;
   let closing = false;
+  const panZoom = attachPanZoom(stage, signal);
 
   const ratioOf = (frame: HTMLElement) => Number(frame.style.getPropertyValue('--ratio')) || 1;
   // N:M fit: the picture keeps its ratio and fills whichever side runs out first.
@@ -44,9 +46,16 @@ export function initializeExhibitViewer(signal: AbortSignal) {
     const picture = frame.querySelector('img')!.cloneNode() as HTMLImageElement;
     picture.sizes = '100vw';
     picture.loading = 'eager';
-    stage.replaceChildren(picture, ...[...frame.querySelectorAll('.exhibit-mark')].map(mark => mark.cloneNode(true)));
+    const canvas = document.createElement('div');
+    canvas.className = 'viewer-canvas';
+    canvas.append(picture, ...[...frame.querySelectorAll('.exhibit-mark')].map(mark => mark.cloneNode(true)));
+    stage.replaceChildren(canvas);
+    panZoom.reset();
     const caption = frame.closest('.exhibit')?.querySelector('figcaption');
-    text.replaceChildren(...(caption ? [...caption.children].map(child => child.cloneNode(true)) : []));
+    const hint = document.createElement('p');
+    hint.className = 'viewer-hint';
+    hint.textContent = finePointer().matches ? '휠로 확대 · 끌어서 이동 · 더블클릭으로 원래 크기' : '두 손가락으로 확대 · 두 번 탭해 원래 크기';
+    text.replaceChildren(...(caption ? [...caption.children].map(child => child.cloneNode(true)) : []), hint);
     fit();
     dialog.showModal();
     document.documentElement.classList.add('is-viewing');
@@ -56,6 +65,7 @@ export function initializeExhibitViewer(signal: AbortSignal) {
   const close = async () => {
     if (!source || closing) return;
     closing = true;
+    panZoom.reset(true);
     dialog.classList.add('is-closing');
     const back = source.getBoundingClientRect();
     const onScreen = back.bottom > 0 && back.top < innerHeight;
@@ -74,7 +84,13 @@ export function initializeExhibitViewer(signal: AbortSignal) {
   }, { signal });
   dialog.addEventListener('cancel', event => { event.preventDefault(); close(); }, { signal });
   // A click anywhere but the text closes, the way a photo viewer does; the text can be selected.
-  dialog.addEventListener('click', event => { if (!(event.target as Element).closest('.viewer-text')) close(); }, { signal });
+  // While the picture is enlarged or was just dragged, a click on it belongs to the zoom, not to closing.
+  dialog.addEventListener('click', event => {
+    const target = event.target as Element;
+    if (target.closest('.viewer-text')) return;
+    if (target.closest('.viewer-stage') && !panZoom.allowsClose()) return;
+    close();
+  }, { signal });
   addEventListener('resize', fit, { signal });
   for (const frame of frames) frame.addEventListener('click', () => open(frame), { signal });
 }
