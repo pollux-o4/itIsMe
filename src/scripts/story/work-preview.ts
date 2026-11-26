@@ -36,7 +36,11 @@ export function initializeWorkPreview(signal: AbortSignal) {
 
   let x = 0, y = 0, targetX = 0, targetY = 0, last = 0, frame = 0, active: HTMLDetailsElement | null = null;
   const edge = 16, offset = 24;
-  const paint = (tilt: number) => { card.style.transform = `translate3d(${x}px, ${y}px, 0) rotate(${tilt}deg)`; };
+  // Whole pixels and no residual angle at rest: a fractional offset or a 0.01° tilt resamples the text and picture.
+  const paint = (tilt: number) => {
+    const turn = Math.abs(tilt) < 0.1 ? '' : ` rotate(${tilt.toFixed(2)}deg)`;
+    card.style.transform = `translate3d(${Math.round(x)}px, ${Math.round(y)}px, 0)${turn}`;
+  };
   const step = (now: number) => {
     // Time-based damping: the same glide at any refresh rate, and no overshoot to shake the page.
     const ease = 1 - Math.exp(-(now - last) * 0.012);
@@ -46,6 +50,7 @@ export function initializeWorkPreview(signal: AbortSignal) {
     const lag = targetX - x;
     paint(Math.max(-5, Math.min(5, lag * 0.035)));
     const settled = Math.abs(lag) < 0.2 && Math.abs(targetY - y) < 0.2;
+    if (settled) paint(0);
     frame = settled ? 0 : requestAnimationFrame(step);
   };
   const aim = (event: PointerEvent) => {
@@ -60,9 +65,10 @@ export function initializeWorkPreview(signal: AbortSignal) {
     const preview = sourceOf(row);
     if (!preview) return;
     if (active !== row) {
-      image.src = preview.image.currentSrc || preview.image.src;
+      // sizes before srcset, from the card's own width, so the browser picks the source for the slot it fills.
+      image.sizes = `${card.offsetWidth}px`;
       image.srcset = preview.image.srcset;
-      image.sizes = '320px';
+      image.src = preview.image.src;
       text.innerHTML = preview.description.innerHTML;
       // New content: measure once now so the first placement uses the real size.
       cardWidth = card.offsetWidth;

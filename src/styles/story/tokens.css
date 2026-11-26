@@ -28,6 +28,10 @@
   --line-strong: rgb(20 19 17 / 0.82);
   --signal: #ff4d1a;
   --signal-ink: #b5300b;
+  /* Work pictures arrive in every shape; each sits whole on this one mat, inset the same share of its frame.
+     Translucent ink, so the mat stays a step deeper than any row tint beneath it. */
+  --stage: rgb(20 19 17 / 0.06);
+  --stage-inset: 7%;
   /* Overlays (viewer, offer, zoom sign) sit on any theme, so their dark glass never flips. */
   --scrim: 20 19 17;
   --sans: "Pretendard Variable", system-ui, -apple-system, sans-serif;

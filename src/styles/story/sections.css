@@ -59,7 +59,7 @@
   top: 0;
   left: 0;
   z-index: 40;
-  width: min(320px, calc(100vw - 32px));
+  width: min(400px, calc(100vw - 32px));
   pointer-events: none;
   will-change: transform;
 }
@@ -74,21 +74,27 @@
   transition: opacity 160ms ease, scale 160ms ease;
 }
 .work-preview.is-visible > div { opacity: 1; scale: 1; transition: opacity 200ms ease, scale 520ms var(--spring); }
-.work-preview img { display: block; width: 100%; aspect-ratio: 5 / 3; object-fit: contain; background: #fff; }
+.work-preview img { display: block; width: 100%; }
 .work-preview p { padding: 14px 16px 16px; font-size: 14px; line-height: 1.6; letter-spacing: -0.01em; }
 .work-preview .key-phrase { color: inherit; }
 @media (prefers-reduced-motion: reduce) {
   .work-preview > div, .work-preview.is-visible > div { scale: 1; transition: opacity 120ms linear; }
 }
 .work-row > summary .disclosure-sign { width: 44px; height: 44px; justify-self: end; }
+/*
+  One stage for every work picture — row thumbnail, opened row, hover card: a 5:3 mat that shows
+  the whole picture at its own shape, so a phone screen and a wide dashboard read as one set.
+*/
+.work-thumb, .work-body img, .work-preview img {
+  box-sizing: border-box;
+  aspect-ratio: 5 / 3;
+  object-fit: contain;
+  padding: var(--stage-inset);
+  background: var(--stage);
+}
 .work-thumb {
   width: 88px;
-  aspect-ratio: 5 / 3;
-  object-fit: cover;
-  object-position: top;
-  border: 1px solid var(--line);
-  border-radius: 3px;
-  background: #fff;
+  border-radius: 6px;
   transition: opacity 300ms ease;
 }
 /* The opened row shows the same picture larger; the small one steps back but keeps its place. */
@@ -130,11 +136,7 @@
 .work-body img {
   grid-column: 2;
   width: 100%;
-  aspect-ratio: 5 / 3;
-  object-fit: contain;
-  background: #fff;
-  border: 1px solid var(--line);
-  border-radius: 4px;
+  border-radius: 10px;
 }
 .work-body > div { grid-column: 3; display: flex; flex-direction: column; align-items: flex-start; gap: 16px; }
 .work-body p { font-size: 17px; line-height: 1.8; color: var(--ink-soft); max-width: 40em; }
