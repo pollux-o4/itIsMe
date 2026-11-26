@@ -418,3 +418,14 @@ summary:hover strong { color: var(--signal-ink); }
   .facts dd { font-size: 30px; }
   .detail-text { grid-template-columns: 1fr; }
 }
+
+/*
+  Desktop reading: every exhibit fits one screen (its frame shrinks by its own ratio,
+  so the numbered marks stay on target) and the claim rides along beside it.
+*/
+@media (min-width: 1100px) {
+  .exhibit-frame { max-width: calc((100svh - var(--masthead) - 200px) * var(--ratio)); }
+  .evidence-claim { position: sticky; top: calc(var(--masthead) + 32px); }
+  .case-title, .case-visual { margin-top: clamp(28px, 4svh, 72px); }
+  .evidence-list { margin-top: clamp(48px, 8svh, 112px); }
+}
