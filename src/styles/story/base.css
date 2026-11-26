@@ -1,6 +1,5 @@
 *, *::before, *::after { box-sizing: border-box; }
 html {
-  scroll-behavior: smooth;
   scroll-padding-top: 80px;
   -webkit-text-size-adjust: 100%;
 }
@@ -34,7 +33,7 @@ body { margin: 0; }
 
 .shell {
   width: 100%;
-  max-width: 1480px;
+  max-width: var(--shell-max);
   margin-inline: auto;
   padding-inline: var(--gutter);
 }
@@ -110,14 +109,16 @@ body { margin: 0; }
   column-gap: var(--gap);
   border-top: 1px solid var(--line-strong);
 }
-.section-head .label { grid-column: 1 / span 3; padding-top: 16px; }
+/* Label over title on one left edge: the eye drops straight down instead of stepping right. */
+.section-head .label { grid-column: 1 / -1; padding-top: 16px; }
 .section-head h2 {
-  grid-column: 4 / -1;
-  padding-top: 14px;
-  font-size: clamp(36px, 5.2vw, 84px);
+  grid-column: 1 / -1;
+  padding-top: 12px;
+  /* Apple keeps the display size for the opening and closing; chapters open at section-headline size. */
+  font-size: var(--t-title);
   font-weight: 780;
-  letter-spacing: -0.055em;
-  line-height: 1.04;
+  letter-spacing: -0.04em;
+  line-height: 1.1;
 }
 
 details > summary { list-style: none; cursor: pointer; }
@@ -158,10 +159,30 @@ details[open] > .disclosure-content { animation: unfold 380ms var(--ease-out); }
   .section-head h2 { grid-column: 1 / -1; padding-top: 18px; }
 }
 
+/* First paint lays out only the opening chapter; the rest render one per idle slice after load
+   (render-budget.ts), keeping each layout task short while audits still see the whole story. */
+.story-main > [data-chapter]:not(:first-child, .is-rendered) {
+  content-visibility: auto;
+  contain-intrinsic-size: auto 1200px;
+}
+
 @media (prefers-reduced-motion: reduce) {
-  html { scroll-behavior: auto; }
   .story-body *, .story-body *::before, .story-body *::after {
     animation: none !important;
     transition: none !important;
   }
 }
+
+/* Text links keep their look but get a 44px hit area (WCAG 2.5.5). */
+.hero-scroll, .case-source, .colophon a { position: relative; }
+.hero-scroll::after, .case-source::after, .colophon a::after {
+  content: "";
+  position: absolute;
+  inset: -12px -6px;
+}
+
+/* Page scrollbar: a thin thumb in the ink tone on a clear track, so the browser chrome matches the paper. */
+html { scrollbar-width: thin; scrollbar-color: color-mix(in srgb, var(--ink) 30%, transparent) transparent; }
+
+/* scroll-lock.ts: the page scrollbar keeps its width (no shift) but fades out behind the modal. */
+.is-scroll-locked { scrollbar-color: transparent transparent; }

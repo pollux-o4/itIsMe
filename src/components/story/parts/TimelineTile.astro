@@ -1,0 +1,21 @@
+---
+import PortfolioImage from '../../PortfolioImage.astro';
+import { releaseLabel, splitLabel, type Placed } from '../../../lib/timeline';
+
+interface Props { tile: Placed }
+const { tile } = Astro.props;
+const { name, note } = splitLabel(tile.text);
+// A tile with a write-up links to it in place: cases are chapters, archive rows open on arrival.
+const Tag = tile.ref ? 'a' : 'div';
+---
+<li class:list={['tile', tile.release && `is-${tile.release}`]}>
+  <Tag class="tile-body" href={tile.ref ? `#${tile.ref}` : undefined}>
+    <span class="tile-media">
+      {tile.image
+        ? <PortfolioImage name={tile.image} alt="" square={96}/>
+        : <span class="tile-blank" aria-hidden="true"></span>}
+    </span>
+    {/* The ring and the legend carry the status; screen readers hear it with the month. */}
+    <span class="tile-name"><span class="sr-only">{tile.month}월: </span>{name}<span class="sr-only">{note}{tile.release && `, ${releaseLabel[tile.release]}`}</span></span>
+  </Tag>
+</li>

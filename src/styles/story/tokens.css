@@ -28,15 +28,47 @@
   --line-strong: rgb(20 19 17 / 0.82);
   --signal: #ff4d1a;
   --signal-ink: #b5300b;
+  /* Work pictures arrive in every shape; each sits whole on this one mat, inset the same share of its frame.
+     Translucent ink, so the mat stays a step deeper than any row tint beneath it. */
+  --stage: rgb(20 19 17 / 0.06);
+  --stage-inset: 7%;
+  /* Overlays (viewer, offer, zoom sign) sit on any theme, so their dark glass never flips. */
+  --scrim: 20 19 17;
   --sans: "Pretendard Variable", system-ui, -apple-system, sans-serif;
   --serif: "Instrument", "Pretendard Variable", Georgia, serif;
   --mono: ui-monospace, "SFMono-Regular", "JetBrains Mono", Menlo, Consolas, monospace;
   --gutter: clamp(16px, 4vw, 56px);
   --gap: clamp(12px, 1.8vw, 28px);
   --ease-out: cubic-bezier(0.2, 0.8, 0.2, 1);
+  --ease-in-out: cubic-bezier(0.65, 0, 0.35, 1);
+  /* In-page jumps (contents, links): long enough to read the direction, short enough not to wait. */
+  --scroll-duration: 840ms;
   /* A damped spring with about 3% overshoot: settles like a macOS control, never bounces. */
   --spring: linear(0, 0.089, 0.278, 0.486, 0.671, 0.815, 0.916, 0.979, 1.014, 1.029, 1.031, 1.028, 1.022, 1.015, 1.01, 1.005, 1.002, 1, 0.999, 0.999, 1);
   --masthead: 72px;
+  /*
+    One reading width for the whole story. Past it the page only adds margin, so on a
+    large monitor the eye still travels a laptop's distance between claim and picture.
+  */
+  --shell-max: 1240px;
+  /*
+    The fit unit: 1vw on a 16:10 screen, smaller on anything shorter. Every fluid size
+    is clamp(min, calc(var(--fit) * k), max), so type and space follow the screen's
+    tighter side and a chapter head still fits one screen on a short laptop.
+  */
+  --fit: min(1vw, 1.6svh);
+  /* Room a framed picture may take: the screen minus the masthead and its caption line. */
+  --screen-room: calc(100svh - var(--masthead) - 140px);
+  /* Apple section rhythm: 144px between chapters at desktop sizes. */
+  --chapter-pad: clamp(64px, calc(var(--fit) * 10), 144px);
+  /*
+    Type scale: four steps, one job each. A screen has one lead set in --t-display (or
+    --t-title when a picture leads); everything else steps down, so big things never compete.
+  */
+  --t-display: clamp(44px, calc(var(--fit) * 6), 96px);
+  --t-title: clamp(30px, calc(var(--fit) * 3.4), 56px);
+  --t-head: clamp(20px, calc(var(--fit) * 1.75), 26px);
+  --t-body: clamp(16px, calc(var(--fit) * 1.25), 18px);
   color-scheme: light;
 }
 

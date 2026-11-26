@@ -10,6 +10,10 @@ const pages = readdirSync("dist", { recursive: true }).filter((path) =>
 );
 assert(pages.length > 0, "No static pages were built.");
 let references = 0;
+// Stylesheets may ship as files or inlined into pages; both must resolve their assets.
+const stylesheets = readdirSync("dist/_astro")
+  .filter((file) => file.endsWith(".css"))
+  .map((sheet) => readFileSync(join("dist/_astro", sheet), "utf8"));
 for (const page of pages) {
   const html = readFileSync(join("dist", page), "utf8");
   assert(
@@ -21,6 +25,7 @@ for (const page of pages) {
   )].map(match => match[1]);
   const responsive = [...html.matchAll(/\bsrcset="([^"]+)"/g)]
     .flatMap(match => match[1].split(',').map(candidate => candidate.trim().split(/\s+/)[0]));
+  stylesheets.push(...[...html.matchAll(/<style\b[^>]*>([\s\S]*?)<\/style>/g)].map(match => match[1]));
   const printSources = [...html.matchAll(/\bdata-print-src="([^"]+)"/g)].map(match => match[1]);
   for (const href of [...links, ...responsive, ...printSources]) {
     if (!href.startsWith("/")) continue;
@@ -34,10 +39,7 @@ for (const page of pages) {
     references++;
   }
 }
-for (const sheet of readdirSync("dist/_astro").filter((file) =>
-  file.endsWith(".css"),
-)) {
-  const css = readFileSync(join("dist/_astro", sheet), "utf8");
+for (const css of stylesheets) {
   for (const [, href] of css.matchAll(/url\(["']?(\/[^)"']+)["']?\)/g)) {
     assert(href.startsWith(`${base}/`), `Missing base in CSS: ${href}`);
     assert(

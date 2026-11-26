@@ -1,4 +1,5 @@
 ---
+import { twoDigit } from '../../lib/format';
 import { Plus } from 'lucide-react';
 import type { Project } from '../../lib/portfolio-schema';
 import { portfolio } from '../../lib/portfolio';
@@ -6,11 +7,12 @@ import Emphasis from '../Emphasis.astro';
 import Exhibit from '../Exhibit.astro';
 import CaseVisual from '../CaseVisual.astro';
 import ValidationFlow from '../ValidationFlow.astro';
+import NullFillTable from '../NullFillTable.astro';
 
 interface Props { project: Project }
 const { project: p } = Astro.props;
 // Interactive visuals that can stand in for a figure; each still answers one claim.
-const visuals = { split: ValidationFlow };
+const visuals = { split: ValidationFlow, nullfill: NullFillTable };
 const story = [
   ['문제', p.narrative.problem],
   ['판단', p.narrative.decision],
@@ -44,7 +46,7 @@ const story = [
     <ol class="evidence-list" role="list">
       {p.evidence.map((item, i) => {
         const Visual = item.visual ? visuals[item.visual] : undefined;
-        const label = `증거 ${String(i + 1).padStart(2, '0')}`;
+        const label = `Point ${twoDigit(i + 1)}`;
         return (
           <li class="evidence">
             <div class="evidence-claim">
@@ -66,15 +68,15 @@ const story = [
         <ul>{p.contribution.mine.map(item => <li>{item}</li>)}</ul>
       </div>
       <div class="share-team">
-        <h3>팀이 함께한 일</h3>
+        <h3>협업 범위</h3>
         <ul>{p.contribution.team.map(item => <li>{item}</li>)}</ul>
       </div>
     </div>
 
     <details class="case-disclosure" id={`${p.id}-evidence`} data-disclosure>
       <summary>
-        <span class="label">면접 전에</span>
-        <strong><span class="screen-text">과정 전체 읽기</span><span class="print-text">진행 과정</span></strong>
+        <span class="label">프로젝트</span>
+        <strong><span class="screen-text">한눈에 보기</span><span class="print-text">진행 과정</span></strong>
         <span class="disclosure-sign" aria-hidden="true"><Plus size={22}/></span>
       </summary>
       <div class="disclosure-content">

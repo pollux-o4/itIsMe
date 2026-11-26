@@ -9,4 +9,6 @@ export default defineConfig({
   integrations: [react()],
   vite: { plugins: [tailwindcss()] },
   devToolbar: { enabled: false },
+  // One small stylesheet: inlining it removes the only render-blocking request before first paint.
+  build: { inlineStylesheets: "always" },
 });

@@ -1,0 +1,15 @@
+---
+// One chapter frame: landmark, navigation hook (data-chapter) and the label/title head.
+interface Props { id: string; class: string; label: string }
+const { id, class: className, label } = Astro.props;
+const titleId = `${id}-title`;
+---
+<section id={id} class={className} data-chapter aria-labelledby={titleId}>
+  <div class="shell">
+    <div class="section-head">
+      <p class="label">{label}</p>
+      <h2 id={titleId}><slot name="title"/></h2>
+    </div>
+    <slot/>
+  </div>
+</section>

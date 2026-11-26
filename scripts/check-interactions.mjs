@@ -1,5 +1,5 @@
 import assert from 'node:assert/strict';
-import { readFileSync } from 'node:fs';
+import { existsSync, readFileSync } from 'node:fs';
 import { runInNewContext } from 'node:vm';
 import { resolve, dirname } from 'node:path';
 import ts from 'typescript';
@@ -65,19 +65,21 @@ document.querySelectorAll = s => selectors[s] ?? [];
 document.getElementById = () => null;
 const media = {}; const matchMedia = q => (media[q] ??= Object.assign(new EventTarget(), { matches: !q.includes('reduced') }));
 const sandbox = {
-  document, window, matchMedia, AbortController, location: { hash: '' }, HTMLDetailsElement: Element, IntersectionObserver: undefined,
+  document, window, matchMedia, AbortController, location: { hash: '', pathname: '/', search: '' }, history: { scrollRestoration: 'auto', pushState() {}, replaceState() {} }, performance: { getEntriesByType: () => [], now: () => 0 }, HTMLDetailsElement: Element, IntersectionObserver: undefined,
   ResizeObserver: class { observe() {} disconnect() {} },
   navigator: { clipboard: { writeText: async value => { if (failCopy) throw new Error('denied'); copied = value; } } },
   requestAnimationFrame: cb => { frames.push(cb); return frames.length; }, cancelAnimationFrame: () => {}, clearTimeout: () => {},
   getComputedStyle: () => ({ top: '0px' }),
 };
 const modules = new Map();
+// Node-style resolution for the two shapes the story uses: a file module or a folder with index.ts.
+const resolveModule = base => existsSync(`${base}.ts`) ? `${base}.ts` : `${base}/index.ts`;
 function load(file) {
   if (modules.has(file)) return modules.get(file).exports;
   const module = { exports: {} };
   modules.set(file, module);
   const source = ts.transpileModule(readFileSync(file, 'utf8'), { compilerOptions: { target: ts.ScriptTarget.ES2022, module: ts.ModuleKind.CommonJS } }).outputText;
-  runInNewContext(`(function(exports, require, module) {${source}\n})`, sandbox)(module.exports, name => load(resolve(dirname(file), `${name}.ts`)), module);
+  runInNewContext(`(function(exports, require, module) {${source}\n})`, sandbox)(module.exports, name => load(resolveModule(resolve(dirname(file), name))), module);
   return module.exports;
 }
 load(resolve('src/scripts/story.ts'));

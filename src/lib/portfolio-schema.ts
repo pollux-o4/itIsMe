@@ -8,12 +8,15 @@ const evidence = z
   .object({
     claim: text,
     why: text,
-    visual: z.enum(["split"]).optional(),
+    visual: z.enum(["split", "nullfill"]).optional(),
     figure: z
       .object({
         image: id,
         width: z.number().int().positive(),
         height: z.number().int().positive(),
+        // Largest and smallest text inside the picture, in source pixels (SPEC 2.11 picture text).
+        textMax: z.number().positive().optional(),
+        textMin: z.number().positive().optional(),
         alt: text,
         caption: text,
         page: text.optional(),
@@ -34,7 +37,11 @@ export const portfolioSchema = z
     about: z.object({ lead: text, thesis: text, motivation: text }),
     email: z.email(),
     sourceDate: text,
-    highlights: z.array(z.object({ value: text, label: text })).min(1),
+    // A highlight states its value, or names a metric the page derives from the record (SSoT).
+    highlights: z
+      .array(z.object({ value: text.optional(), metric: z.enum(["projects"]).optional(), label: text }))
+      .min(1)
+      .refine(items => items.every(item => Boolean(item.value) !== Boolean(item.metric)), { message: 'Each highlight needs exactly one of value or metric.' }),
     projects: z
       .array(
         z.object({
@@ -82,34 +89,38 @@ export const portfolioSchema = z
         source: text,
         image: id,
         imageAlt: text,
-        presentation: z.string().regex(/^[a-zA-Z0-9_-]*$/),
+        scope: z.enum(["solo", "team"]),
+        // Google Drive file id of the slides; the page builds the link.
+        deck: z.string().regex(/^[a-zA-Z0-9_-]+$/).optional(),
+        // Shipped work points at the thing itself instead of slides.
+        links: z.array(z.object({ label: text, href: webLink })).optional(),
       }),
     ),
     timelineYears: z.array(z.object({ year: z.string().regex(/^\d{4}$/), note: text })).min(1),
     timeline: z.array(z.object({
       date: z.string().regex(/^\d{4}\.\d{2}(?:–\d{2})?$/),
-      items: z.array(z.object({ text, kind: z.enum(["course", "project", "cert"]) })).min(1),
+      // career marks paid work: shown in the timeline, left out of the project count.
+      items: z.array(z.object({
+        text, kind: z.enum(["course", "project", "cert"]), career: z.boolean().optional(),
+        // ref: project id whose image becomes the tile (image: own tile for work without a project page); release: live = still serving, ended = shipped then taken down; until: last month of a course.
+        ref: id.optional(), image: id.optional(), release: z.enum(["live", "ended"]).optional(), until: z.string().regex(/^\d{4}\.\d{2}$/).optional(),
+      })).min(1),
     })),
-    recordNote: text,
     experience: z.array(
       z.object({
         period: text,
         organization: text,
         role: text,
-        summary: text,
-        details: text,
-        source: text,
       }),
     ),
     education: z.array(
       z.object({ period: text, title: text, description: text }),
-    ),
+    ).min(1),
     certifications: z.array(z.object({ date: text, name: text })),
-    additional: z.array(z.object({ date: text, title: text, note: text })),
   })
   .superRefine((value, context) => {
     const ids = [...value.projects, ...value.otherProjects].map(item => item.id);
-    const reserved = new Set(['start', 'work', 'archive', 'timeline', 'background', 'contact', 'main']);
+    const reserved = new Set(['start', 'work', 'archive', 'timeline', 'contact', 'main']);
     if (new Set(ids).size !== ids.length || ids.some(id => reserved.has(id))) {
       context.addIssue({ code: 'custom', message: 'Chapter IDs must be unique and not reserved.' });
     }
@@ -123,6 +134,11 @@ export const portfolioSchema = z
       if (!years.has(entry.date.slice(0, 4))) {
         context.addIssue({ code: 'custom', path: ['timeline', index, 'date'], message: 'Every timeline entry needs a matching year heading.' });
       }
+      entry.items.forEach((item, at) => {
+        if (item.ref && !ids.includes(item.ref)) {
+          context.addIssue({ code: 'custom', path: ['timeline', index, 'items', at, 'ref'], message: 'Timeline ref must name a project id.' });
+        }
+      });
     });
   });
 

@@ -1,11 +1,8 @@
 /* Split demo: why a shuffled split leaks the future, and the score journey after the fix. */
+/* The evidence tile is its surface; a second card inside it would double the boundary. */
 .split-demo {
   display: grid;
-  gap: 28px;
-  padding: clamp(20px, 3vw, 44px);
-  border: 1px solid var(--line-strong);
-  border-radius: 6px;
-  background: var(--paper-deep);
+  gap: clamp(20px, calc(var(--fit) * 2.4), 28px);
 }
 .split-panel { min-width: 0; }
 .split-toolbar { display: flex; flex-wrap: wrap; justify-content: space-between; align-items: center; gap: 12px; }
@@ -29,7 +26,7 @@
 .split-axis {
   display: flex;
   justify-content: space-between;
-  margin-top: clamp(24px, 3vw, 40px);
+  margin-top: clamp(24px, calc(var(--fit) * 3), 40px);
   font-family: var(--mono);
   font-size: 12px;
   letter-spacing: 0.06em;
@@ -38,22 +35,36 @@
 .split-cells {
   display: grid;
   grid-template-columns: repeat(30, minmax(0, 1fr));
-  gap: clamp(2px, 0.4vw, 5px);
+  gap: clamp(2px, calc(var(--fit) * 0.4), 5px);
   align-items: end;
-  height: clamp(80px, 8vw, 120px);
+  height: clamp(80px, calc(var(--fit) * 8), 120px);
   margin-top: 10px;
   padding-bottom: 12px;
   border-bottom: 1px solid var(--line-strong);
 }
+/* Compositor-only motion: the bar scales and the test colour fades in on its own layer. */
 .cell {
-  height: 70%;
+  position: relative;
+  height: 100%;
   border-radius: 3px;
   background: var(--ink);
-  transition: background-color 420ms var(--ease-out), height 520ms var(--ease-out);
-  transition-delay: calc(var(--i) * 16ms);
+  transform: scaleY(0.7);
+  transform-origin: bottom;
+  transition: transform 520ms var(--ease-out) calc(var(--i) * 16ms);
+}
+.cell::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  border-radius: inherit;
+  background: var(--signal);
+  opacity: 0;
+  transition: opacity 420ms var(--ease-out) calc(var(--i) * 16ms);
 }
 [data-mode="random"] .cell[data-r],
-[data-mode="time"] .cell[data-t] { height: 100%; background: var(--signal); }
+[data-mode="time"] .cell[data-t] { transform: none; }
+[data-mode="random"] .cell[data-r]::after,
+[data-mode="time"] .cell[data-t]::after { opacity: 1; }
 .split-legend { display: flex; gap: 20px; margin-top: 14px; font-size: 13px; color: var(--muted); }
 .split-legend span { display: inline-flex; align-items: center; gap: 8px; }
 .split-legend span::before { content: ""; width: 12px; height: 12px; border-radius: 3px; }
@@ -67,14 +78,14 @@
 .split-journey {
   display: grid;
   grid-template-columns: repeat(4, minmax(0, 1fr));
-  gap: clamp(10px, 1.6vw, 20px);
+  gap: clamp(10px, calc(var(--fit) * 1.6), 20px);
   align-items: end;
   padding-top: 24px;
   border-top: 1px solid var(--line);
 }
 .split-journey li { display: grid; gap: 4px; }
 .journey-bar {
-  height: calc(var(--value) * clamp(90px, 9vw, 130px));
+  height: calc(var(--value) * clamp(80px, calc(var(--fit) * 8), 120px));
   margin-bottom: 8px;
   border-radius: 4px 4px 0 0;
   background: var(--ink);
@@ -88,7 +99,7 @@
 .split-journey strong {
   font-family: var(--serif);
   font-weight: 400;
-  font-size: clamp(30px, 3vw, 48px);
+  font-size: clamp(30px, calc(var(--fit) * 3), 48px);
   line-height: 1;
 }
 .split-journey .is-leak strong { color: var(--muted); text-decoration: line-through; text-decoration-thickness: 2px; }
@@ -99,4 +110,24 @@
 
 @media (max-width: 760px) {
   .split-journey { grid-template-columns: repeat(2, minmax(0, 1fr)); row-gap: 24px; }
+}
+
+/* Null fill: the slide's table redrawn at reading size; empty cells step aside for the filled median. */
+.null-fill { display: grid; gap: clamp(18px, calc(var(--fit) * 2), 24px); min-width: 0; }
+.null-fill-symptom { display: flex; flex-wrap: wrap; align-items: baseline; gap: 6px 14px; font-size: var(--t-body); color: var(--ink-soft); }
+.null-fill-symptom s { font-size: var(--t-head); font-weight: 760; color: var(--ink); text-decoration-color: var(--signal); text-decoration-thickness: 2px; }
+.null-fill table { width: 100%; border-collapse: collapse; font-size: 15px; font-variant-numeric: tabular-nums; }
+.null-fill th, .null-fill td { padding: 12px 0; border-bottom: 1px solid var(--line); text-align: right; }
+.null-fill thead th { font-family: var(--mono); font-size: 12px; font-weight: 500; letter-spacing: 0.04em; color: var(--muted); border-bottom-color: var(--line-strong); }
+.null-fill th:first-child { text-align: left; }
+.null-fill td { white-space: nowrap; }
+.null-fill tbody th { font-weight: 600; color: var(--ink); }
+.null-fill td { color: var(--ink-soft); }
+.null-fill .was { margin-right: 10px; color: var(--muted); }
+.null-fill td b { font-weight: 760; color: var(--signal-ink); }
+.null-fill figcaption { font-family: var(--sans); letter-spacing: 0; display: flex; flex-wrap: wrap; justify-content: space-between; gap: 6px 16px; font-size: 14px; color: var(--muted); }
+.null-fill figcaption > span.source-label { margin: 0; font-family: var(--mono); font-style: normal; font-size: 12px; letter-spacing: 0.04em; color: var(--muted); }
+@media (max-width: 760px) {
+  .null-fill table { font-size: 14px; }
+  .null-fill .was { display: none; }
 }

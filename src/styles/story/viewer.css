@@ -1,0 +1,85 @@
+/* Viewer motion, read by the script too: one place to tune the flight and zoom. */
+:root { --viewer-open: 360ms; --viewer-close: 270ms; --viewer-fade: 120ms; --viewer-zoom: 240ms; }
+
+/* Evidence picture: the whole frame is the zoom target; the corner sign says so. */
+.exhibit-frame { cursor: zoom-in; }
+.exhibit-zoom {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  align-items: flex-end;
+  justify-content: flex-end;
+  padding: 10px;
+  border-radius: inherit;
+  cursor: inherit;
+}
+.exhibit-zoom svg {
+  box-sizing: content-box;
+  padding: 9px;
+  border-radius: 50%;
+  background: rgb(var(--scrim) / 0.72);
+  color: #fff;
+  backdrop-filter: blur(8px);
+  opacity: 0.0;
+  scale: 0.9;
+  transition: opacity 200ms ease, scale 360ms var(--spring);
+}
+.exhibit-frame:hover .exhibit-zoom svg, .exhibit-zoom:focus-visible svg { opacity: 1; scale: 1; }
+@media (hover: none) { .exhibit-zoom svg { opacity: 1; scale: 1; } }
+
+.viewer {
+  position: fixed;
+  inset: 0;
+  width: 100%;
+  max-width: none;
+  height: 100%;
+  max-height: none;
+  margin: 0;
+  padding: 0;
+  border: 0;
+  background: transparent;
+  color: var(--paper);
+  cursor: zoom-out;
+  overflow: clip; /* UA dialogs scroll; a second scrollbar would appear during the flight */
+  touch-action: none;
+}
+.viewer[open] { display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 20px; }
+/* No backdrop blur: re-blurring the whole page each fading frame drops below 60fps. */
+.viewer::backdrop { background: rgb(var(--scrim) / 0.92); animation: overlay-fade 240ms ease both; }
+.viewer.is-closing::backdrop { animation: overlay-fade 225ms ease reverse both; }
+.viewer-stage {
+  position: relative;
+  flex: none;
+  border-radius: 8px;
+  background: #fff;
+  box-shadow: 0 30px 80px -20px rgb(0 0 0 / 0.6);
+  transform-origin: 0 0;
+}
+.viewer-stage img { width: 100%; height: 100%; object-fit: contain; border-radius: inherit; }
+.viewer-text {
+  max-width: calc(100% - 48px);
+  font-family: var(--mono);
+  font-size: 13px;
+  line-height: 1.6;
+  color: rgb(255 255 255 / 0.72);
+  cursor: auto;
+  animation: overlay-fade 240ms ease 135ms both;
+}
+.viewer.is-closing .viewer-text { animation: overlay-fade 90ms ease reverse both; }
+.viewer-text .exhibit-caption { font-family: var(--sans); font-size: 15px; color: #fff; }
+.viewer-text .exhibit-caption > span:first-child { margin-right: 10px; font-family: var(--serif); font-style: italic; font-size: 15px; color: #fff; }
+.viewer-text .exhibit-keys { margin-top: 8px; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); column-gap: 24px; }
+.viewer-text .exhibit-keys li { font-family: var(--sans); font-size: 14px; color: rgb(255 255 255 / 0.84); }
+.viewer-text .exhibit-source { display: block; margin-top: 6px; }
+.viewer-close { position: fixed; top: 16px; right: 16px; }
+@media (prefers-reduced-motion: reduce) {
+  .viewer::backdrop, .viewer-text { animation-duration: 120ms; animation-delay: 0ms; }
+}
+@media print { .exhibit-zoom, .viewer { display: none; } }
+
+/* Zoom layer: the stage clips, the canvas scales; the browser leaves gestures to the script. */
+.viewer-stage { overflow: hidden; touch-action: none; }
+.viewer-canvas { position: absolute; inset: 0; transform-origin: 0 0; }
+.viewer-stage.is-zoomed { cursor: grab; }
+.viewer-stage.is-zoomed:active { cursor: grabbing; }
+.viewer-hint { margin-top: 10px; font-family: var(--mono); font-size: 12px; color: rgb(255 255 255 / 0.5); }

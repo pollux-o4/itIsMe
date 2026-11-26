@@ -1,12 +1,13 @@
 import { expect, test } from '@playwright/test';
+import portfolio from '../../src/data/portfolio.json' with { type: 'json' };
 
 test.beforeEach(async ({ page }) => {
   await page.goto('./#archive');
 });
 
 test('classification and highlights read without a click', async ({ page }) => {
-  for (const name of [/서비스/, /비전/, /분석/, /생산성/]) await expect(page.locator('#archive').getByRole('heading', { level: 3, name })).toBeVisible();
-  await expect(page.locator('#archive .work-row')).toHaveCount(7);
+  for (const { label } of portfolio.otherProjectCategories) await expect(page.locator('#archive').getByRole('heading', { level: 3, name: new RegExp(`^${label}`) })).toBeVisible();
+  await expect(page.locator('#archive .work-row')).toHaveCount(portfolio.otherProjects.length);
   await expect(page.locator('#dropout .work-highlight')).toContainText('89%');
   await expect(page.locator('#dropout .work-type')).toBeVisible();
 });
@@ -25,8 +26,11 @@ test('hovering a row shows what it holds, and opening it hands over', async ({ p
   const card = page.locator('.work-preview');
   await page.emulateMedia({ reducedMotion: 'reduce' });
   await page.locator('#vit > summary').scrollIntoViewIfNeeded();
-  await page.locator('#vit > summary').hover();
-  await expect(card).toHaveClass(/is-visible/);
+  // Scrolling hides the card by design; a scroll event that lands after the hover must not fail the check.
+  await expect(async () => {
+    await page.locator('#vit > summary').hover();
+    await expect(card).toHaveClass(/is-visible/, { timeout: 500 });
+  }).toPass();
   await expect(card.locator('p')).toHaveText((await page.locator('#vit .work-body p').textContent())!);
   await expect(card.locator('img')).toHaveJSProperty('complete', true);
   const box = await card.boundingBox();
@@ -52,7 +56,7 @@ test('A4 print stays portrait within its page budget', async ({ page, browserNam
   await page.locator('#archive').evaluate(el => el.scrollIntoView());
   const pdf = (await page.pdf({ preferCSSPageSize: true, printBackground: true })).toString('latin1');
   const pages = pdf.match(/\/Type\s*\/Page\b/g)!.length;
-  expect(pages).toBeLessThanOrEqual(18);
+  expect(pages).toBeLessThanOrEqual(19); // 11 archive rows after the 2026 shipped apps joined
   expect(pdf).toMatch(/\/MediaBox\s*\[\s*0 0 59[45](\.\d+)? 84[12]/);
 });
 

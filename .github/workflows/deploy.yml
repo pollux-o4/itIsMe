@@ -2,7 +2,7 @@ name: Deploy portfolio to GitHub Pages
 
 on:
   push:
-    branches: [main, 'dev/**']
+    branches: [main, dev]  # FLOW-001: dev는 검증, main은 배포
   workflow_dispatch:
 
 permissions:
@@ -40,7 +40,7 @@ jobs:
           path: dist
   deploy:
     needs: build
-    if: github.ref == 'refs/heads/main' || startsWith(github.ref, 'refs/heads/dev/')
+    if: github.ref == 'refs/heads/main'
     runs-on: ubuntu-latest
     permissions:
       pages: write

@@ -25,12 +25,13 @@
   .work-row::details-content { block-size: auto !important; opacity: 1 !important; }
   .shell { max-width: none; padding: 0; }
   .story-body *, .story-body *::before, .story-body *::after { animation: none !important; transition: none !important; }
+  .story-main > [data-chapter] { content-visibility: visible !important; }
   .hero-title .line > span, .case-title .line > span { transform: none !important; }
-  .hero, .index, .case, .archive, .timeline, .background, .contact { padding: 0 !important; }
+  .hero, .index, .case, .archive, .timeline, .contact { padding: 0 !important; }
   .index { margin-top: 5mm; }
   .contact { margin-top: 10mm; }
   /* Each chapter starts a sheet, so one sheet can be read, or pulled out, on its own. */
-  .case, .archive, .timeline, .background { break-before: page; }
+  .case, .archive, .timeline { break-before: page; }
 
   /* Whose this is and the screening facts, before the pitch. */
   .hero-print-card { display: flex; justify-content: space-between; gap: 6mm; padding: 3mm 0; border-bottom: 1px solid #000; font-size: 9pt; line-height: 1.45; }
@@ -62,7 +63,7 @@
   .question-list { grid-column: 1 / -1; }
   .timeline-year { margin-top: 6mm; padding-top: 3mm; break-inside: avoid; }
   .year-head h3 { font-size: 26pt; }
-  .timeline-list > li { padding-bottom: 3mm; }
+  .track { break-inside: avoid; }
   .hero-stats dd { font-size: 19pt; }
   .hero-stats dt { font-size: 8.5pt; }
   .section-head h2 { font-size: 20pt; }
@@ -103,25 +104,25 @@
   .case-share { grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 3mm; }
   .share-mine, .share-team { grid-column: auto; }
   .case-disclosure > summary .label { visibility: hidden; }
-  .case-disclosure, .profile-detail { margin-top: 4mm; }
-  .case-share, .profile-detail, .detail-text > *, .case-story { break-inside: avoid; }
-  .case-disclosure > summary, .profile-detail > summary { break-after: avoid; }
+  .case-disclosure { margin-top: 4mm; }
+  .case-share, .detail-text > *, .case-story { break-inside: avoid; }
+  .case-disclosure > summary { break-after: avoid; }
   .detail-text p, .case-story p { orphans: 3; widows: 3; }
-  .case-disclosure > summary strong, .profile-detail > summary strong { font-size: 12pt; }
+  .case-disclosure > summary strong { font-size: 12pt; }
   .facts dd { font-size: 16pt; }
-  .detail-text p, .work-body p, .experience-details p { font-size: 9pt; line-height: 1.6; }
+  .detail-text p, .work-body p { font-size: 9pt; line-height: 1.6; }
   /* Columns, not grid rows: Chromium otherwise pushes the whole grid to the next sheet and leaves a gap. */
   .detail-text { display: block; columns: 2; column-gap: 6mm; margin-top: 2.5mm; }
   .detail-text > div { margin-bottom: 2.5mm; }
   .detail-text h3 { font-size: 11pt; }
   .detail-text p { margin-top: 1mm; }
   .facts { margin-top: 3mm; }
-  .work-row, .timeline-list > li, .profile-item { break-inside: avoid; }
+  .work-row, .track { break-inside: avoid; }
   .case-links { break-before: avoid; margin-top: 2mm; }
   .case-links a { min-height: 0; padding-block: 1mm; }
 
-  .split-demo { padding: 5mm; }
-  .evidence { padding-block: 4mm; break-inside: avoid; }
+  .split-demo { padding: 5mm; border: 1px solid #000; }
+  .evidence { padding: 4mm 0; border-radius: 0; background: none; break-inside: avoid; }
   /* Claim above, picture at reading width: on paper the evidence has to be legible, not just present. */
   .evidence { row-gap: 2.5mm; }
   .evidence-claim, .evidence-picture { grid-column: 1 / -1; }
@@ -138,8 +139,9 @@
   .exhibit-caption { font-size: 10pt; }
   .case-brief dd { font-size: 11pt; }
   .split-journey strong { font-size: 20pt; }
-  .split-demo .cell { height: 72% !important; background: #000 !important; }
-  .split-demo .cell[data-t] { height: 100% !important; background: var(--signal) !important; }
+  .split-demo .cell { transform: scaleY(0.72) !important; background: #000 !important; }
+  .split-demo .cell::after { opacity: 0 !important; }
+  .split-demo .cell[data-t] { transform: none !important; background: var(--signal) !important; }
   .split-demo .note-random { display: none !important; }
   .split-demo .note-time { display: inline !important; }
 
@@ -162,9 +164,7 @@
   .work-body p { line-height: 1.5; font-size: 8.5pt; }
   .source-label { font-size: 8pt; }
   .work-body .pill { min-height: 0; padding: 0; border: 0; font-size: 8.5pt; text-decoration: underline; }
-  .timeline-list time { font-size: 14pt; }
-  .timeline-list ul li { font-size: 8.5pt; }
-  .profile-item h4 { font-size: 12pt; }
+  .tile-name, .track-bars li, .track-certs li { font-size: 7pt; }
   .contact-title { font-size: 26pt; }
   .contact-lede { font-size: 11pt; }
   .contact-mail { font-size: 18pt; color: #000; }
