@@ -214,10 +214,10 @@
   */
   --tile-pad: clamp(24px, calc(var(--fit) * 3), 48px);
   padding: var(--tile-pad);
-  border-radius: 16px;
+  border-radius: clamp(18px, calc(var(--fit) * 2), 28px);
   background: var(--paper-deep);
 }
-.evidence + .evidence { margin-top: clamp(16px, calc(var(--fit) * 1.6), 24px); }
+.evidence + .evidence { margin-top: clamp(16px, calc(var(--fit) * 1.4), 20px); }
 .evidence-claim { grid-column: 1 / span 4; align-self: start; }
 /* A quiet index, not a badge: the signal stays for the marks that point at the proof. */
 .evidence-no {

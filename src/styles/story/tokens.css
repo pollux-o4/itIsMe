@@ -50,12 +50,13 @@
   --fit: min(1vw, 1.6svh);
   /* Room a framed picture may take: the screen minus the masthead and its caption line. */
   --screen-room: calc(100svh - var(--masthead) - 140px);
-  --chapter-pad: clamp(64px, calc(var(--fit) * 11), 170px);
+  /* Apple section rhythm: 144px between chapters at desktop sizes. */
+  --chapter-pad: clamp(64px, calc(var(--fit) * 10), 144px);
   /*
     Type scale: four steps, one job each. A screen has one lead set in --t-display (or
     --t-title when a picture leads); everything else steps down, so big things never compete.
   */
-  --t-display: clamp(44px, calc(var(--fit) * 6), 104px);
+  --t-display: clamp(44px, calc(var(--fit) * 6), 96px);
   --t-title: clamp(30px, calc(var(--fit) * 3.4), 56px);
   --t-head: clamp(20px, calc(var(--fit) * 1.75), 26px);
   --t-body: clamp(16px, calc(var(--fit) * 1.25), 18px);
