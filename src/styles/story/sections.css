@@ -209,7 +209,7 @@ a.tile-body:hover .tile-name { text-decoration: underline; text-underline-offset
 .track-axis span::before { content: ""; position: absolute; left: 0; top: -14px; width: 1px; height: 6px; background: var(--line-strong); }
 .track-bars { grid-auto-flow: row dense; row-gap: 10px; margin-top: 12px; }
 /* Spans: the capsule is exactly the period; its label starts under it and may run to the half's end. */
-.track-bars li { display: grid; gap: 7px; min-width: 0; font-size: 12px; color: var(--ink-soft); }
+.track-bars li { display: grid; grid-template-columns: minmax(0, 1fr); gap: 7px; min-width: 0; font-size: 12px; color: var(--ink-soft); }
 .bar-span {
   display: block;
   width: calc((100% + 8px) * var(--n) / var(--m) - 8px);
