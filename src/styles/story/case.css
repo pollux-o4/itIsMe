@@ -1,5 +1,5 @@
 .case {
-  padding-block: clamp(80px, 11vw, 170px);
+  padding-block: var(--chapter-pad);
   background: var(--paper);
   color: var(--ink);
 }
@@ -52,7 +52,7 @@
   grid-column: 1 / span 7;
   grid-row: 2;
   margin-top: clamp(36px, 5vw, 88px);
-  font-size: clamp(46px, 8vw, 136px);
+  font-size: clamp(46px, min(8vw, 12svh), 136px);
   font-weight: 820;
   letter-spacing: -0.068em;
   line-height: 1;

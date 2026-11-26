@@ -1,12 +1,12 @@
 .contact {
-  padding-top: clamp(96px, 14vw, 210px);
+  padding-top: calc(var(--chapter-pad) * 1.25);
   padding-bottom: 28px;
   background: var(--paper);
   color: var(--ink);
 }
 .contact-title {
   margin-top: 22px;
-  font-size: clamp(46px, 8.6vw, 150px);
+  font-size: clamp(46px, min(8.6vw, 13svh), 150px);
   font-weight: 820;
   letter-spacing: -0.068em;
   line-height: 1;

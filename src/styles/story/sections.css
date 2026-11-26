@@ -1,4 +1,4 @@
-.archive, .timeline, .background { padding-block: clamp(80px, 11vw, 160px); }
+.archive, .timeline, .background { padding-block: var(--chapter-pad); }
 .archive + .timeline, .timeline + .background { padding-top: 0; }
 
 /* Archive: an index table grouped by field; each row opens in place. */
