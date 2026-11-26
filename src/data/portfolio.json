@@ -1135,18 +1135,23 @@
       ]
     },
     {
+      "date": "2026.10",
+      "items": [
+        {
+          "text": "MemoIvy · Microsoft Store·Snap Store 배포",
+          "kind": "project",
+          "ref": "memoivy",
+          "release": "live"
+        }
+      ]
+    },
+    {
       "date": "2026.11",
       "items": [
         {
           "text": "Listen to Me · npm 0.1.0 배포",
           "kind": "project",
           "ref": "listenee",
-          "release": "live"
-        },
-        {
-          "text": "MemoIvy · Microsoft Store·Snap Store 배포",
-          "kind": "project",
-          "ref": "memoivy",
           "release": "live"
         },
         {
