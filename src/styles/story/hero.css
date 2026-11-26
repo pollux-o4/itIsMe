@@ -155,12 +155,12 @@
 @keyframes nudge { 50% { transform: translateY(4px); } }
 
 /* Index: questions on the left, a fixed preview slot on the right (SPEC 2.6, 4.3). */
-.index { padding-bottom: clamp(80px, 11vw, 160px); }
+.index { padding-bottom: var(--chapter-pad); }
 .index-body {
   display: grid;
   grid-template-columns: repeat(12, minmax(0, 1fr));
   column-gap: var(--gap);
-  margin-top: clamp(40px, 6vw, 88px);
+  margin-top: clamp(28px, min(6vw, 6svh), 88px);
 }
 .question-list { grid-column: 1 / span 8; border-top: 1px solid var(--line-strong); }
 .question {
@@ -171,7 +171,7 @@
   column-gap: 16px;
   row-gap: 12px;
   align-items: baseline;
-  padding: clamp(24px, 2.8vw, 40px) 0;
+  padding: clamp(20px, min(2.8vw, 3.2svh), 40px) 0;
   border-bottom: 1px solid var(--line-strong);
   transition: color 360ms var(--ease-out);
 }
@@ -309,4 +309,23 @@
   .question-label { font-size: clamp(25px, 7.2vw, 34px); }
   .question-go { width: 44px; height: 44px; }
   .question-evidence { font-size: 15px; }
+}
+
+/*
+  Desktop: the opening is one screen, like a product hero. Height-aware sizes let a
+  short laptop window hold the face, the claim and the numbers without a scroll.
+*/
+@media (min-width: 761px) {
+  .hero { padding-bottom: clamp(40px, 6svh, 96px); }
+  .hero-grid { padding-top: clamp(20px, 3.5svh, 48px); }
+  .hero-portrait img {
+    width: auto;
+    max-width: 100%;
+    max-height: calc(100svh - var(--masthead) - 210px);
+  }
+  .hero-title { font-size: clamp(44px, min(7.2vw, 9svh), 124px); }
+  .hero-about { gap: 10px; margin-top: clamp(16px, 3svh, 56px); }
+  .about-motivation { line-height: 1.7; }
+  .hero-stats { margin-top: clamp(16px, 3svh, 56px); }
+  .hero-scroll { margin-top: clamp(20px, 3svh, 56px); }
 }
