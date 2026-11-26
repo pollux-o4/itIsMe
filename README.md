@@ -1,25 +1,17 @@
 <div align="center">
 
-<img src="public/images/portfolio/portrait-framed.webp" alt="주연석" width="140">
+<img src="public/images/portfolio/portrait-framed.webp" alt="주연석" width="96">
 
 # 주연석
 
-### AI 모델과 웹 서비스를 만듭니다.
-
+**AI 모델과 웹 서비스를 만듭니다.**<br>
 <sub>데이터 수집 · 모델링 · 웹 연동 · 배포</sub>
 
-<br>
-
-<p><a href="https://pollux-o4.github.io/itIsMe/"><b>포트폴리오 보기 →</b></a></p>
-<p><a href="https://github.com/pollux-o4">GitHub</a></p>
-
-<br>
+<a href="https://pollux-o4.github.io/itIsMe/"><b>포트폴리오 보기 ›</b></a>&emsp;<a href="https://github.com/pollux-o4">GitHub ›</a>
 
 </div>
 
-<br>
-
-## 대표 작업
+### 대표 작업
 
 <table>
 <tr>
@@ -40,8 +32,3 @@
 </td>
 </tr>
 </table>
-
-<div align="center">
-<br>
-<sub>자세한 과정과 결과는 <a href="https://pollux-o4.github.io/itIsMe/">포트폴리오</a>에서 볼 수 있습니다.</sub>
-</div>
