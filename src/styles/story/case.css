@@ -238,11 +238,13 @@
 
 .exhibit-frame {
   /*
-    Slide crops share one zoom: a tight crop never shows larger than its source
-    slide would, so a table's digits don't outgrow the headline beside them.
+    One zoom for every crop: text inside a picture renders at --picture-text, a step
+    under body copy, so a screenshot never shouts over the claim beside it.
+    --source-text is the picture's own text size; slide exports default to 23.33px (the old 0.6 zoom).
   */
-  --slide-zoom: 0.6;
-  max-width: calc(var(--source-width) * var(--slide-zoom) * 1px);
+  --picture-text: 14;
+  --frame-cap: calc(var(--source-width) * var(--picture-text) / var(--source-text, 23.33) * 1px);
+  max-width: var(--frame-cap);
   position: relative;
   border: 1px solid var(--line);
   border-radius: 6px;
@@ -439,7 +441,7 @@ summary:hover strong { color: var(--signal-ink); }
   so the numbered marks stay on target) and the claim rides along beside it.
 */
 @media (min-width: 1100px) {
-  .exhibit-frame { max-width: min(calc(var(--source-width) * var(--slide-zoom) * 1px), calc((var(--screen-room) - 2 * var(--tile-pad)) * var(--ratio))); }
+  .exhibit-frame { max-width: min(var(--frame-cap), calc((var(--screen-room) - 2 * var(--tile-pad)) * var(--ratio))); }
   /*
     One reading path: claim, then its numbered keys, in the left column; the picture
     beside them carries only the matching numbers. The eye moves sideways, never back up.
