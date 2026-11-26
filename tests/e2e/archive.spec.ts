@@ -26,8 +26,11 @@ test('hovering a row shows what it holds, and opening it hands over', async ({ p
   const card = page.locator('.work-preview');
   await page.emulateMedia({ reducedMotion: 'reduce' });
   await page.locator('#vit > summary').scrollIntoViewIfNeeded();
-  await page.locator('#vit > summary').hover();
-  await expect(card).toHaveClass(/is-visible/);
+  // Scrolling hides the card by design; a scroll event that lands after the hover must not fail the check.
+  await expect(async () => {
+    await page.locator('#vit > summary').hover();
+    await expect(card).toHaveClass(/is-visible/, { timeout: 500 });
+  }).toPass();
   await expect(card.locator('p')).toHaveText((await page.locator('#vit .work-body p').textContent())!);
   await expect(card.locator('img')).toHaveJSProperty('complete', true);
   const box = await card.boundingBox();
