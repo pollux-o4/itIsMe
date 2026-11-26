@@ -7,6 +7,7 @@ import { initializeWorkPreview } from './story/work-preview';
 import { initializeContact } from './story/contact';
 import { initializeExhibitViewer } from './story/viewer';
 import { initializeFullscreenOffer } from './story/fullscreen-offer';
+import { initializeRenderBudget } from './story/render-budget';
 
 let dispose = () => {};
 function initializeStory() {
@@ -14,6 +15,7 @@ function initializeStory() {
   if (!document.querySelector('.story-body')) return;
   const controller = new AbortController();
   dispose = () => controller.abort();
+  initializeRenderBudget(controller.signal);
   initializeAnchors(controller.signal);
   initializeNavigation(controller.signal);
   initializeReveal(controller.signal);

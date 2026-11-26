@@ -97,6 +97,7 @@
 .work-row > summary:active .disclosure-sign { scale: 0.94; }
 /* Rows open and close at their real height where the browser can interpolate to auto. */
 @supports (interpolate-size: allow-keywords) and selector(::details-content) {
+  /* shortcut: block-size 펼침은 프레임마다 아래 장 레이아웃을 다시 계산(데스크톱 수 ms), 90fps 미달 실측 시 장 단위 contain: layout 검토 */
   .work-row { interpolate-size: allow-keywords; }
   .work-row::details-content {
     block-size: 0;

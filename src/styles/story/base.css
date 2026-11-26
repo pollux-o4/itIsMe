@@ -160,6 +160,13 @@ details[open] > .disclosure-content { animation: unfold 380ms var(--ease-out); }
   .section-head h2 { grid-column: 1 / -1; padding-top: 18px; }
 }
 
+/* First paint lays out only the opening chapter; the rest render one per idle slice after load
+   (render-budget.ts), keeping each layout task short while audits still see the whole story. */
+.story-main > [data-chapter]:not(:first-child, .is-rendered) {
+  content-visibility: auto;
+  contain-intrinsic-size: auto 1200px;
+}
+
 @media (prefers-reduced-motion: reduce) {
   html { scroll-behavior: auto; }
   .story-body *, .story-body *::before, .story-body *::after {

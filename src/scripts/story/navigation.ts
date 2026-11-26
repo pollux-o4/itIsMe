@@ -19,13 +19,13 @@ export function initializeNavigation(signal: AbortSignal) {
   let directionStartY = 0;
   let direction = 0;
   let frame = 0;
-  let readingEdge = 0;
-  const measureViewport = () => { readingEdge = Math.max(140, window.innerHeight * 0.25); };
-  measureViewport();
+  // Viewport reads are lazy: reading innerHeight during init forces the first layout synchronously.
+  let readingEdge: number | undefined;
 
   function updateLocation() {
     frame = 0;
     const y = window.scrollY;
+    readingEdge ??= Math.max(140, window.innerHeight * 0.25);
     const state = chapters.locate(y, readingEdge);
     lastY ??= y;
     if (progress) progress.style.transform = `scaleX(${state.progress})`;
@@ -65,7 +65,7 @@ export function initializeNavigation(signal: AbortSignal) {
   window.addEventListener('scroll', updateMasthead, { passive: true, signal });
   window.addEventListener('resize', () => {
     masthead?.classList.remove('is-scroll-hidden');
-    measureViewport();
+    readingEdge = undefined;
     lastY = directionStartY = window.scrollY;
     direction = 0;
     relayout();
@@ -101,8 +101,14 @@ export function initializeAnchors(signal: AbortSignal) {
     target.focus({ preventScroll: true });
   }, { signal });
   window.addEventListener('hashchange', openHash, { signal });
-  // Keep native history and animation; resizing must cancel a destination computed for the old layout.
-  window.addEventListener('resize', () => destination?.scrollIntoView({ behavior: 'instant', block: 'start' }), { signal });
+  // Keep native history and animation. Any layout change under way (window resize, off-screen chapters
+  // resolving their estimated size) moves the destination, so the scroll re-aims at it.
+  const motion = reducedMotion();
+  const reaim = (behavior: ScrollBehavior) => destination?.scrollIntoView({ behavior, block: 'start' });
+  window.addEventListener('resize', () => reaim('instant'), { signal });
+  const chapters = new ResizeObserver(() => reaim(motion.matches ? 'instant' : 'smooth'));
+  document.querySelectorAll('[data-chapter]').forEach(chapter => chapters.observe(chapter));
+  signal.addEventListener('abort', () => chapters.disconnect(), { once: true });
   document.addEventListener('scrollend', () => { destination = null; }, { signal });
   const cancel = () => { destination = null; };
   window.addEventListener('wheel', cancel, { passive: true, signal });

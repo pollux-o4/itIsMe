@@ -25,6 +25,7 @@
   .work-row::details-content { block-size: auto !important; opacity: 1 !important; }
   .shell { max-width: none; padding: 0; }
   .story-body *, .story-body *::before, .story-body *::after { animation: none !important; transition: none !important; }
+  .story-main > [data-chapter] { content-visibility: visible !important; }
   .hero-title .line > span, .case-title .line > span { transform: none !important; }
   .hero, .index, .case, .archive, .timeline, .background, .contact { padding: 0 !important; }
   .index { margin-top: 5mm; }
