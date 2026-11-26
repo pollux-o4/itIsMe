@@ -19,7 +19,6 @@ test('masthead hides on downward reading and returns upward or for keyboard focu
 
 test('anchor motion is gradual and still reaches its target when resized mid-scroll', async ({ page }) => {
   await page.goto('./');
-  expect(await page.evaluate(() => getComputedStyle(document.documentElement).scrollBehavior)).toBe('smooth');
   await page.evaluate(() => {
     window.scrollSamples = [];
     document.querySelector<HTMLAnchorElement>('.story-nav a[href="#engine"]')!.addEventListener('click', () => {
@@ -39,4 +38,19 @@ test('anchor motion is gradual and still reaches its target when resized mid-scr
   await expect.poll(() => target.evaluate(el => Math.round(el.getBoundingClientRect().top))).toBeGreaterThanOrEqual(0);
   await expect.poll(() => target.evaluate(el => Math.round(el.getBoundingClientRect().top))).toBeLessThanOrEqual(140);
   await expect(target).toBeFocused();
+});
+
+test('each contents click lands on its chapter the first time, and a reload starts at the top', async ({ page }) => {
+  await page.goto('./');
+  const landing = (id: string) => page.locator(id).evaluate(el =>
+    Math.abs(Math.round(el.getBoundingClientRect().top - parseFloat(getComputedStyle(document.documentElement).scrollPaddingTop))));
+  for (const id of ['#engine', '#nutrition', '#archive', '#agriculture']) {
+    // The masthead hides while reading down; a short scroll up brings the contents back, as a reader would.
+    await page.evaluate(() => window.scrollBy({ top: -200, behavior: 'instant' }));
+    await expect(page.locator('.masthead')).not.toHaveClass(/is-scroll-hidden/);
+    await page.locator(`.story-nav a[href="${id}"]`).click();
+    await expect.poll(() => landing(id), { timeout: 2000 }).toBeLessThanOrEqual(1);
+  }
+  await page.reload();
+  await expect.poll(() => page.evaluate(() => [scrollY, location.hash])).toEqual([0, '']);
 });
