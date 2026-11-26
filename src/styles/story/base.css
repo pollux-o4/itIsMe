@@ -1,6 +1,5 @@
 *, *::before, *::after { box-sizing: border-box; }
 html {
-  scroll-behavior: smooth;
   scroll-padding-top: 80px;
   -webkit-text-size-adjust: 100%;
 }
@@ -168,7 +167,6 @@ details[open] > .disclosure-content { animation: unfold 380ms var(--ease-out); }
 }
 
 @media (prefers-reduced-motion: reduce) {
-  html { scroll-behavior: auto; }
   .story-body *, .story-body *::before, .story-body *::after {
     animation: none !important;
     transition: none !important;

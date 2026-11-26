@@ -1,10 +1,8 @@
 import { createChapterMap } from './shared/chapter-map';
 import { reducedMotion } from './shared/media';
-import { isScrollLocked, SCROLL_KEYS } from './shared/scroll-lock';
+import { createAnchorScroller } from './shared/anchor-scroll';
+import { isScrollLocked } from './shared/scroll-lock';
 import { createSelection } from './shared/selection';
-
-// Escape also ends a pending anchor scroll.
-const scrollKeys = new Set([...SCROLL_KEYS, 'Escape']);
 
 export function initializeNavigation(signal: AbortSignal) {
   const navLinks = [...document.querySelectorAll<HTMLAnchorElement>('.story-nav a')];
@@ -89,37 +87,34 @@ export function initializeNavigation(signal: AbortSignal) {
 }
 
 export function initializeAnchors(signal: AbortSignal) {
-  let destination: HTMLElement | null = null;
-  function openHash() {
-    const target = document.getElementById(location.hash.slice(1));
+  const scroller = createAnchorScroller(signal);
+  const targetOf = (hash: string) => {
+    const target = hash.length > 1 ? document.getElementById(decodeURIComponent(hash.slice(1))) : null;
     if (target instanceof HTMLDetailsElement) target.open = true;
-  }
-  // One delegated listener instead of one per in-page link.
+    return target;
+  };
+  // One delegated listener instead of one per in-page link; the scroll is ours, so the hash is pushed without a native jump.
   document.addEventListener('click', event => {
     if (event.button !== 0 || event.metaKey || event.ctrlKey || event.shiftKey || event.altKey) return;
     const link = (event.target as Element | null)?.closest?.<HTMLAnchorElement>('a[href^="#"]');
-    const target = link && document.getElementById(link.hash.slice(1));
+    const target = link && targetOf(link.hash);
     if (!target) return;
-    if (target instanceof HTMLDetailsElement) target.open = true;
-    destination = target;
+    event.preventDefault();
+    if (location.hash !== link.hash) history.pushState(null, '', link.hash);
     target.tabIndex = -1;
     target.focus({ preventScroll: true });
+    scroller.go(target);
   }, { signal });
-  window.addEventListener('hashchange', openHash, { signal });
-  // Keep native history and animation. Any layout change under way (window resize, off-screen chapters
-  // resolving their estimated size) moves the destination, so the scroll re-aims at it.
-  const motion = reducedMotion();
-  const reaim = (behavior: ScrollBehavior) => destination?.scrollIntoView({ behavior, block: 'start' });
-  window.addEventListener('resize', () => reaim('instant'), { signal });
-  const chapters = new ResizeObserver(() => reaim(motion.matches ? 'instant' : 'smooth'));
-  document.querySelectorAll('[data-chapter]').forEach(chapter => chapters.observe(chapter));
-  signal.addEventListener('abort', () => chapters.disconnect(), { once: true });
-  document.addEventListener('scrollend', () => { destination = null; }, { signal });
-  const cancel = () => { destination = null; };
-  window.addEventListener('wheel', cancel, { passive: true, signal });
-  window.addEventListener('touchstart', cancel, { passive: true, signal });
-  window.addEventListener('keydown', event => {
-    if (scrollKeys.has(event.key)) cancel();
+  window.addEventListener('hashchange', () => {
+    const target = targetOf(location.hash);
+    if (target) scroller.go(target);
   }, { signal });
-  openHash();
+  // The page owns scroll position: restored offsets land wrong while off-screen chapters still hold estimated
+  // heights. A reload starts from the top; an arriving link with a hash lands on its target.
+  history.scrollRestoration = 'manual';
+  const reload = (performance.getEntriesByType('navigation')[0] as PerformanceNavigationTiming | undefined)?.type === 'reload';
+  if (reload && location.hash) history.replaceState(null, '', location.pathname + location.search);
+  const target = reload ? null : targetOf(location.hash);
+  if (target) scroller.go(target, false);
+  else if (reload) window.scrollTo({ top: 0, behavior: 'instant' });
 }

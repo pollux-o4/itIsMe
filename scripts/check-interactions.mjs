@@ -65,7 +65,7 @@ document.querySelectorAll = s => selectors[s] ?? [];
 document.getElementById = () => null;
 const media = {}; const matchMedia = q => (media[q] ??= Object.assign(new EventTarget(), { matches: !q.includes('reduced') }));
 const sandbox = {
-  document, window, matchMedia, AbortController, location: { hash: '' }, HTMLDetailsElement: Element, IntersectionObserver: undefined,
+  document, window, matchMedia, AbortController, location: { hash: '', pathname: '/', search: '' }, history: { scrollRestoration: 'auto', pushState() {}, replaceState() {} }, performance: { getEntriesByType: () => [], now: () => 0 }, HTMLDetailsElement: Element, IntersectionObserver: undefined,
   ResizeObserver: class { observe() {} disconnect() {} },
   navigator: { clipboard: { writeText: async value => { if (failCopy) throw new Error('denied'); copied = value; } } },
   requestAnimationFrame: cb => { frames.push(cb); return frames.length; }, cancelAnimationFrame: () => {}, clearTimeout: () => {},
