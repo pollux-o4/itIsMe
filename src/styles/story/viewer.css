@@ -1,3 +1,6 @@
+/* Viewer motion, read by the script too: one place to tune the flight and zoom. */
+:root { --viewer-open: 360ms; --viewer-close: 270ms; --viewer-fade: 120ms; --viewer-zoom: 240ms; }
+
 /* Evidence picture: the whole frame is the zoom target; the corner sign says so. */
 .exhibit-frame { cursor: zoom-in; }
 .exhibit-zoom {
@@ -24,7 +27,6 @@
 .exhibit-frame:hover .exhibit-zoom svg, .exhibit-zoom:focus-visible svg { opacity: 1; scale: 1; }
 @media (hover: none) { .exhibit-zoom svg { opacity: 1; scale: 1; } }
 
-.is-viewing { overflow: hidden; }
 .viewer {
   position: fixed;
   inset: 0;
@@ -38,10 +40,13 @@
   background: transparent;
   color: var(--paper);
   cursor: zoom-out;
+  overflow: clip; /* UA dialogs scroll; a second scrollbar would appear during the flight */
+  touch-action: none;
 }
 .viewer[open] { display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 20px; }
-.viewer::backdrop { background: rgb(var(--scrim) / 0.9); backdrop-filter: blur(6px); animation: overlay-fade 320ms ease both; }
-.viewer.is-closing::backdrop { animation: overlay-fade 300ms ease reverse both; }
+/* No backdrop blur: re-blurring the whole page each fading frame drops below 60fps. */
+.viewer::backdrop { background: rgb(var(--scrim) / 0.92); animation: overlay-fade 240ms ease both; }
+.viewer.is-closing::backdrop { animation: overlay-fade 225ms ease reverse both; }
 .viewer-stage {
   position: relative;
   flex: none;
@@ -58,9 +63,9 @@
   line-height: 1.6;
   color: rgb(255 255 255 / 0.72);
   cursor: auto;
-  animation: overlay-fade 320ms ease 180ms both;
+  animation: overlay-fade 240ms ease 135ms both;
 }
-.viewer.is-closing .viewer-text { animation: overlay-fade 120ms ease reverse both; }
+.viewer.is-closing .viewer-text { animation: overlay-fade 90ms ease reverse both; }
 .viewer-text .exhibit-caption { font-family: var(--sans); font-size: 15px; color: #fff; }
 .viewer-text .exhibit-caption > span:first-child { margin-right: 10px; font-family: var(--serif); font-style: italic; font-size: 15px; color: #fff; }
 .viewer-text .exhibit-keys { margin-top: 8px; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); column-gap: 24px; }

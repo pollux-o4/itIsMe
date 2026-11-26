@@ -1,7 +1,8 @@
 import { fitRatio, invertTransform } from '../shared/geometry';
 import { closeIcon } from '../shared/icons';
 import { finePointer, reducedMotion } from '../shared/media';
-import { easeOut } from '../shared/motion';
+import { cssDuration, easeOut } from '../shared/motion';
+import { lockScroll } from '../shared/scroll-lock';
 import { attachPanZoom } from './pan-zoom';
 import { readExhibit, type ExhibitSource } from './source';
 
@@ -33,6 +34,8 @@ export function initializeExhibitViewer(signal: AbortSignal) {
   const panZoom = attachPanZoom(stage, signal);
   let current: ExhibitSource | null = null;
   let closing = false;
+  let unlock: (() => void) | undefined;
+  signal.addEventListener('abort', () => unlock?.());
 
   const fit = () => {
     if (!current) return;
@@ -44,20 +47,28 @@ export function initializeExhibitViewer(signal: AbortSignal) {
   // FLIP: the stage is laid out at its final box, then animated from the tile's box.
   const fly = (tile: DOMRect, reverse: boolean) => {
     const keyframes = [{ transform: invertTransform(tile, stage.getBoundingClientRect()) }, { transform: 'none' }];
-    return stage.animate(reverse ? keyframes.reverse() : keyframes, { duration: reverse ? 360 : 480, easing: easeOut(), fill: 'both' }).finished;
+    stage.style.willChange = 'transform';
+    return stage.animate(reverse ? keyframes.reverse() : keyframes, { duration: cssDuration(reverse ? '--viewer-close' : '--viewer-open'), easing: easeOut(), fill: 'both' }).finished;
   };
-  const settle = () => stage.getAnimations().forEach(animation => animation.cancel());
+  const settle = () => {
+    stage.getAnimations().forEach(animation => animation.cancel());
+    stage.style.willChange = '';
+  };
 
   const open = (frame: HTMLElement) => {
-    current = readExhibit(frame);
-    stage.replaceChildren(current.layer());
+    const source = readExhibit(frame);
+    current = source;
+    const layer = source.layer();
+    stage.replaceChildren(layer);
     const hint = Object.assign(document.createElement('p'), { className: 'viewer-hint', textContent: hintText() });
     text.replaceChildren(...current.caption(), hint);
     panZoom.reset();
     fit();
     dialog.showModal();
-    document.documentElement.classList.add('is-viewing');
-    if (!calm.matches) fly(frame.getBoundingClientRect(), false).then(settle);
+    unlock = lockScroll(dialog);
+    const landed = calm.matches ? Promise.resolve() : fly(frame.getBoundingClientRect(), false).then(settle);
+    // Decoding the large source mid-flight drops frames; it waits for the landing.
+    landed.then(() => { if (current === source && !closing) void source.sharpen(layer); });
   };
 
   const close = async () => {
@@ -68,14 +79,15 @@ export function initializeExhibitViewer(signal: AbortSignal) {
     const tile = current.frame.getBoundingClientRect();
     const tileOnScreen = tile.bottom > 0 && tile.top < innerHeight;
     if (!calm.matches && tileOnScreen) await fly(tile, true);
-    else await dialog.animate([{ opacity: 1 }, { opacity: 0 }], { duration: 160 }).finished;
+    else await dialog.animate([{ opacity: 1 }, { opacity: 0 }], { duration: cssDuration('--viewer-fade') }).finished;
     settle();
     dialog.close();
   };
 
   dialog.addEventListener('close', () => {
     dialog.classList.remove('is-closing');
-    document.documentElement.classList.remove('is-viewing');
+    unlock?.();
+    unlock = undefined;
     current?.frame.querySelector<HTMLElement>('.exhibit-zoom')?.focus({ preventScroll: true });
     current = null;
     closing = false;

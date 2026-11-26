@@ -1,5 +1,5 @@
 import { IDENTITY, panBy, toTransform, zoomAround, type View } from '../shared/geometry';
-import { easeOut } from '../shared/motion';
+import { cssDuration, easeOut } from '../shared/motion';
 
 // Input adapter: turns wheel, pinch, drag and double-click into View changes; the math lives in geometry.
 const FLOOR_MAX = 2; // always allow 2x, even when the source has no spare pixels
@@ -26,7 +26,7 @@ export function attachPanZoom(stage: HTMLElement, signal: AbortSignal): PanZoom 
     view = next;
     const target = layer();
     if (!target) return;
-    target.style.transition = smooth ? `transform 320ms ${easeOut()}` : '';
+    target.style.transition = smooth ? `transform ${cssDuration('--viewer-zoom')}ms ${easeOut()}` : '';
     target.style.transform = toTransform(view);
     stage.classList.toggle('is-zoomed', view.scale > 1);
   };
@@ -47,7 +47,11 @@ export function attachPanZoom(stage: HTMLElement, signal: AbortSignal): PanZoom 
     const [a, b] = [...pointers.values()];
     return { span: Math.hypot(a.x - b.x, a.y - b.y), cx: (a.x + b.x) / 2, cy: (a.y + b.y) / 2 };
   };
+  // Native image drag would cancel the pointer stream and steal mouse panning.
+  stage.addEventListener('dragstart', event => event.preventDefault(), { signal });
   stage.addEventListener('pointerdown', event => {
+    if (event.pointerType === 'mouse' && event.button !== 0) return;
+    if (event.pointerType === 'mouse') event.preventDefault();
     stage.setPointerCapture(event.pointerId);
     pointers.set(event.pointerId, { x: event.clientX, y: event.clientY });
     moved = false;
