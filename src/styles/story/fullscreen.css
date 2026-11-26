@@ -9,9 +9,9 @@
   gap: 14px;
   padding: 8px 8px 8px 20px;
   border-radius: 999px;
-  background: rgb(20 19 17 / 0.88);
+  background: rgb(var(--scrim) / 0.88);
   color: var(--paper);
-  box-shadow: 0 18px 40px -16px rgb(20 19 17 / 0.55);
+  box-shadow: 0 18px 40px -16px rgb(var(--scrim) / 0.55);
   backdrop-filter: blur(12px);
   opacity: 0;
   translate: -50% 16px;
@@ -29,15 +29,6 @@
   transition: scale 200ms ease;
 }
 .fullscreen-go:active { scale: 0.96; }
-.fullscreen-skip {
-  display: grid;
-  place-items: center;
-  width: 36px;
-  height: 36px;
-  border-radius: 50%;
-  color: rgb(255 255 255 / 0.7);
-  transition: background 200ms ease, color 200ms ease;
-}
-.fullscreen-skip:hover { background: rgb(255 255 255 / 0.12); color: #fff; }
+.fullscreen-skip { width: 36px; height: 36px; background: none; }
 @media (prefers-reduced-motion: reduce) { .fullscreen-offer { translate: -50% 0; transition: opacity 120ms linear; } }
 @media print { .fullscreen-offer { display: none; } }
