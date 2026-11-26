@@ -5,7 +5,7 @@ import { initializeSplitDemo } from './story/split-demo';
 import { initializePreviewSlot } from './story/preview-slot';
 import { initializeWorkPreview } from './story/work-preview';
 import { initializeContact } from './story/contact';
-import { initializeExhibitViewer } from './story/exhibit-viewer';
+import { initializeExhibitViewer } from './story/viewer';
 import { initializeFullscreenOffer } from './story/fullscreen-offer';
 
 let dispose = () => {};
