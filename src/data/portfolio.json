@@ -13,7 +13,7 @@
   "sourceDate": "2026.11",
   "highlights": [
     {
-      "value": "17",
+      "value": "18",
       "label": "2025–26년에 수행한 프로젝트"
     },
     {
@@ -637,46 +637,27 @@
   ],
   "otherProjectCategories": [
     {
-      "id": "service",
-      "label": "서비스",
-      "summary": "AI 모델을 배포까지 이어 간 2026년 팀 작업"
+      "id": "shipped",
+      "label": "개인 서비스",
+      "summary": "혼자 만들어 스토어·웹에 출시하고 운영 중인 작업"
     },
     {
-      "id": "shipped",
-      "label": "개인 프로젝트",
-      "summary": "혼자 기획·개발·배포까지 한 2026년 작업"
+      "id": "genai",
+      "label": "생성형 AI",
+      "summary": "LLM으로 대화·지시서를 만드는 작업"
     },
     {
       "id": "vision",
       "label": "비전",
-      "summary": "이미지를 다루는 모델을 구현하고 비교한 작업"
+      "summary": "이미지에서 변화·체형·감정을 읽고 모델을 구현한 작업"
     },
     {
       "id": "analysis",
-      "label": "분석",
-      "summary": "가설 검정, 입지 도출, 중퇴 예측"
-    },
-    {
-      "id": "productivity",
-      "label": "생산성",
-      "summary": "당일 논문을 수집해 Excel에 쌓은 작업"
+      "label": "데이터",
+      "summary": "수집, 가설 검정, 입지 도출, 중퇴 예측"
     }
   ],
   "otherProjects": [
-    {
-      "id": "dabangrok",
-      "title": "다방록 입주 전후 분석",
-      "category": "service",
-      "highlight": "달라진 곳을 표시하는 리포트 · CI/CD 구축",
-      "type": "풀스택 서비스",
-      "duration": "2개월 · 팀",
-      "stack": "FastAPI · SAM · CLIP · GitHub Actions · AWS EC2",
-      "description": "입주·퇴거 사진을 정렬해 **달라진 곳을 표시하는 리포트** 서비스에서 백엔드·AI를 맡아 **전체 코드를 통합**하고, GitHub Actions부터 EC2까지 **CI/CD를 구축**했습니다.",
-      "source": "06–12",
-      "presentation": "12d3g9rmu5CqG9ILev27feQTJ3XJiHuiU",
-      "image": "dabang-detect",
-      "imageAlt": "퇴거 전 방 사진에서 새로 생긴 사람과 가방을 빨간 상자로 표시한 AI 변화 탐지 결과"
-    },
     {
       "id": "silmari",
       "title": "실마리 계획 앱",
@@ -687,7 +668,6 @@
       "stack": "React · TypeScript · Capacitor · Firebase",
       "description": "할 일을 **목록·타임라인·원형 계획표**로 하나의 데이터에서 관리하는 로컬 우선 계획 앱입니다. 웹과 Android 앱, Firebase 서버·결제·관리자 기능까지 **혼자 만들어 운영**합니다.",
       "source": "Silmari 저장소 · Google Play",
-      "presentation": "",
       "image": "silmari-plan",
       "imageAlt": "실마리 원형 보기 화면. 오늘의 시간표와 할 일 입력 칸",
       "links": [
@@ -699,7 +679,8 @@
           "label": "Google Play",
           "href": "https://play.google.com/store/apps/details?id=com.poneul.silmari"
         }
-      ]
+      ],
+      "presentation": ""
     },
     {
       "id": "obell",
@@ -707,11 +688,10 @@
       "category": "shipped",
       "highlight": "물건을 찍어야 꺼지는 알람 · Google Play 배포",
       "type": "모바일 앱",
-      "duration": "개인",
-      "stack": "Android",
-      "description": "세면대의 칫솔처럼 **미리 등록한 물건을 찍거나**, 휴대폰을 흔들거나, 계산 문제를 풀어야 꺼지는 알람 앱입니다. 끈 뒤에도 기상을 다시 확인하고, 인터넷 연결 없이도 작동하도록 만들어 **Google Play에 배포**했습니다.",
+      "duration": "1주 · 개인",
+      "stack": "Flutter · Riverpod · OpenCV",
+      "description": "세면대의 칫솔처럼 **미리 등록한 물건을 찍거나**, 휴대폰을 흔들거나, 계산 문제를 풀어야 꺼지는 알람 앱입니다. Flutter로 만들고 OpenCV로 사진을 대조하며, 인터넷 연결 없이도 작동하도록 해 **Google Play에 배포**했습니다.",
       "source": "Google Play",
-      "presentation": "",
       "image": "obell-mission",
       "imageAlt": "오벨 사진 미션 화면. 등록한 칫솔을 찍자 '찾았어요 100%'가 표시된 모습",
       "links": [
@@ -719,7 +699,8 @@
           "label": "Google Play",
           "href": "https://play.google.com/store/apps/details?id=com.poneul.obell"
         }
-      ]
+      ],
+      "presentation": ""
     },
     {
       "id": "memoivy",
@@ -731,7 +712,6 @@
       "stack": "Electron · React · Rust · SQLite",
       "description": "바탕화면에 붙여 두는 스티커 메모를 프로젝트로 묶고 **캔버스에서 연결**하는 Windows·Linux 메모 앱입니다. 계정 없이 로컬에 자동 저장하며, **Microsoft Store·Snap Store에 배포**했습니다.",
       "source": "GitHub MemoIvy",
-      "presentation": "",
       "image": "memoivy-canvas",
       "imageAlt": "MemoIvy 캔버스. 색상별 메모 네 개와 작업 순서를 잇는 연결선",
       "links": [
@@ -747,7 +727,8 @@
           "label": "코드",
           "href": "https://github.com/pollux-o4/MemoIvy"
         }
-      ]
+      ],
+      "presentation": ""
     },
     {
       "id": "md2ebook",
@@ -759,7 +740,6 @@
       "stack": "HTML · Python · VS Code Extension",
       "description": "작성한 .md 파일을 외부 의존성 없는 **단일 HTML 책 리더**로 변환하는 에이전트 스킬입니다. **VS Code Marketplace**에 확장 기능으로도 배포했습니다.",
       "source": "GitHub md2ebook",
-      "presentation": "",
       "image": "md2ebook-reader",
       "imageAlt": "md2ebook 책 리더 화면. 페이지 넘김과 목차",
       "links": [
@@ -771,7 +751,8 @@
           "label": "코드",
           "href": "https://github.com/pollux-o4/md2ebook"
         }
-      ]
+      ],
+      "presentation": ""
     },
     {
       "id": "design-home",
@@ -783,7 +764,6 @@
       "stack": "JavaScript · Playwright",
       "description": "UI 트렌드와 패턴을 **라이브 데모로 학습하는 사이트**와, 프로젝트 화면을 기준 컴포넌트와 비교하는 **디자인 검토 도구**입니다.",
       "source": "GitHub design-home",
-      "presentation": "",
       "image": "design-home",
       "imageAlt": "Design Home 사이트의 UI 트렌드 데모 화면",
       "links": [
@@ -795,35 +775,70 @@
           "label": "코드",
           "href": "https://github.com/pollux-o4/design-home"
         }
-      ]
+      ],
+      "presentation": ""
     },
     {
-      "id": "arxiv",
-      "title": "arXiv 논문 수집",
-      "category": "productivity",
-      "highlight": "제목·초록·링크를 Excel에 누적 저장",
-      "type": "웹 수집",
-      "duration": "6일 · 개인",
-      "stack": "Selenium · Openpyxl",
-      "description": "동적 페이지에서 당일 AI 논문의 제목·초록·링크를 수집해 **Excel에 누적 저장**했습니다.",
-      "source": "19",
-      "presentation": "1nMbhkO-hl7TADqv8K2GN93HWc8SObhvy",
-      "image": "arxiv-preview",
-      "imageAlt": "논문 수집 결과와 Excel 저장 화면"
+      "id": "listenee",
+      "title": "Listen to Me 과업지시서",
+      "category": "genai",
+      "highlight": "갈림길을 고르면 초안이 바뀌는 AI 협업 지시서",
+      "type": "AI 도구",
+      "duration": "개발 중 · 개인",
+      "stack": "Rust · React · Storybook",
+      "description": "AI가 채운 초안을 **단계별 여정 지도**로 따라가며 갈림길만 고르면 과업지시서가 완성되는 도구입니다. 프롬프트 경험과 관계없이 **중급 이상의 지시서**를 쓰게 하는 것이 목표이며, 단일 바이너리로 배포합니다.",
+      "source": "GitHub listeneeLTM",
+      "image": "listenee-workspace",
+      "imageAlt": "Listen to Me 작업 화면. 단계 여정 지도, 갈림길 카드, 실시간 초안",
+      "links": [
+        {
+          "label": "코드",
+          "href": "https://github.com/pollux-o4/listeneeLTM"
+        }
+      ],
+      "presentation": ""
     },
     {
-      "id": "student",
-      "title": "학생 성적 분석",
-      "category": "analysis",
-      "highlight": "DDA·EDA·CDA 후 통계 검정으로 가설 확인",
-      "type": "통계 검정",
-      "duration": "6일 · 개인",
-      "stack": "NumPy · pandas · SciPy",
-      "description": "DDA·EDA·CDA로 데이터를 탐색하고 가설을 세웠습니다. **카이제곱 독립 검정과 Kruskal–Wallis H 검정**으로 가설을 검증했습니다.",
-      "source": "19",
-      "presentation": "1ArzaYgoYWyQHrvGKkMAsbaZjj05npoJJ",
-      "image": "student-preview",
-      "imageAlt": "성적 분포와 통계 검정 결과"
+      "id": "health",
+      "title": "고립 완화 AI 헬스케어",
+      "category": "genai",
+      "highlight": "표정·음성을 함께 읽는 공감 대화 · 음성 SNS 라디오",
+      "type": "멀티모달 서비스 기획",
+      "duration": "해커톤 · 팀",
+      "stack": "Vision 모델 · STT · LLM · TTS",
+      "description": "독거노인·치매 환자의 고립을 줄이려고 **표정 분석 결과와 음성 텍스트를 LLM이 함께 판단**해 공감 대화를 이어 가는 서비스를 설계했습니다. 컴퓨터 비전 담당으로 MobileNet·ViT 등 **표정 인식 모델 후보를 비교**했습니다.",
+      "source": "인공지능사관학교 온라인 해커톤 발표자료",
+      "image": "health-emotion",
+      "imageAlt": "기본 ViT와 3 epoch ViT 모델이 방송 영상 속 얼굴의 표정을 분류한 프레임 비교",
+      "presentation": "1R7kqyfooO_2POCXucRGGsSuR-wynf6hC"
+    },
+    {
+      "id": "dabangrok",
+      "title": "다방록 입주 전후 분석",
+      "category": "vision",
+      "highlight": "달라진 곳을 표시하는 리포트 · CI/CD 구축",
+      "type": "풀스택 서비스",
+      "duration": "2개월 · 팀",
+      "stack": "FastAPI · SAM · CLIP · GitHub Actions · AWS EC2",
+      "description": "입주·퇴거 사진을 정렬해 **달라진 곳을 표시하는 리포트** 서비스에서 백엔드·AI를 맡아 **전체 코드를 통합**하고, GitHub Actions부터 EC2까지 **CI/CD를 구축**했습니다.",
+      "source": "06–12",
+      "image": "dabang-detect",
+      "imageAlt": "퇴거 전 방 사진에서 새로 생긴 사람과 가방을 빨간 상자로 표시한 AI 변화 탐지 결과",
+      "presentation": "12d3g9rmu5CqG9ILev27feQTJ3XJiHuiU"
+    },
+    {
+      "id": "hanwoo",
+      "title": "한우 체형 분석 급여 관리",
+      "category": "vision",
+      "highlight": "후구 사진으로 BCS·체중 예측 · 주간 사료 배합 생성",
+      "type": "비전 서비스",
+      "duration": "3일 · 해커톤 · 팀",
+      "stack": "Vision 모델 · 생성형 AI · STT·TTS",
+      "description": "스마트폰으로 찍은 한우 후구 사진에서 **체형 지수(BCS)와 체중을 예측**하고, 결과에 맞춰 생성형 AI가 **개체별 주간 사료 배합 플랜**을 만드는 서비스입니다. 재촬영 비교 그래프와 음성 챗봇까지 2박 3일 해커톤에서 구현했습니다.",
+      "source": "AI Frontier Challenge 발표자료",
+      "image": "hanwoo-bcs",
+      "imageAlt": "한우 후구를 분할해 BCS 6점, 신뢰도 88%, 예상 체중 429.3kg을 보여 주는 분석 화면",
+      "presentation": "17s50GJ3sUvepOAxSOrSQsIC3IRd0_bnd"
     },
     {
       "id": "thumbnail",
@@ -835,37 +850,9 @@
       "stack": "TensorFlow · YOLO · OpenCV",
       "description": "YT-dlp·Google APIs로 썸네일과 메타데이터를 수집하고, YOLO 얼굴 탐지로 라벨링을 보조해 ViT·FaceNet 전이학습을 비교했습니다. 분석 결과 감정보다 **구독자·좋아요 수와의 연관성**이 더 크게 나타났습니다.",
       "source": "20",
-      "presentation": "1nGUwr1S5lYI4cDzCN50YrzQUovlYSPkC",
       "image": "thumbnail-preview",
-      "imageAlt": "썸네일 얼굴 탐지와 라벨링 예시"
-    },
-    {
-      "id": "city",
-      "title": "들락날락 입지 분석",
-      "category": "analysis",
-      "highlight": "도보 15분 이내로 접근 가능한 입지 도출",
-      "type": "공간 분석",
-      "duration": "14일 · 팀",
-      "stack": "QGIS · GeoPandas · DBSCAN",
-      "description": "9종의 공공데이터로 부산 어린이복합문화공간 후보지를 분석했습니다. 지하철·버스와 경사를 종합적으로 고려해 어린이가 **도보 15분 이내로 접근 가능한 입지**를 도출했습니다.",
-      "source": "20",
-      "presentation": "",
-      "image": "city-preview",
-      "imageAlt": "부산 공공데이터 입지 분석 지도"
-    },
-    {
-      "id": "dropout",
-      "title": "대학생 중퇴 예측",
-      "category": "analysis",
-      "highlight": "중퇴 예측 모델 정확도 89%",
-      "type": "예측 모델",
-      "duration": "5일 · 팀",
-      "stack": "pandas · scikit-learn",
-      "description": "포르투갈 대학생 데이터를 EDA·PDA로 분석해 중퇴 예측 모델을 구축했고, 정확도 **89%**를 기록했습니다.",
-      "source": "21",
-      "presentation": "1k6fWsFBiG3NbCLoUHaL5Q2ToEtXki6Zt",
-      "image": "dropout-preview",
-      "imageAlt": "학적 상태별 성적 분포"
+      "imageAlt": "썸네일 얼굴 탐지와 라벨링 예시",
+      "presentation": "1nGUwr1S5lYI4cDzCN50YrzQUovlYSPkC"
     },
     {
       "id": "vit",
@@ -877,9 +864,65 @@
       "stack": "PyTorch · Python",
       "description": "ViT 논문의 차원 변환과 연산 과정을 **시각 자료로 정리**하고, **프로젝트 관리와 발표자료**를 맡았습니다.",
       "source": "21",
-      "presentation": "1I6QieQ7lCZvXFCb-k-NGS1gkcztCCNE6",
       "image": "vit-preview",
-      "imageAlt": "차원 변환 설명과 구현 코드"
+      "imageAlt": "차원 변환 설명과 구현 코드",
+      "presentation": "1I6QieQ7lCZvXFCb-k-NGS1gkcztCCNE6"
+    },
+    {
+      "id": "arxiv",
+      "title": "arXiv 논문 수집",
+      "category": "analysis",
+      "highlight": "제목·초록·링크를 Excel에 누적 저장",
+      "type": "웹 수집",
+      "duration": "6일 · 개인",
+      "stack": "Selenium · Openpyxl",
+      "description": "동적 페이지에서 당일 AI 논문의 제목·초록·링크를 수집해 **Excel에 누적 저장**했습니다.",
+      "source": "19",
+      "image": "arxiv-preview",
+      "imageAlt": "논문 수집 결과와 Excel 저장 화면",
+      "presentation": "1nMbhkO-hl7TADqv8K2GN93HWc8SObhvy"
+    },
+    {
+      "id": "student",
+      "title": "학생 성적 분석",
+      "category": "analysis",
+      "highlight": "DDA·EDA·CDA 후 통계 검정으로 가설 확인",
+      "type": "통계 검정",
+      "duration": "6일 · 개인",
+      "stack": "NumPy · pandas · SciPy",
+      "description": "DDA·EDA·CDA로 데이터를 탐색하고 가설을 세웠습니다. **카이제곱 독립 검정과 Kruskal–Wallis H 검정**으로 가설을 검증했습니다.",
+      "source": "19",
+      "image": "student-preview",
+      "imageAlt": "성적 분포와 통계 검정 결과",
+      "presentation": "1ArzaYgoYWyQHrvGKkMAsbaZjj05npoJJ"
+    },
+    {
+      "id": "city",
+      "title": "들락날락 입지 분석",
+      "category": "analysis",
+      "highlight": "도보 15분 이내로 접근 가능한 입지 도출",
+      "type": "공간 분석",
+      "duration": "14일 · 팀",
+      "stack": "QGIS · GeoPandas · DBSCAN",
+      "description": "9종의 공공데이터로 부산 어린이복합문화공간 후보지를 분석했습니다. 지하철·버스와 경사를 종합적으로 고려해 어린이가 **도보 15분 이내로 접근 가능한 입지**를 도출했습니다.",
+      "source": "20",
+      "image": "city-preview",
+      "imageAlt": "부산 공공데이터 입지 분석 지도",
+      "presentation": ""
+    },
+    {
+      "id": "dropout",
+      "title": "대학생 중퇴 예측",
+      "category": "analysis",
+      "highlight": "중퇴 예측 모델 정확도 89%",
+      "type": "예측 모델",
+      "duration": "5일 · 팀",
+      "stack": "pandas · scikit-learn",
+      "description": "포르투갈 대학생 데이터를 EDA·PDA로 분석해 중퇴 예측 모델을 구축했고, 정확도 **89%**를 기록했습니다.",
+      "source": "21",
+      "image": "dropout-preview",
+      "imageAlt": "학적 상태별 성적 분포",
+      "presentation": "1k6fWsFBiG3NbCLoUHaL5Q2ToEtXki6Zt"
     }
   ],
   "timelineYears": [
@@ -987,7 +1030,7 @@
         {
           "text": "고립 완화 AI 헬스케어 · 해커톤",
           "kind": "project",
-          "image": "health-preview"
+          "ref": "health"
         }
       ]
     },
@@ -997,8 +1040,8 @@
         {
           "text": "한우 체형 분석 · 급여관리 서비스 해커톤",
           "kind": "project",
-          "image": "hanwoo-preview",
-          "release": "ended"
+          "release": "ended",
+          "ref": "hanwoo"
         },
         {
           "text": "인공지능활용능력",
@@ -1078,6 +1121,11 @@
     {
       "date": "2026.11",
       "items": [
+        {
+          "text": "Listen to Me 과업지시서 · 개인",
+          "kind": "project",
+          "ref": "listenee"
+        },
         {
           "text": "MemoIvy · Microsoft Store·Snap Store 배포",
           "kind": "project",
