@@ -34,7 +34,7 @@
   font-family: var(--mono);
   font-size: 12px;
   letter-spacing: 0.06em;
-  color: var(--signal-ink);
+  color: var(--muted);
 }
 .case-question::before { content: "Q — "; }
 /* Evidence sits at the same spot on every case, beside the claim (SPEC 2.3). */
@@ -324,7 +324,7 @@
   font-weight: 650;
   letter-spacing: -0.02em;
 }
-.share-mine li::before { content: ""; width: 7px; height: 7px; border-radius: 50%; background: var(--signal); }
+.share-mine li::before { content: ""; width: 7px; height: 7px; border-radius: 50%; background: var(--muted); }
 .share-team {
   grid-column: 9 / -1;
   padding: clamp(24px, calc(var(--fit) * 3), 40px);
@@ -371,7 +371,7 @@ summary:hover strong { color: var(--signal-ink); }
 .story-no { grid-column: 1; font-family: var(--serif); font-style: italic; font-size: 18px; line-height: 1.6; color: var(--muted); }
 .case-story h3 { grid-column: 2 / span 8; font-size: var(--t-head); font-weight: 760; letter-spacing: -0.03em; line-height: 1.5; }
 .case-story p { grid-column: 2 / span 8; font-size: var(--t-body); line-height: 1.85; color: var(--ink-soft); }
-.case-story .is-next h3 { color: var(--signal-ink); }
+.case-story .is-next h3 { color: var(--ink); }
 
 .facts {
   display: grid;

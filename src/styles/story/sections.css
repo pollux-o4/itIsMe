@@ -179,7 +179,7 @@
   letter-spacing: -0.02em;
 }
 .year-head p { margin-top: 14px; max-width: 14em; font-size: 15px; line-height: 1.6; color: var(--ink-soft); }
-.timeline-year.is-current .year-head h3 { color: var(--signal-ink); }
+.timeline-year.is-current .year-head h3 { color: var(--ink); }
 .timeline-list {
   grid-column: 4 / -1;
   display: grid;
