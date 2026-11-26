@@ -5,9 +5,17 @@ type Figure = NonNullable<Project['evidence'][number]['figure']>;
 interface Props { figure: Figure; label: string }
 const { figure: f, label } = Astro.props;
 const pct = (value: number) => `${(value * 100).toFixed(2)}%`;
+// The frame's inputs for CSS (text-size cap, ratio) and the viewer; optional measurements fall back in CSS.
+const frameVars = Object.entries({
+  'aspect-ratio': `${f.width}/${f.height}`,
+  '--ratio': (f.width / f.height).toFixed(4),
+  '--source-width': f.width,
+  '--text-max': f.textMax,
+  '--text-min': f.textMin,
+}).filter(([, value]) => value !== undefined).map(([key, value]) => `${key}:${value}`).join(';');
 ---
 <figure class="exhibit">
-  <div class="exhibit-frame" style={`aspect-ratio:${f.width}/${f.height};--ratio:${(f.width / f.height).toFixed(4)};--source-width:${f.width}${f.textMax ? `;--text-max:${f.textMax}` : ''}${f.textMin ? `;--text-min:${f.textMin}` : ''}`}>
+  <div class="exhibit-frame" style={frameVars}>
     <PortfolioImage name={f.image} width={f.width} alt={f.alt} sizes="(max-width: 760px) 92vw, (max-width: 1240px) 60vw, 750px"/>
     {f.marks.map((mark, i) => (
       <span class="exhibit-mark" style={`left:${pct(mark.x)};top:${pct(mark.y)};width:${pct(mark.w)};height:${pct(mark.h)}`} aria-hidden="true">
