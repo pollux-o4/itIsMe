@@ -30,7 +30,8 @@
   color: var(--ink);
 }
 .case-question {
-  grid-column: 1 / span 9;
+  /* Shares the title's columns: the picture beside them starts on this row. */
+  grid-column: 1 / span 7;
   grid-row: 2;
   margin-top: 6px;
   font-family: var(--mono);
@@ -410,7 +411,7 @@ summary:hover strong { color: var(--signal-ink); }
 }
 /* Phones stack the picture under the title. The stage scales with its width, so cards always fit it. */
 @media screen and (max-width: 599px) {
-  .case-title, .case-name { grid-column: 1 / -1; }
+  .case-question, .case-title, .case-name { grid-column: 1 / -1; }
   .case-visual { grid-column: 1 / -1; grid-row: auto; width: min(100%, 440px); margin-top: 28px; }
   .case-visual figcaption { margin-top: 14px; text-align: left; }
   .visual-stage, .case-visual-service .visual-stage, .case-visual-safety .visual-stage { aspect-ratio: 1.79; }
@@ -423,7 +424,6 @@ summary:hover strong { color: var(--signal-ink); }
 @media (max-width: 760px) {
   .case-index { grid-column: 1 / span 6; }
   .case-source { grid-column: 7 / -1; grid-row: 1; }
-  .case-question { grid-column: 1 / -1; margin-top: 6px; }
   .case-brief { grid-template-columns: 1fr; }
   .case-brief > div { padding-right: 0; }
   .case-brief > div + div { padding-left: 0; border-left: 0; border-top: 1px solid var(--line); }
