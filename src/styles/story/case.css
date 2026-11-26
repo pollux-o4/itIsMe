@@ -7,6 +7,8 @@
 .case-head {
   display: grid;
   grid-template-columns: repeat(12, minmax(0, 1fr));
+  /* The visual's extra height lands under the name, so title and name read as one block. */
+  grid-template-rows: auto auto 1fr;
   column-gap: var(--gap);
   border-top: 1px solid var(--line-strong);
   padding-top: 14px;
