@@ -8,7 +8,7 @@ const evidence = z
   .object({
     claim: text,
     why: text,
-    visual: z.enum(["split"]).optional(),
+    visual: z.enum(["split", "nullfill"]).optional(),
     figure: z
       .object({
         image: id,

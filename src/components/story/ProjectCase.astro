@@ -7,11 +7,12 @@ import Emphasis from '../Emphasis.astro';
 import Exhibit from '../Exhibit.astro';
 import CaseVisual from '../CaseVisual.astro';
 import ValidationFlow from '../ValidationFlow.astro';
+import NullFillTable from '../NullFillTable.astro';
 
 interface Props { project: Project }
 const { project: p } = Astro.props;
 // Interactive visuals that can stand in for a figure; each still answers one claim.
-const visuals = { split: ValidationFlow };
+const visuals = { split: ValidationFlow, nullfill: NullFillTable };
 const story = [
   ['문제', p.narrative.problem],
   ['판단', p.narrative.decision],
