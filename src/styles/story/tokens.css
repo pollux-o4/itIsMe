@@ -37,8 +37,15 @@
   /* A damped spring with about 3% overshoot: settles like a macOS control, never bounces. */
   --spring: linear(0, 0.089, 0.278, 0.486, 0.671, 0.815, 0.916, 0.979, 1.014, 1.029, 1.031, 1.028, 1.022, 1.015, 1.01, 1.005, 1.002, 1, 0.999, 0.999, 1);
   --masthead: 72px;
-  /* Chapter breathing room scales with the shorter screen side, so a laptop window holds a whole head. */
-  --chapter-pad: clamp(64px, min(11vw, 13svh), 170px);
+  /*
+    The fit unit: 1vw on a 16:10 screen, smaller on anything shorter. Every fluid size
+    is clamp(min, calc(var(--fit) * k), max), so type and space follow the screen's
+    tighter side and a chapter head still fits one screen on a short laptop.
+  */
+  --fit: min(1vw, 1.6svh);
+  /* Room a framed picture may take: the screen minus the masthead and its caption line. */
+  --screen-room: calc(100svh - var(--masthead) - 140px);
+  --chapter-pad: clamp(64px, calc(var(--fit) * 11), 170px);
   color-scheme: light;
 }
 
