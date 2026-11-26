@@ -23,18 +23,18 @@
 
 <table>
 <tr>
-<td width="33%" valign="top">
-<img src="public/images/portfolio/case-agri-onions.webp" alt="농산물 가격 예측">
+<td width="33%" valign="top" align="center">
+<img src=".github/readme/agri.webp" alt="농산물 가격 예측">
 <br><b>농산물 가격 예측</b>
 <br><sub>시계열 데이터로 다음 가격을 예측</sub>
 </td>
-<td width="33%" valign="top">
-<img src="public/images/portfolio/case-engine-a380.webp" alt="항공기 엔진 수명 예측">
+<td width="33%" valign="top" align="center">
+<img src=".github/readme/engine.webp" alt="항공기 엔진 수명 예측">
 <br><b>항공기 엔진 수명 예측</b>
 <br><sub>센서 신호로 남은 수명을 추정</sub>
 </td>
-<td width="33%" valign="top">
-<img src="public/images/portfolio/case-nutrition-result.webp" alt="음식 사진 분석 앱">
+<td width="33%" valign="top" align="center">
+<img src=".github/readme/nutrition.webp" alt="음식 사진 분석 앱">
 <br><b>음식 사진 분석 앱</b>
 <br><sub>사진 한 장으로 영양 정보를 계산</sub>
 </td>
