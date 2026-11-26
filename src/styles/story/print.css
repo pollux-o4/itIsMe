@@ -121,7 +121,7 @@
   .case-links a { min-height: 0; padding-block: 1mm; }
 
   .split-demo { padding: 5mm; }
-  .evidence { padding-block: 4mm; break-inside: avoid; }
+  .evidence { padding: 4mm 0; border-radius: 0; background: none; break-inside: avoid; }
   /* Claim above, picture at reading width: on paper the evidence has to be legible, not just present. */
   .evidence { row-gap: 2.5mm; }
   .evidence-claim, .evidence-picture { grid-column: 1 / -1; }
