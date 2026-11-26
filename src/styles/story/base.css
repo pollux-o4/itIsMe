@@ -182,3 +182,6 @@ details[open] > .disclosure-content { animation: unfold 380ms var(--ease-out); }
   position: absolute;
   inset: -12px -6px;
 }
+
+/* scroll-lock.ts: the page scrollbar keeps its width (no shift) but fades out behind the modal. */
+.is-scroll-locked { scrollbar-color: transparent transparent; }

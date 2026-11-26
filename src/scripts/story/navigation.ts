@@ -1,8 +1,10 @@
 import { createChapterMap } from './shared/chapter-map';
 import { reducedMotion } from './shared/media';
+import { isScrollLocked, SCROLL_KEYS } from './shared/scroll-lock';
 import { createSelection } from './shared/selection';
 
-const scrollKeys = new Set(['ArrowUp', 'ArrowDown', 'PageUp', 'PageDown', 'Home', 'End', 'Escape', ' ']);
+// Escape also ends a pending anchor scroll.
+const scrollKeys = new Set([...SCROLL_KEYS, 'Escape']);
 
 export function initializeNavigation(signal: AbortSignal) {
   const navLinks = [...document.querySelectorAll<HTMLAnchorElement>('.story-nav a')];
@@ -47,8 +49,12 @@ export function initializeNavigation(signal: AbortSignal) {
     scheduleLocation();
   }
 
+  // Scroll and resize while a modal holds the scroll lock are not the reader moving.
+  const rebase = () => { lastY = directionStartY = window.scrollY; direction = 0; };
+
   function updateMasthead() {
     const y = Math.max(0, window.scrollY);
+    if (isScrollLocked()) { lastY = y; return; }
     const nextDirection = Math.sign(y - (lastY ?? y));
     if (nextDirection && nextDirection !== direction) {
       direction = nextDirection;
@@ -64,10 +70,9 @@ export function initializeNavigation(signal: AbortSignal) {
 
   window.addEventListener('scroll', updateMasthead, { passive: true, signal });
   window.addEventListener('resize', () => {
-    masthead?.classList.remove('is-scroll-hidden');
+    if (!isScrollLocked()) masthead?.classList.remove('is-scroll-hidden');
     readingEdge = undefined;
-    lastY = directionStartY = window.scrollY;
-    direction = 0;
+    rebase();
     relayout();
   }, { signal });
   masthead?.addEventListener('focusin', () => masthead.classList.remove('is-scroll-hidden'), { signal });
