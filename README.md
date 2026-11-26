@@ -2,52 +2,52 @@
 
 **AI 모델과 웹 서비스를 개발하는 주연석의 포트폴리오.**
 
-포트폴리오 22페이지와 이력서를 바탕으로 구성한 연속형 웹 포트폴리오입니다. 첫 화면은 채용하는 사람이 묻는 세 질문(끝까지 만들 수 있는가·스스로 판단하는가·함께 일할 수 있는가)을 목차로 삼고, 각 질문이 대표 사례 하나로 이어집니다. 사례는 주장형 제목 → 설명 시각화 → 문제·판단·실행·검증·남은 과제 → 내 몫/팀 몫 → 펼쳐 보는 근거 순서로 읽습니다. 그 밖의 작업, 연표, 이력이 뒤따릅니다.
+**사이트:** https://pollux-o4.github.io/itIsMe/
+
+채용하는 사람이 묻는 세 질문(끝까지 만들 수 있는가·스스로 판단하는가·함께 일할 수 있는가)을 목차로 삼고, 질문마다 대표 사례 하나로 답하는 연속형 웹 포트폴리오입니다. 사례는 주장 → 시각화 → 문제·판단·실행·검증·남은 과제 → 내 몫/팀 몫 → 펼쳐 보는 근거 순서로 읽고, 그 밖의 작업·연표·이력이 뒤따릅니다.
+
+- 넓은 화면은 왼쪽 고정 목차, 좁은 화면은 상단 가로 목차입니다.
+- 근거는 같은 페이지에서 펼치며, 브라우저 인쇄는 접힌 내용까지 A4로 출력합니다.
+- 키보드 이동과 OS 모션 감소 설정을 지원합니다.
 
 ## 실행
 
-Node 24 / pnpm 12.15.0. `pnpm install --frozen-lockfile` 후 `pnpm dev`.
+Node 24 / pnpm 12.15.0.
 
-정본: http://localhost:4321/itIsMe/
+```bash
+pnpm install --frozen-lockfile
+```
 
-A의 연속형 본문에 넓은 화면의 고정 목차와 큰 제품 화면을 통합했습니다. 시안 분기·전환 바·Studio·Appearance 설정은 삭제했습니다. 이전 `?variant=A/B/C` 주소도 같은 정본을 표시합니다. 1280px 이상은 왼쪽 목차, 그보다 좁은 화면은 상단 가로 목차입니다.
+```bash
+pnpm dev
+```
 
-- 첫 화면의 대표 프로젝트에 마우스를 올리거나 키보드로 이동하면 오른쪽 실제 이미지가 전환됩니다. 클릭은 본문으로 바로 이동합니다. 좁은 화면·터치에서는 기본 이미지를 유지하며, 모션 감소 설정에서는 이동·회전·페이드를 끕니다.
-- 목차로 원하는 장으로 바로 이동합니다. 키보드 이동 시 목적지로 포커스가 이어집니다.
-- 근거는 같은 페이지의 native `details`에서 펼칩니다. 중첩된 펼침이나 모달은 없습니다.
-- `전체 인쇄` 또는 브라우저 인쇄는 접힌 내용도 포함합니다. A4 세로 기본 인쇄 기준 17페이지이며 다른 용지·배율에서는 페이지 수가 달라집니다.
-- `/work/`, `/about/`는 각각 작업과 배경 앵커로 연결됩니다.
-- 개인정보가 포함된 원본 PDF는 공개 자산에 포함하지 않습니다.
-
-## 구조
-
-**화면 명세:** [docs/design/SPEC.md](docs/design/SPEC.md) — 각 요소가 왜 그 자리에 있는지, 이전 작업에서 계승한 원칙, 수정 가이드. 배치를 바꾸기 전에 먼저 읽습니다.
-
-
-[C1~C4 아키텍처 지도](docs/architecture/README.md)와 [리팩토링 판단](docs/architecture/refactoring.md)에 실행 경계·책임·코드 경로를 정리했습니다. 홈은 섹션을 조합하고, 브라우저 동작은 탐색·미리보기·사진·인쇄로 나눕니다. 스타일 진입점은 `src/styles/global.css`, `src/styles/story.css`이며 import 순서가 cascade를 보존합니다.
+로컬 주소: http://localhost:4321/itIsMe/
 
 ## 콘텐츠 수정
 
 | 내용 | 파일 |
 |---|---|
-| 이름·역할·소개 제목·사진 소개·연락처, 대표 작업 3개와 목차·미리보기, 추가 작업·경력·학력·자격 | `src/data/portfolio.json` |
+| 소개·연락처, 대표 작업·추가 작업·경력·학력·자격 | `src/data/portfolio.json` |
 | 검색 메타데이터·한 줄 소개·GitHub | `src/data/site.json` |
-| 근거 이미지 | `public/images/portfolio/` |
+| 근거 이미지(WebP) | `public/images/portfolio/` |
 
-`.pages.yml`은 Pages CMS에서 Portfolio, Site settings를 편집하도록 구성합니다. 저장소/브랜치에 대한 GitHub 인증은 계정 소유자가 연결해야 합니다. 저장은 선택한 브랜치의 커밋을 만들며, main 변경만 기존 배포 워크플로가 실행합니다.
+- 본문의 핵심 구절은 `**강조할 구절**`로 표시합니다. 이름·제목·메타데이터에는 쓰지 않습니다.
+- 대표 작업의 시각화 교체 지점은 `src/components/story/ProjectCase.astro`입니다.
+- `.pages.yml`로 Pages CMS에서 편집할 수 있습니다. 저장은 선택한 브랜치에 커밋을 만듭니다.
+- 빌드가 데이터 스키마, 근거 이미지, 내부 앵커와 링크를 검사합니다.
 
-대표 작업의 ID·종류는 시각화와 연결되어 있습니다. 시각화 교체 지점은 `src/components/story/ProjectCase.astro`의 종류별 레지스트리입니다. 목차·바로가기·미리보기는 `portfolio.json`에서 읽으며, 기본 미리보기는 `preview.isDefault`를 전체에서 하나만 선택합니다. 일반 미리보기의 `preview.figure`는 근거 이미지의 0부터 시작하는 순번입니다. 제목·설명을 생략하면 프로젝트 제목·핵심 작업을 사용합니다. 이미지 파일명은 확장자 없이 입력하며 WebP 자산을 사용합니다. 빌드는 데이터 스키마, 근거 이미지, 내부 앵커와 링크를 확인합니다.
-
-역할·요약·결과·상세 본문의 핵심 구절은 `**강조할 구절**`로 표시합니다. 파란색과 굵기가 함께 적용되며 HTML은 허용하지 않습니다. 한 문단에서 짧은 핵심 구절만 강조합니다. 이름·제목·메타데이터에는 이 표식을 쓰지 않습니다. 대표 작업의 `outcomeLabel`, `outcome`, `outcomeNote`는 결과의 주체·내용·해석 조건을 각각 담습니다.
-
-팀 결과와 개인 역할을 구분합니다. 원본의 실험 수치는 재실험한 값이 아니며, 검증 조건·자료 기준일·확인되지 않은 상태를 근거 영역에 표시합니다. 정보처리기사는 필기 단계로 표기합니다. 두 자료에서 다른 자격 날짜는 생략하며 원본별 차이는 별도 기록에 보존합니다.
-
-`docs/personal-data/profile/overview.html`은 파악한 내용을 한 화면으로 정리한 로컬 자료입니다. `docs/personal-data/profile/facts.json`에는 근거 파일 위치·경력·학력·추가 사실·미확정 사항을 담았습니다. 해당 폴더는 Git 추적과 웹 공개에서 제외합니다. 웹 본문은 정적 HTML이며 Person/ProfilePage 구조화 데이터를 제공합니다.
+팀 결과와 개인 역할을 구분해 적습니다. 실험 수치는 원본 보고값이며 재실험한 값이 아닙니다.
 
 ## 검증과 배포
 
-`pnpm verify`는 화면 글씨의 최소 12px 검사와 강조 표식·텍스트 보존 검사, 타입 검사·빌드·내부 참조·이야기 콘텐츠 포함 검사를 실행합니다. 최초 설정 시 `pnpm hooks:install`을 실행하면 커밋할 때 스테이징된 CSS와 Astro 스타일의 글씨 크기도 검사합니다. 인쇄 전용 스타일과 이미지 속 글씨는 이 검사 범위에서 제외합니다. `pnpm build && pnpm preview`로 프로덕션을 확인합니다. 브라우저 설치는 `pnpm exec playwright install --with-deps chromium firefox webkit`, E2E는 `pnpm check:e2e`입니다. 프로덕션 미리보기를 `pnpm preview --port 4322`로 실행한 뒤 `pnpm check:lighthouse`로 모바일·데스크톱 각 3회의 중앙값을 확인합니다. 측정 중에는 빌드·E2E를 함께 실행하지 않습니다. 결과·실패 스크린샷·추적은 Git에서 제외된 `output/`에 저장합니다. 현재 검증 결과와 선택의 이유는 `QUALITY.md`에 있습니다. 디자인 수집 레퍼런스는 문서로 저장하지 않습니다.
+| 명령 | 내용 |
+|---|---|
+| `pnpm verify` | 글씨 크기·강조 표식·타입·빌드·내부 참조·공개 자산 검사 |
+| `pnpm check:e2e` | Playwright E2E (최초 `pnpm exec playwright install --with-deps chromium firefox webkit`) |
+| `pnpm check:lighthouse` | `pnpm preview --port 4322` 실행 후 모바일·데스크톱 각 3회 중앙값 |
+| `pnpm hooks:install` | 커밋 시 스테이징된 스타일의 글씨 크기 검사 |
 
-현재 브랜치는 `codex/portfolio-private-safe`입니다. main 반영·원격 push·배포는 이번 작업에 포함하지 않았습니다. 기존 GitHub Actions 배포 대상은 `https://pollux-o4.github.io/itIsMe/`이며 이번 변경의 배포 성공을 확인한 주소는 아닙니다.
+`main` 푸시가 GitHub Pages 배포를 시작합니다. 브랜치 흐름은 FLOW-001, 검수 기록은 `QUALITY.md`, 화면 설계는 `docs/design/SPEC.md`, 구조는 `docs/architecture/`에 있습니다.
 
-공개 자산은 사이트 방문자가 내려받을 수 있습니다. 개인정보가 들어간 원본은 `docs/personal-data/`에 보관하며 Git에서 제외합니다. `published: false`는 렌더링 제외이며 Git 파일의 비공개 처리가 아닙니다. 폰트 라이선스는 `public/fonts/`에 있습니다.
+폰트 라이선스는 `public/fonts/`에 있습니다.
