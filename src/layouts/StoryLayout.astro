@@ -37,7 +37,6 @@ const fonts = criticalFonts([portfolio.name, portfolio.english, portfolio.role, 
     <nav class="story-nav" aria-label="포트폴리오 바로가기">
       {portfolio.projects.map(project => <a href={`#${project.id}`}><span>{project.number}</span>{project.navigationLabel}</a>)}
       <a href="#archive"><span>+</span>다른 작업</a>
-      <a href="#background"><span>—</span>이력</a>
     </nav>
     <a class="masthead-contact" href="#contact">연락하기</a>
   </header>
