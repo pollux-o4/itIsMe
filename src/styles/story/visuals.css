@@ -1,11 +1,8 @@
 /* Split demo: why a shuffled split leaks the future, and the score journey after the fix. */
+/* The evidence tile is its surface; a second card inside it would double the boundary. */
 .split-demo {
   display: grid;
-  gap: 28px;
-  padding: clamp(20px, calc(var(--fit) * 3), 44px);
-  border: 1px solid var(--line-strong);
-  border-radius: 6px;
-  background: var(--paper-deep);
+  gap: clamp(20px, calc(var(--fit) * 2.4), 28px);
 }
 .split-panel { min-width: 0; }
 .split-toolbar { display: flex; flex-wrap: wrap; justify-content: space-between; align-items: center; gap: 12px; }
@@ -74,7 +71,7 @@
 }
 .split-journey li { display: grid; gap: 4px; }
 .journey-bar {
-  height: calc(var(--value) * clamp(90px, calc(var(--fit) * 9), 130px));
+  height: calc(var(--value) * clamp(80px, calc(var(--fit) * 8), 120px));
   margin-bottom: 8px;
   border-radius: 4px 4px 0 0;
   background: var(--ink);
