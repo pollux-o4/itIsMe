@@ -35,7 +35,7 @@
 .fullscreen-go:active { scale: 0.96; }
 .fullscreen-skip { flex: none; width: 36px; height: 36px; background: none; }
 /* Narrow screens: the sentence takes its own line so the button keeps one line. */
-@media (max-width: 520px) {
+@media (max-width: 599px) {
   /* Pinned by both edges: a centred fixed box wider than half the screen widens the mobile layout viewport. */
   .fullscreen-offer { display: grid; grid-template-columns: minmax(0, 1fr) auto; left: 12px; right: 12px; width: auto; max-width: none; translate: 0 16px; bottom: 12px; padding: 14px 8px 8px 18px; border-radius: 20px; row-gap: 8px; }
   .fullscreen-offer p { grid-column: 1; }
@@ -43,6 +43,6 @@
   .fullscreen-go { grid-column: 1 / -1; justify-self: stretch; }
   .fullscreen-offer.is-visible { translate: 0 0; }
 }
-@media (prefers-reduced-motion: reduce) and (min-width: 521px) { .fullscreen-offer { translate: -50% 0; transition: opacity 120ms linear; } }
+@media (prefers-reduced-motion: reduce) and (not (max-width: 599px)) { .fullscreen-offer { translate: -50% 0; transition: opacity 120ms linear; } }
 @media print { .fullscreen-offer { display: none; } }
-@media (prefers-reduced-motion: reduce) and (max-width: 520px) { .fullscreen-offer { translate: 0 0; transition: opacity 120ms linear; } }
+@media (prefers-reduced-motion: reduce) and (max-width: 599px) { .fullscreen-offer { translate: 0 0; transition: opacity 120ms linear; } }
