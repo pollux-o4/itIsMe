@@ -1,5 +1,6 @@
 ---
 import PortfolioImage from './PortfolioImage.astro';
+import { FRAME_PAD, SHELL, columns } from '../lib/layout-sizes';
 import type { Project } from '../lib/portfolio-schema';
 type Figure = NonNullable<Project['evidence'][number]['figure']>;
 interface Props { figure: Figure; label: string }
@@ -13,10 +14,14 @@ const frameVars = Object.entries({
   '--text-max': f.textMax,
   '--text-min': f.textMin,
 }).filter(([, value]) => value !== undefined).map(([key, value]) => `${key}:${value}`).join(';');
+// Mirrors the frame's CSS width: legible-text cap, stage width, and the viewport-height cap.
+const legible = `${f.width * Math.max(15 / (f.textMax ?? 25), 10.5 / (f.textMin ?? 1000))}px`;
+const stage = `(${SHELL} - 2 * ${FRAME_PAD})`;
+const sizes = `(max-width: 1099px) min(${legible}, calc(${stage})), min(${legible}, calc(${columns(2, 3, stage)}), calc((100svh - 212px - 2 * ${FRAME_PAD}) * ${f.width / f.height}))`;
 ---
 <figure class="exhibit">
   <div class="exhibit-frame" style={frameVars}>
-    <PortfolioImage name={f.image} width={f.width} alt={f.alt} sizes="(max-width: 760px) 92vw, (max-width: 1240px) 60vw, 750px"/>
+    <PortfolioImage name={f.image} width={f.width} alt={f.alt} sizes={sizes}/>
     {f.marks.map((mark, i) => (
       <span class="exhibit-mark" style={`left:${pct(mark.x)};top:${pct(mark.y)};width:${pct(mark.w)};height:${pct(mark.h)}`} aria-hidden="true">
         <b>{i + 1}</b>

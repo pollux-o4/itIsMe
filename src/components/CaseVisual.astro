@@ -1,10 +1,13 @@
 ---
 import PortfolioImage from './PortfolioImage.astro';
+import { SHELL, columns } from '../lib/layout-sizes';
 import type { Project } from '../lib/portfolio-schema';
 
 interface Props { kind: Project['kind'] }
 const { kind } = Astro.props;
-const sizes = '(max-width: 1099px) 50vw, 24vw';
+// A card is a share of the visual stage: capped shell on phones, 5 of 12 columns otherwise.
+const sizes = (mobileFraction: number, desktopFraction: number, inset = 0) =>
+  `(max-width: 599px) calc(min(${SHELL}, 440px) * ${mobileFraction} - ${inset}px), calc(${columns(5, 12)} * ${desktopFraction} - ${inset}px)`;
 // The picture from the source portfolio that names each project at a glance.
 const cards = {
   service: {
@@ -21,7 +24,7 @@ const cards = {
   <div class="visual-stage">
     {kind === 'validation'
       ? <>
-          <PortfolioImage class="visual-card visual-back" name="case-agri-onions" alt="중장비 옆에 쌓인 양파와 잎채소 더미" {sizes}/>
+          <PortfolioImage class="visual-card visual-back" name="case-agri-onions" alt="중장비 옆에 쌓인 양파와 잎채소 더미" sizes={sizes(0.6, 0.6)}/>
           {/* The title is the change in score, so it is read from text and the real output stands behind it. */}
           <div class="visual-card visual-window visual-front">
             <p class="visual-score">
@@ -29,12 +32,12 @@ const cards = {
               <i aria-hidden="true">→</i>
               <span>수정 후 점수<b>R² 0.81</b></span>
             </p>
-            <PortfolioImage name="case-agri-fixed" alt="수정 후 터미널 출력. Test R² 0.811, TimeSeriesSplit 교차검증 R² 0.558" {sizes}/>
+            <PortfolioImage name="case-agri-fixed" alt="수정 후 터미널 출력. Test R² 0.811, TimeSeriesSplit 교차검증 R² 0.558" sizes={sizes(1, 0.86, 12)}/>
           </div>
         </>
       : <>
-          <PortfolioImage class="visual-card visual-back" name={cards[kind].back.name} alt={cards[kind].back.alt} {sizes}/>
-          <PortfolioImage class="visual-card visual-front" name={cards[kind].front.name} alt={cards[kind].front.alt} {sizes}/>
+          <PortfolioImage class="visual-card visual-back" name={cards[kind].back.name} alt={cards[kind].back.alt} sizes={kind === 'service' ? sizes(0.33, 0.39) : sizes(0.48, 0.56)}/>
+          <PortfolioImage class="visual-card visual-front" name={cards[kind].front.name} alt={cards[kind].front.alt} sizes={kind === 'service' ? sizes(0.37, 0.45) : sizes(0.62, 0.62)}/>
         </>}
   </div>
 </figure>

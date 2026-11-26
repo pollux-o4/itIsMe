@@ -1,4 +1,5 @@
 ---
+import { SHELL } from '../../lib/layout-sizes';
 import { Plus } from 'lucide-react';
 import { portfolio } from '../../lib/portfolio';
 import PortfolioImage from '../PortfolioImage.astro';
@@ -23,7 +24,7 @@ const total = portfolio.otherProjects.length;
           {group.projects.map(project => <details class="work-row" data-disclosure id={project.id}>
             <summary>
               <span class="work-no">{twoDigit(++number)}</span>
-              <PortfolioImage class="work-thumb" name={project.image} width={600} alt="" sizes="80px"/>
+              <PortfolioImage class="work-thumb" name={project.image} width={600} alt="" sizes="(max-width: 760px) 62px, 86px"/>
               <span class="work-name">
                 <strong class="work-title">{project.title}</strong>
                 <span class="work-highlight">{project.highlight}</span>
@@ -35,7 +36,7 @@ const total = portfolio.otherProjects.length;
               <span class="disclosure-sign" aria-hidden="true"><Plus size={20}/></span>
             </summary>
             <div class="disclosure-content work-body">
-              <PortfolioImage name={project.image} width={600} alt={project.imageAlt} sizes="(max-width: 760px) 90vw, 400px"/>
+              <PortfolioImage name={project.image} width={600} alt={project.imageAlt} sizes={`(max-width: 1099px) min(478px, calc(${SHELL} - 2px)), calc(${SHELL} * 0.3 - 2px)`}/>
               <div>
                 <p><Emphasis text={project.description}/></p>
                 <small class="source-label">{project.duration.includes('개인') ? '개인 프로젝트' : '팀 프로젝트'}</small>
