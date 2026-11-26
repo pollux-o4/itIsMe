@@ -1,0 +1,14 @@
+---
+import StoryLayout from '../layouts/StoryLayout.astro';
+import Introduction from '../components/story/Introduction.astro';
+import ProjectCase from '../components/story/ProjectCase.astro';
+import Archive from '../components/story/Archive.astro';
+import Timeline from '../components/story/Timeline.astro';
+import { portfolio } from '../lib/portfolio';
+---
+<StoryLayout>
+  <Introduction/>
+  {portfolio.projects.map(project => <ProjectCase project={project}/>)}
+  <Archive/>
+  <Timeline/>
+</StoryLayout>

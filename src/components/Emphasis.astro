@@ -1,0 +1,6 @@
+---
+import { emphasisParts } from '../lib/emphasis';
+interface Props { text: string; }
+const parts = emphasisParts(Astro.props.text);
+---
+{parts.map(part => part.strong ? <strong class="key-phrase">{part.text}</strong> : part.text)}

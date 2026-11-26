@@ -1,0 +1,44 @@
+---
+// Thirty periods in time order, 2019 to 2023. Test is about a fifth in both modes so only the order differs.
+const cells = Array.from({ length: 30 }, (_, i) => i);
+const randomTest = new Set([3, 8, 12, 17, 22, 26]);
+const timeTest = new Set(cells.slice(-6));
+// The score journey reported in the deck (team result after the leak fix).
+const journey = [
+  { label: '섞어서 나눔', value: 0.98, note: '미래 값이 섞인 점수', leak: true },
+  { label: '누수 제거', value: 0.57, note: '누수 없는 기준점' },
+  { label: '특성 선택', value: 0.62, note: '중요도 0.005 이상' },
+  { label: '튜닝 + 시간순 검증', value: 0.81, note: '2023년으로 테스트' },
+];
+---
+<figure class="split-demo" data-split data-mode="time">
+  <div class="split-panel">
+    <div class="split-toolbar">
+      <span class="label"><span class="screen-text">눌러서 비교해 보세요</span><span class="print-text">시간순 분할과 점수 변화</span></span>
+      <div class="split-controls" role="group" aria-label="데이터 분할 방식" hidden>
+        <button type="button" data-split-mode="random" aria-pressed="false">무작위로 섞기</button>
+        <button type="button" data-split-mode="time" aria-pressed="true">날짜순으로 나누기</button>
+      </div>
+    </div>
+    <div class="split-axis" aria-hidden="true"><span>2019</span><span>시간 →</span><span>2023</span></div>
+    <div class="split-cells" role="img" aria-label="2019년부터 2023년까지 30개 기간. 무작위로 섞으면 테스트 기간 사이사이의 미래 데이터가 학습에 들어가고, 날짜순으로 나누면 2019~2022년으로 학습하고 2023년으로 테스트합니다.">
+      {cells.map(i => <span class="cell" style={`--i:${i}`} data-r={randomTest.has(i) ? '' : undefined} data-t={timeTest.has(i) ? '' : undefined}></span>)}
+    </div>
+    <div class="split-legend" aria-hidden="true"><span class="key-train">학습 데이터</span><span class="key-test">테스트 데이터</span></div>
+    <p class="split-note" aria-live="polite">
+      <span class="note-random">테스트할 날짜의 <b>앞뒤 데이터</b>가 학습에 들어갑니다. 모델이 가까운 날짜 값을 보고 0.98을 냈습니다.</span>
+      <span class="note-time"><b>2019~2022년</b>으로 학습하고 <b>2023년</b>으로 테스트합니다.</span>
+    </p>
+  </div>
+  <ol class="split-journey" role="list" aria-label="테스트 R² 변화">
+    {journey.map(step => (
+      <li class={step.leak ? 'is-leak' : undefined} style={`--value:${step.value}`}>
+        <span class="journey-bar" aria-hidden="true"></span>
+        <strong>{step.value.toFixed(2)}</strong>
+        <span>{step.label}</span>
+        <small>{step.note}</small>
+      </li>
+    ))}
+  </ol>
+  <figcaption>누수 제거 후 테스트 R² 0.57에서 0.81로 성능을 끌어올렸습니다.</figcaption>
+</figure>

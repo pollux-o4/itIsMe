@@ -1,0 +1,55 @@
+.site-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  min-height: 100px;
+  border-bottom: 1px solid var(--line);
+  gap: 20px;
+}
+.wordmark {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  font-size: 15px;
+  font-weight: 700;
+  min-height: 44px;
+}
+.brand-flower {
+  width: 30px;
+  height: 30px;
+  background: var(--ink);
+  color: white;
+  border-radius: 9px;
+  display: grid;
+  place-items: center;
+  font-size: 12px;
+  letter-spacing: -1px;
+}
+.wordmark-note {
+  display: none;
+}
+.site-header nav {
+  display: flex;
+  gap: 28px;
+}
+.site-header nav a {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+  min-height: 44px;
+  font-size: 12px;
+  color: var(--muted);
+}
+.site-header nav a:hover,
+.site-header nav a[aria-current] {
+  color: var(--ink);
+}
+.site-header nav a[aria-current] {
+  text-decoration: underline;
+  text-underline-offset: 6px;
+}
+sup {
+  font-family: var(--mono);
+  font-size: 12px;
+  color: var(--muted);
+}

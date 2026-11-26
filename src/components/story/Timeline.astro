@@ -1,0 +1,77 @@
+---
+import { portfolio } from '../../lib/portfolio';
+import { barLabel, groupByYear, lastMonth, legend, placeYear, splitLabel, stackCerts } from '../../lib/timeline';
+import { Award } from 'lucide-react';
+import StorySection from './parts/StorySection.astro';
+import TimelineTile from './parts/TimelineTile.astro';
+
+const { timeline, timelineYears, projects, otherProjects } = portfolio;
+const latest = timelineYears.at(-1)?.year;
+const images = new Map<string, string>([
+  ...projects.map(project => [project.id, project.cover] as const),
+  ...otherProjects.map(project => [project.id, project.image] as const),
+]);
+const years = groupByYear(timeline, timelineYears).map(year => ({ ...year, ...placeYear(year.entries, ref => images.get(ref)) }));
+// Two six-month halves: one line on wide screens, stacked on narrow ones, so the axis never scrolls sideways.
+const halves = [1, 7].map(first => Array.from({ length: 6 }, (_, index) => first + index));
+const key = legend(years.flatMap(year => [...year.tiles, ...year.bars, ...year.certs]));
+const range = (from: number, to: number) => from === to ? `${from}월` : `${from}–${to}월`;
+const col = (month: number, end = month) => `grid-column:${(month - 1) % 6 + 1} / ${(end - 1) % 6 + 2}`;
+---
+<StorySection id="timeline" class="timeline" label={`연표 · ${timeline[0]?.date} → ${lastMonth(timeline)}`}>
+  <Fragment slot="title">지식의 축적을 넘어,<br/>기술의 실현으로.</Fragment>
+  <ul class="timeline-key" role="list" aria-label="연표 범례">
+    {key.map(item => <li class={`key-${item.kind}`}>{item.kind === 'cert' ? <Award className="cert-icon" size={16} strokeWidth={2} aria-hidden="true"/> : <i aria-hidden="true"></i>}{item.label}<b>{item.count}</b></li>)}
+  </ul>
+  {years.map(year => (
+    <section class={`timeline-year${year.year === latest ? ' is-current' : ''}`} aria-labelledby={`year-${year.year}`}>
+      <header class="year-head">
+        <h3 id={`year-${year.year}`}>{year.year}</h3>
+        <p>{year.note}</p>
+      </header>
+      <div class="track">
+        {halves.map(months => {
+          const [first, last] = [months[0], months.at(-1)!];
+          const bars = year.bars.filter(bar => bar.month <= last && bar.end >= first);
+          return <div class="track-half">
+            <ol class="track-tiles" role="list" aria-label={`${year.year}년 ${first}–${last}월 프로젝트`}>
+              {/* A crowded month stacks upward in its own column, so every tile sits on its month. */}
+              {months.map(month => {
+                const tiles = year.tilesByMonth.get(month);
+                return tiles && <li style={col(month)}><ul role="list">{tiles.map(tile => <TimelineTile tile={tile}/>)}</ul></li>;
+              })}
+            </ol>
+            <div class="track-axis" aria-hidden="true">
+              {months.map(month => <span style={col(month)}>{String(month).padStart(2, '0')}</span>)}
+            </div>
+            <ul class="track-bars" role="list">
+              {bars.map(bar => {
+                // A bar crossing the halves is named once, where it starts.
+                const continued = bar.month < first;
+                const [from, to] = [Math.max(bar.month, first), Math.min(bar.end, last)];
+                // The row runs to the half's end so the label has room; --n of --m columns is the span itself.
+                return <li class={bar.career ? 'is-career' : undefined} style={`${col(from, last)};--n:${to - from + 1};--m:${last - from + 1}`} aria-hidden={continued ? 'true' : undefined}>
+                  <span class="bar-span" aria-hidden="true"></span>
+                  {!continued && <span class="bar-label"><em>{barLabel(bar)}</em><span class="bar-name">{splitLabel(bar.text).name}<span class="sr-only">{splitLabel(bar.text).note}</span></span><span class="bar-range"><span class="sr-only">, </span>{range(bar.month, bar.end)}</span></span>}
+                </li>;
+              })}
+            </ul>
+            {(() => {
+              const placed = stackCerts(year.certs.filter(cert => cert.month >= first && cert.month <= last));
+              const rows = Math.max(0, ...placed.map(({ row }) => row));
+              return <>
+                {/* Leader from the month's place under the axis down to its medal: sparse, behind the bars. */}
+                {placed.map(({ cert, row }) => <span class="cert-guide" aria-hidden="true" style={`${col(cert.month)};--below:${rows - row}`}></span>)}
+                <ul class="track-certs" role="list">
+                  {placed.map(({ cert, row }) => (
+                    <li class={cert.month === last ? 'is-end' : undefined} style={`${col(cert.month)};grid-row:${row}`}><Award className="cert-icon" size={16} strokeWidth={2} aria-hidden="true"/><span class="sr-only">{cert.month}월 자격 취득: </span>{cert.text}</li>
+                  ))}
+                </ul>
+              </>;
+            })()}
+          </div>;
+        })}
+      </div>
+    </section>
+  ))}
+</StorySection>

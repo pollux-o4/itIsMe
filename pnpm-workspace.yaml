@@ -1,0 +1,6 @@
+packages:
+  - .
+
+# shortcut: Astro React 7.1.1의 OXC peer와 호환되는 Vite React 6.1.1로 고정, upstream의 OXC peer 범위가 일치하면 제거.
+overrides:
+  '@astrojs/react>@vitejs/plugin-react': 6.1.1

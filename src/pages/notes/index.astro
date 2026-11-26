@@ -1,0 +1,7 @@
+---
+import { getCollection } from 'astro:content';
+import Layout from '../../layouts/Layout.astro';
+import { url } from '../../lib/content';
+const notes = (await getCollection('notes', ({ data }) => data.published)).sort((a, b) => b.data.date.getTime() - a.data.date.getTime());
+---
+<Layout title="개발 노트"><section class="notes-page wrap"><div class="page-intro"><span class="eyebrow">개발 기록</span><h1>개발 노트</h1></div>{notes.map(note => <a class="note-row" href={url(`notes/${note.id}/`)}><time class="mono" datetime={note.data.date.toISOString()}>{note.data.date.toISOString().slice(0, 10)}</time><h2>{note.data.title}</h2><span>{note.data.sample ? '예시 기록' : note.data.tags.join(' · ')} ↗</span></a>)}{notes.length === 0 && <p>아직 공개된 기록이 없습니다.</p>}</section></Layout>

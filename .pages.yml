@@ -1,0 +1,550 @@
+# shortcut: CMS 인증·원격 저장은 로컬 검증 범위 밖, 계정 연결 후 실제 저장 확인.
+media:
+  input: public/images
+  output: /itIsMe/images
+  categories:
+  - image
+content:
+- name: portfolio
+  label: Portfolio · 실제 작업과 이력
+  type: file
+  path: src/data/portfolio.json
+  format: json
+  fields:
+  - name: name
+    label: 이름
+    type: string
+    required: true
+  - name: english
+    label: 영문 이름
+    type: string
+    required: true
+  - name: role
+    label: 본인 역할
+    type: string
+    required: true
+  - name: motto
+    label: 한 줄 자기 정의 (본인 문장, 사진이 바라보는 첫 줄)
+    type: string
+    required: true
+  - name: headline
+    label: 첫 화면 제목 (줄바꿈 유지)
+    type: text
+    required: true
+  - name: about
+    label: '자기소개 (본인 문장: 도입 → 주장 → 동기)'
+    type: object
+    required: true
+    fields:
+    - name: lead
+      label: 도입
+      type: text
+      required: true
+    - name: thesis
+      label: 주장 (강조는 **구절**)
+      type: text
+      required: true
+    - name: motivation
+      label: 동기
+      type: text
+      required: true
+  - name: email
+    label: 이메일
+    type: string
+    required: true
+  - name: sourceDate
+    label: 자료 기준일
+    type: string
+    required: true
+  - name: highlights
+    label: 첫 화면 숫자
+    type: object
+    required: true
+    list: true
+    fields:
+    - name: value
+      label: 값
+      type: string
+      required: true
+    - name: label
+      label: 설명
+      type: string
+      required: true
+  - name: projects
+    label: 대표 작업
+    type: object
+    required: true
+    list: true
+    fields:
+    - name: id
+      label: id
+      type: string
+      required: true
+      readonly: true
+    - name: number
+      label: number
+      type: string
+      required: true
+      readonly: true
+    - name: category
+      label: 프로젝트 분야
+      type: string
+      required: true
+    - name: navigationLabel
+      label: 목차 짧은 이름
+      type: string
+      required: true
+    - name: cardTitle
+      label: 바로가기 제목
+      type: string
+      required: true
+    - name: cardRole
+      label: 바로가기 역할 요약
+      type: string
+      required: true
+    - name: headline
+      label: 사례 제목 (한 문장 주장, 줄바꿈 유지)
+      type: text
+      required: true
+    - name: cover
+      label: 목록 미리보기 이미지 파일명 (확장자 제외)
+      type: string
+      required: true
+    - name: question
+      label: 답하는 채용 질문
+      type: object
+      required: true
+      fields:
+      - name: label
+        label: 질문 (물음표 제외)
+        type: string
+        required: true
+      - name: evidence
+        label: 근거 한 줄 (강조는 **구절**)
+        type: text
+        required: true
+    - name: resources
+      label: 추가 산출물 링크
+      type: object
+      list: true
+      fields:
+      - name: label
+        label: 링크 이름
+        type: string
+        required: true
+      - name: href
+        label: HTTPS 주소
+        type: string
+        required: true
+    - name: title
+      label: 제목
+      type: text
+      required: true
+    - name: period
+      label: period
+      type: string
+      required: true
+    - name: team
+      label: team
+      type: string
+      required: true
+    - name: role
+      label: 본인 역할
+      type: string
+      required: true
+    - name: summary
+      label: 핵심 작업 (강조는 **구절**)
+      type: text
+      required: true
+    - name: outcomeLabel
+      label: 결과 종류 (팀 평가·팀 실험·구현 결과)
+      type: string
+      required: true
+    - name: outcome
+      label: 결과 한 줄 (강조는 **구절**)
+      type: string
+      required: true
+    - name: outcomeNote
+      label: 결과 해석에 필요한 조건
+      type: text
+      required: true
+    - name: tags
+      label: tags
+      type: string
+      required: true
+      list: true
+    - name: source
+      label: source
+      type: string
+      required: true
+    - name: kind
+      label: kind
+      type: string
+      required: true
+      readonly: true
+    - name: narrative
+      label: 사례 흐름 (강조는 **구절**)
+      type: object
+      required: true
+      fields:
+      - name: problem
+        label: 문제
+        type: text
+        required: true
+      - name: decision
+        label: 판단 — 왜 그렇게 했는가
+        type: text
+        required: true
+      - name: action
+        label: 실행 — 내가 한 일
+        type: text
+        required: true
+      - name: verification
+        label: 검증 — 결과와 조건
+        type: text
+        required: true
+      - name: limits
+        label: 남은 과제 — 검증하지 못한 것
+        type: text
+        required: true
+    - name: contribution
+      label: 역할 구분
+      type: object
+      required: true
+      fields:
+      - name: mine
+        label: 내가 맡은 일
+        type: string
+        required: true
+        list: true
+      - name: team
+        label: 팀이 함께한 일
+        type: string
+        required: true
+        list: true
+    - name: facts
+      label: 핵심 정보
+      type: object
+      required: true
+      list: true
+      fields:
+      - name: value
+        label: 값
+        type: string
+        required: true
+      - name: label
+        label: 라벨
+        type: string
+        required: true
+    - name: details
+      label: 설계·검증 근거
+      type: object
+      required: true
+      list: true
+      fields:
+      - name: heading
+        label: 소제목
+        type: string
+        required: true
+      - name: text
+        label: 내용
+        type: text
+        required: true
+    - name: evidence
+      label: 증거 (주장 하나 + 그림 하나, 2–5개)
+      type: object
+      required: true
+      list: true
+      fields:
+      - name: claim
+        label: 주장 (강조는 **구절**)
+        type: text
+        required: true
+      - name: why
+        label: 왜 중요한가 (한 줄)
+        type: text
+        required: true
+      - name: visual
+        label: 분할 데모 (그림 대신 쓸 때만)
+        type: select
+        options:
+          values:
+          - split
+      - name: figure
+        label: 그림 (상호작용 그림을 쓰지 않을 때)
+        type: object
+        fields:
+        - name: image
+          label: 이미지 파일명 (확장자 제외)
+          type: string
+          required: true
+        - name: width
+          label: 원본 너비(px)
+          type: number
+          required: true
+        - name: height
+          label: 원본 높이(px)
+          type: number
+          required: true
+        - name: alt
+          label: 대체 텍스트
+          type: string
+          required: true
+        - name: caption
+          label: 그림이 보여 주는 것
+          type: string
+          required: true
+        - name: page
+          label: 발표자료 쪽
+          type: string
+        - name: marks
+          label: 볼 곳 표시 (0–1 비율, 최대 3개)
+          type: object
+          list: true
+          fields:
+          - name: x
+            label: x
+            type: number
+            required: true
+          - name: y
+            label: y
+            type: number
+            required: true
+          - name: w
+            label: 너비
+            type: number
+            required: true
+          - name: h
+            label: 높이
+            type: number
+            required: true
+          - name: label
+            label: 여기서 볼 것
+            type: string
+            required: true
+    - name: link
+      label: 발표자료 URL
+      type: string
+      required: true
+  - name: otherProjectCategories
+    label: 더 많은 작업 분류
+    type: object
+    required: true
+    list: true
+    fields:
+    - name: id
+      label: id
+      type: string
+      required: true
+      readonly: true
+    - name: label
+      label: 분류 이름
+      type: string
+      required: true
+    - name: summary
+      label: 분류 설명
+      type: string
+      required: true
+  - name: otherProjects
+    label: 더 많은 작업
+    type: object
+    required: true
+    list: true
+    fields:
+    - name: id
+      label: id
+      type: string
+      required: true
+      readonly: true
+    - name: title
+      label: 제목
+      type: text
+      required: true
+    - name: category
+      label: 분류 id
+      type: string
+      required: true
+    - name: highlight
+      label: 제목 아래 한 줄
+      type: string
+      required: true
+    - name: type
+      label: 유형
+      type: string
+      required: true
+    - name: duration
+      label: duration
+      type: string
+      required: true
+    - name: stack
+      label: stack
+      type: string
+      required: true
+    - name: description
+      label: description
+      type: text
+      required: true
+    - name: source
+      label: source
+      type: string
+      required: true
+    - name: image
+      label: 미리보기 이미지 파일명 (확장자 제외)
+      type: string
+      required: true
+    - name: imageAlt
+      label: 미리보기 설명
+      type: string
+      required: true
+    - name: presentation
+      label: presentation
+      type: string
+      required: false
+  - name: timelineYears
+    label: 연표 연도 머리
+    type: object
+    required: true
+    list: true
+    fields:
+    - name: year
+      label: 연도 (4자리)
+      type: string
+      required: true
+    - name: note
+      label: 그해의 한 줄
+      type: string
+      required: true
+  - name: timeline
+    label: 연표
+    type: object
+    required: true
+    list: true
+    fields:
+    - name: date
+      label: 시기 (2025.02 또는 2025.05–06)
+      type: string
+      required: true
+    - name: items
+      label: 항목
+      type: object
+      required: true
+      list: true
+      fields:
+      - name: text
+        label: 내용
+        type: string
+        required: true
+      - name: kind
+        label: 종류
+        type: select
+        required: true
+        options:
+          values:
+          - course
+          - project
+          - cert
+  - name: education
+    label: 교육
+    type: object
+    required: true
+    list: true
+    fields:
+    - name: period
+      label: period
+      type: string
+      required: true
+    - name: title
+      label: 제목
+      type: text
+      required: true
+    - name: description
+      label: description
+      type: text
+      required: true
+  - name: certifications
+    label: 자격
+    type: object
+    required: true
+    list: true
+    fields:
+    - name: date
+      label: date
+      type: string
+      required: true
+    - name: name
+      label: 이름
+      type: string
+      required: true
+  - name: additional
+    label: 추가 프로젝트
+    type: object
+    required: true
+    list: true
+    fields:
+    - name: date
+      label: date
+      type: string
+      required: true
+    - name: title
+      label: 제목
+      type: text
+      required: true
+    - name: note
+      label: note
+      type: text
+      required: true
+  - name: recordNote
+    label: 자료 간 확인 사항
+    type: text
+    required: true
+  - name: experience
+    label: 업무 경험
+    type: object
+    list: true
+    fields:
+    - name: period
+      label: 기간
+      type: string
+      required: true
+    - name: organization
+      label: 조직
+      type: string
+      required: true
+    - name: role
+      label: 역할
+      type: string
+      required: true
+    - name: summary
+      label: 핵심 작업 (강조는 **구절**)
+      type: string
+      required: true
+    - name: details
+      label: 상세
+      type: text
+      required: true
+    - name: source
+      label: 근거
+      type: string
+      required: true
+- name: site
+  label: Site settings
+  type: file
+  path: src/data/site.json
+  format: json
+  fields:
+  - name: title
+    label: 사이트 제목
+    type: string
+    required: true
+  - name: description
+    label: 검색엔진 소개
+    type: text
+    required: true
+  - name: intro
+    label: 홈 소개
+    type: text
+    required: true
+  - name: github
+    label: GitHub 프로필 (HTTPS)
+    type: string
+    required: true

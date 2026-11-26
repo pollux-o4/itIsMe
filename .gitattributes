@@ -1,0 +1,2 @@
+# Preserve document bytes and avoid text merge/whitespace rules for PDFs.
+*.pdf binary

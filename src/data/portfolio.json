@@ -1,0 +1,1221 @@
+{
+  "name": "주연석",
+  "english": "YEONSEOK JU",
+  "role": "AI · Full-stack Developer",
+  "motto": "쓰는 사람의 하루가 조금 나아지도록.",
+  "headline": "높은 점수보다\n믿을 수 있는\n결과를 추구합니다.",
+  "about": {
+    "lead": "아이디어를 실제 사용자에게 도움이 되는 서비스로 구현하는 데 집중합니다.",
+    "thesis": "책임감과 꾸준함을 바탕으로 **공감과 협업, 체계적인 정리**를 실천합니다.",
+    "motivation": "복잡한 데이터를 학습하고 예측해 사용자에게 맞춤형 기능을 제공하는 AI의 실용성에 주목했습니다. 그 가능성을 직접 구현하고자 AI 개발을 시작했습니다."
+  },
+  "email": "yeonseok.ju@gmail.com",
+  "sourceDate": "2026.11",
+  "highlights": [
+    {
+      "metric": "projects",
+      "label": "2025–26년에 수행한 프로젝트"
+    },
+    {
+      "value": "11개월",
+      "label": "AI 교육 2개 과정 수료"
+    },
+    {
+      "value": "E2E",
+      "label": "수집·라벨링부터 EC2 배포까지"
+    },
+    {
+      "value": "3건",
+      "label": "의료 SW 임상연구 운영"
+    }
+  ],
+  "projects": [
+    {
+      "id": "nutrition",
+      "number": "01",
+      "category": "웹 · 컴퓨터 비전",
+      "title": "음식 사진 분석과\n식단 기록",
+      "headline": "귀찮은 식단 기록,\n사진 한 장으로.",
+      "navigationLabel": "음식 분석 앱",
+      "cardTitle": "음식 사진 분석 앱",
+      "cardRole": "PM·웹·서버·모델",
+      "cover": "nutrition-flow",
+      "question": {
+        "label": "끝까지 만들 수 있는가",
+        "evidence": "**PM**으로 웹·서버·모델 개발을 맡아 36일 만에 서비스를 배포했습니다."
+      },
+      "period": "2025.11–12",
+      "team": "4명 · 36일",
+      "role": "**PM** · 프론트엔드 · 백엔드 · 모델링 · 문서·발표",
+      "summary": "음식 사진을 올리면 **칼로리를 계산해 식사 기록에 저장하는** 웹 서비스를 만들어 배포했습니다.",
+      "outcomeLabel": "결과",
+      "outcome": "**AWS EC2 배포** · 음식 탐지 mAP50 **90.2%**",
+      "outcomeNote": "음식 17종 탐지 · 웹·API·DB 연동",
+      "tags": [
+        "Next.js",
+        "FastAPI",
+        "YOLO11",
+        "GPT-4o-mini",
+        "MySQL",
+        "AWS EC2"
+      ],
+      "source": "10–18",
+      "kind": "service",
+      "narrative": {
+        "problem": "식단 기록의 번거로움을 없애기 위해 **사진 촬영만으로 칼로리와 영양 성분을 분석·저장하는 서비스**를 개발했습니다.",
+        "decision": "음식은 직접 학습한 YOLO11로, 식재료는 Roboflow 모델로 찾고, 애매한 결과는 GPT-4o-mini로 보정하도록 역할을 나눴습니다. 탐지 성능이 낮은 사진은 다시 모아 재학습하는 **Active Learning 구조**를 적용했습니다.",
+        "action": "PM으로 일정과 문서를 맡는 한편, **Next.js 화면, FastAPI 서버, YOLO11 학습, EC2 배포**를 직접 수행했습니다. 저장소는 Front·Back·Modeling으로 나누고 submodule로 묶어, 배포 시 검증된 버전만 반영하도록 했습니다.",
+        "verification": "마르게리타 피자 한 조각이 44kcal로 나오는 오류를 찾아, 비어 있던 영양소 값을 **같은 식품군의 중앙값으로 채워** 바로잡았습니다. 음식 탐지 모델은 mAP50 90.2%를 기록했습니다.",
+        "limits": "실제 사용자의 식사 기록을 모아, 영양 점수와 추천이 식습관을 얼마나 바꾸는지 측정하겠습니다."
+      },
+      "contribution": {
+        "mine": [
+          "PM · 일정·문서",
+          "Next.js 프론트엔드",
+          "FastAPI 백엔드",
+          "YOLO11 학습",
+          "AWS EC2 배포",
+          "발표"
+        ],
+        "team": [
+          "4명 · 36일",
+          "라벨링·모델 학습 분담"
+        ]
+      },
+      "facts": [
+        {
+          "value": "90.2%",
+          "label": "음식 탐지 mAP50"
+        },
+        {
+          "value": "17종",
+          "label": "탐지하는 음식 분류"
+        },
+        {
+          "value": "36일",
+          "label": "개발 기간"
+        }
+      ],
+      "details": [
+        {
+          "heading": "주요 기능",
+          "text": "음식 사진을 올리면 음식 후보와 확률을 보여주고, 섭취량을 고르면 칼로리와 탄수화물·단백질·지방을 계산해 식사 기록에 저장합니다. 개인 목표와 영양 점수, 식재료 기반 레시피 추천, 알레르기·질환을 반영하는 대화형 레시피 검색도 구현했습니다."
+        },
+        {
+          "heading": "프론트엔드와 백엔드",
+          "text": "프론트엔드는 **Next.js 15·React 19**·TypeScript·Tailwind CSS, 백엔드는 **FastAPI·Python 3.12**·Pydantic으로 만들었습니다. 음식 정보와 기록은 MySQL에, 세션과 캐시는 Redis에 두었습니다.\n칼로리는 Atwater 계수(탄수화물·단백질 4, 지방 9)로, 영양 점수는 NRF9.3과 Mifflin-St Jeor 기초대사량으로 계산했습니다. **AWS EC2와 PM2**로 배포하고 운영했습니다."
+        },
+        {
+          "heading": "데이터와 학습",
+          "text": "식약처 식품영양성분 CSV를 pandas로 정리해 MySQL에 넣었습니다. Playwright 크롤러로 음식 이미지를 모으고, 사전학습 YOLO로 박스를 먼저 그린 뒤 Label Studio에서 사람이 고쳤습니다.\n세부 음식을 17개 분류로 묶고 학습 7, 검증 3으로 나눠 YOLO11-large를 200 epoch 학습했습니다. 신뢰도가 낮은 이미지는 다시 라벨링해 학습에 넣습니다."
+        },
+        {
+          "heading": "협업 방식",
+          "text": "기획서·요구사항·ERD·WBS·진행일지·트러블슈팅 문서를 만들고, GitHub Organization의 Front·Back·Modeling 저장소를 submodule로 묶었습니다. 일정과 가이드는 Discord·Notion으로 공유했습니다."
+        }
+      ],
+      "resources": [
+        {
+          "label": "서비스 시연",
+          "href": "https://youtube.com/shorts/7hj92GtiodM"
+        },
+        {
+          "label": "학습 파이프라인 시연",
+          "href": "https://youtu.be/9ZQNLvgRKjQ"
+        },
+        {
+          "label": "프로젝트 산출물",
+          "href": "https://drive.google.com/drive/folders/1RSmgiVb6tBg7QbEVDCo4trfaJ3A4targ"
+        }
+      ],
+      "link": "https://drive.google.com/file/d/1k-lpT-BCFsIn6loHz4TGoovxUQbgcAwB/view",
+      "evidence": [
+        {
+          "claim": "사진을 올리면 **식사 기록**까지 한 번에 끝납니다.",
+          "why": "음식 인식, 섭취량 선택, 칼로리 계산, 저장이 한 화면 흐름으로 이어집니다.",
+          "figure": {
+            "image": "nutrition-flow",
+            "width": 1600,
+            "height": 1863,
+            "alt": "음식 사진 업로드부터 AI 후보 선택, 섭취량 입력, 563kcal 계산, 저장, 식사 기록까지 이어지는 앱 화면 6개",
+            "caption": "업로드 → AI 후보 → 섭취량 → 칼로리 → 저장 → 기록",
+            "page": "22–23",
+            "marks": [
+              {
+                "x": 0.427,
+                "y": 0.263,
+                "w": 0.24,
+                "h": 0.048,
+                "label": "AI가 고른 후보 · 씨푸드 피자 90%"
+              },
+              {
+                "x": 0.062,
+                "y": 0.633,
+                "w": 0.212,
+                "h": 0.124,
+                "label": "563kcal와 3대 영양소 자동 계산"
+              },
+              {
+                "x": 0.347,
+                "y": 0.628,
+                "w": 0.286,
+                "h": 0.243,
+                "label": "식사 기록에 저장 완료"
+              }
+            ]
+          }
+        },
+        {
+          "claim": "화면·서버·AI 모델을 **하나의 서비스로 연결**해 배포했습니다.",
+          "why": "Next.js 화면이 FastAPI 서버를 거쳐 탐지 모델과 GPT를 호출합니다.",
+          "figure": {
+            "image": "nutrition-architecture",
+            "width": 1600,
+            "height": 779,
+            "alt": "Next.js 프론트엔드, FastAPI 백엔드, YOLO11·Roboflow·GPT AI 모델, MySQL, Redis, EC2로 이어진 서비스 구조도",
+            "caption": "서비스 전체 구조",
+            "page": "10",
+            "marks": [
+              {
+                "x": 0.235,
+                "y": 0.008,
+                "w": 0.758,
+                "h": 0.285,
+                "label": "Next.js → FastAPI → AI 모델"
+              },
+              {
+                "x": 0.059,
+                "y": 0.78,
+                "w": 0.875,
+                "h": 0.21,
+                "label": "EC2 배포 · 재학습 파이프라인"
+              }
+            ]
+          }
+        },
+        {
+          "claim": "피자 한 조각이 **44kcal**로 나오는 오류를 고쳤습니다.",
+          "why": "비어 있던 지방·탄수화물 값을 같은 식품군 중앙값으로 채워 계산 오류를 해결했습니다.",
+          "visual": "nullfill"
+        },
+        {
+          "claim": "신뢰도가 낮은 사진은 **다시 라벨링해 재학습**합니다.",
+          "why": "자동 라벨 검수 후 저신뢰 샘플을 재수집해 탐지 성능을 보완합니다.",
+          "figure": {
+            "image": "nutrition-mlops",
+            "width": 1600,
+            "height": 519,
+            "alt": "데이터 수집, 사전 라벨링, Label Studio 검수, 학습, 배포, 저신뢰 샘플 재수집으로 이어지는 순환 구조",
+            "caption": "수집 → 자동 라벨 → 사람 검수 → 학습 → 배포 → 재수집",
+            "page": "17",
+            "marks": [
+              {
+                "x": 0.003,
+                "y": 0.39,
+                "w": 0.222,
+                "h": 0.605,
+                "label": "신뢰도가 낮은 사진은 다시 수집·라벨링"
+              },
+              {
+                "x": 0.531,
+                "y": 0.01,
+                "w": 0.205,
+                "h": 0.39,
+                "label": "사람이 박스를 검수하는 단계"
+              }
+            ]
+          }
+        },
+        {
+          "claim": "탐지 모델이 음식을 찾고, **GPT가 세부 이름을 보정**합니다.",
+          "why": "탐지 결과를 힌트로 넘겨 GPT가 세부 음식명과 재료를 고릅니다.",
+          "figure": {
+            "image": "nutrition-model-metrics",
+            "width": 1200,
+            "height": 1242,
+            "textMax": 60,
+            "textMin": 40,
+            "alt": "YOLO11-large 음식 탐지 모델의 mAP50 90.2%, 정밀도 94.9%, 재현율 79.8%와 탐지 예시 사진",
+            "caption": "음식 탐지 모델 지표와 실제 탐지 결과",
+            "page": "18",
+            "marks": [
+              {
+                "x": 0.05,
+                "y": 0.2,
+                "w": 0.855,
+                "h": 0.34,
+                "label": "mAP50 90.2% · 정밀도 94.9%"
+              },
+              {
+                "x": 0.05,
+                "y": 0.58,
+                "w": 0.91,
+                "h": 0.39,
+                "label": "튀김·죽·생선구이를 구분해 탐지"
+              }
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "id": "agriculture",
+      "number": "02",
+      "category": "머신러닝",
+      "title": "농산물\n가격 예측",
+      "headline": "R² 0.98부터\n의심했습니다.",
+      "navigationLabel": "농산물 가격",
+      "cardTitle": "농산물 가격 예측",
+      "cardRole": "데이터 수집·전처리·발표",
+      "cover": "agri-leak-r2-098",
+      "question": {
+        "label": "스스로 판단하는가",
+        "evidence": "R² 0.98에서 **데이터 누수**를 의심해 누수 열 22개를 제거하고, 시간순 분할 검증으로 **테스트 R² 0.81**을 기록했습니다."
+      },
+      "period": "2025.03–04",
+      "team": "6명 · 13일",
+      "role": "**데이터 수집·전처리** · 코드 작성 · 발표",
+      "summary": "점수를 부풀린 **데이터 누수**를 찾아 없애고, 날짜순으로 나눠 다시 평가했습니다.",
+      "outcomeLabel": "프로젝트 결과",
+      "outcome": "테스트 R² **0.57 → 0.81**",
+      "outcomeNote": "누수 열 22개 제거 · 시간순 분할 검증",
+      "tags": [
+        "Random Forest",
+        "XGBoost",
+        "TimeSeriesSplit",
+        "pandas"
+      ],
+      "source": "04–06",
+      "kind": "validation",
+      "narrative": {
+        "problem": "기후·계절·유통에 따라 움직이는 농산물 가격을 예측하기 위해 도소매 가격, 기상, 유가, 수입량, 물가지수 등 출처가 다른 5년 치 데이터를 **날짜와 지역 기준으로 통합해 82,815행**의 데이터셋을 구축했습니다.",
+        "decision": "Random Forest R² 0.98을 이상 징후로 판단해 평가 방식을 점검했고, 무작위 분할로 **비슷한 날짜가 학습·테스트에 섞인 문제**와 예측 시점에 알 수 없는 변수가 포함된 문제를 찾아냈습니다.",
+        "action": "예측 시점에 알 수 없는 **열 22개**와 상관이 낮은 시차 열 15개를 제거해 **날짜순 분할 기준**으로 재구성했습니다. 이후 중요도 0.005 이상 특성 선택과 Random·Grid Search, TimeSeriesSplit 튜닝을 거쳐 모델을 고도화했습니다.",
+        "verification": "누수 제거 후 기준점 R² 0.57에서 특성 선택 0.62, 튜닝을 거쳐 **테스트 R² 0.81**을 달성했습니다.",
+        "limits": "처음부터 날짜 기준으로 데이터를 나누고, 예측하는 날에 쓸 수 있는 열만 고르는 규칙을 먼저 정하겠습니다."
+      },
+      "contribution": {
+        "mine": [
+          "데이터 수집·전처리",
+          "누수 열 정리",
+          "코드 작성",
+          "발표"
+        ],
+        "team": [
+          "6명 · 13일",
+          "특성 선택·튜닝",
+          "Random Forest·XGBoost 비교"
+        ]
+      },
+      "facts": [
+        {
+          "value": "82,815",
+          "label": "합친 데이터 행"
+        },
+        {
+          "value": "22개",
+          "label": "예측 시점에 알 수 없어 뺀 열"
+        },
+        {
+          "value": "0.81",
+          "label": "최종 테스트 R²"
+        }
+      ],
+      "details": [
+        {
+          "heading": "데이터 수집과 통합",
+          "text": "KADX 농수축산물 일자별 도소매 가격을 예측 대상으로 두고, 기상, 원유·천연가스 가격, 농가인구, 수입 물량, 생산량, 소비자물가지수를 **날짜와 지역에 맞춰 합쳤습니다**. 기온은 같은 달보다 한 달 전 값이 가격과 더 잘 맞아, 변수마다 시차를 따졌습니다."
+        },
+        {
+          "heading": "누수를 찾은 과정",
+          "text": "첫 평가는 행을 무작위로 섞어 8:2로 나눴습니다. 그 결과 R² 0.98이 나왔고, 같은 시장의 가까운 날짜가 학습과 테스트에 함께 들어가 있었습니다. 입력에는 가격 등록 연월, 같은 달 기상과 물가지수처럼 **그날 알 수 없는 값**도 있었습니다. 열을 사용 가능 39개, 누수 22개, 불필요 18개로 나눠 정리했습니다."
+        },
+        {
+          "heading": "시간순 검증과 튜닝",
+          "text": "2019–2022년 66,686행으로 학습하고 2023년 16,129행으로 테스트했습니다. 특성 중요도 0.005 이상만 남기자 R²가 0.57에서 0.62로 올랐고, Random Search와 Grid Search 뒤 **TimeSeriesSplit 교차검증**으로 테스트 R² 0.81을 기록했습니다."
+        }
+      ],
+      "resources": [],
+      "link": "https://drive.google.com/file/d/1NUvbrivh2mqOVo53M9YfrVgeCcbkXoDy/view",
+      "evidence": [
+        {
+          "claim": "R² 0.98이 나오자 **누수부터 의심**했습니다.",
+          "why": "비정상적으로 높은 초기 점수를 점검해 데이터 누수 원인을 추적했습니다.",
+          "figure": {
+            "image": "agri-leak-r2-098",
+            "width": 1600,
+            "height": 359,
+            "textMax": 30,
+            "textMin": 30,
+            "alt": "누수 수정 전 모델 비교 출력, Random Forest R² 0.983",
+            "caption": "누수를 고치기 전 첫 평가 결과",
+            "page": "47",
+            "marks": [
+              {
+                "x": 0.005,
+                "y": 0.1547,
+                "w": 0.77,
+                "h": 0.1365,
+                "label": "Random Forest R² 0.98 · 너무 높은 점수"
+              }
+            ]
+          }
+        },
+        {
+          "claim": "원인은 **무작위 분할**이었습니다.",
+          "why": "미래 값이 섞이는 무작위 분할을 날짜순 분할로 바로잡아 평가 신뢰도를 확보했습니다.",
+          "visual": "split"
+        },
+        {
+          "claim": "예측하는 날 알 수 없는 **열 22개**를 뺐습니다.",
+          "why": "예측 시점에 알 수 없는 열 22개와 저상관 시차 열 15개를 제거해 입력 특성을 정리했습니다.",
+          "figure": {
+            "image": "agri-leak-columns",
+            "width": 1600,
+            "height": 1300,
+            "textMax": 52,
+            "textMin": 36,
+            "alt": "누수 가능 열 22개 목록과 상관이 낮아 지운 시차 열 15개 목록이 담긴 코드",
+            "caption": "누수 열과 상관 낮은 열을 정리한 코드",
+            "page": "48",
+            "marks": [
+              {
+                "x": 0.06,
+                "y": 0.155,
+                "w": 0.22,
+                "h": 0.045,
+                "label": "가격 등록 연월 · 날짜 정보"
+              },
+              {
+                "x": 0.06,
+                "y": 0.2,
+                "w": 0.9,
+                "h": 0.045,
+                "label": "같은 달 기온·강수·일조"
+              },
+              {
+                "x": 0.06,
+                "y": 0.715,
+                "w": 0.935,
+                "h": 0.265,
+                "label": "상관 낮은 시차 열 15개"
+              }
+            ]
+          }
+        },
+        {
+          "claim": "특성 선택과 튜닝으로 **테스트 R² 0.81**을 달성했습니다.",
+          "why": "누수 제거 기준점 0.57에서 TimeSeriesSplit 교차검증과 튜닝을 거쳐 성능을 끌어올렸습니다.",
+          "figure": {
+            "image": "agri-final-r2-0811",
+            "width": 1254,
+            "height": 556,
+            "textMax": 30,
+            "textMin": 30,
+            "alt": "튜닝 후 Random Forest 테스트 R² 0.811, 시간순 교차검증 R² 0.558, XGBoost 테스트 R² 0.717",
+            "caption": "튜닝 후 테스트 성능",
+            "page": "35",
+            "marks": [
+              {
+                "x": 0.0,
+                "y": 0.2,
+                "w": 0.72,
+                "h": 0.1,
+                "label": "테스트 R² 0.811 (특성 중요도, Random·Grid Search 튜닝 후)"
+              },
+              {
+                "x": 0.0,
+                "y": 0.3,
+                "w": 0.98,
+                "h": 0.1,
+                "label": "시간순 5분할 교차검증"
+              }
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "id": "engine",
+      "number": "03",
+      "category": "시계열 예측",
+      "title": "항공기 엔진\n잔여 수명 예측",
+      "headline": "늦은 예측이\n더 위험합니다.",
+      "navigationLabel": "엔진 수명",
+      "cardTitle": "엔진 수명 예측",
+      "cardRole": "시각화·발표자료·코딩",
+      "cover": "engine-asymmetric-score",
+      "question": {
+        "label": "함께 일할 수 있는가",
+        "evidence": "낯선 엔진 구조와 센서를 **시각 자료로 정리해 공유**함으로써 센서 선별 기준을 세웠습니다."
+      },
+      "period": "2025.04",
+      "team": "6명 · 10일",
+      "role": "**시각화·발표자료** · 코딩 · 도메인 조사",
+      "summary": "엔진 고장 원리와 센서 추세를 **시각 자료로 정리·공유**하고, 최종 발표자료 제작과 코딩을 맡았습니다.",
+      "outcomeLabel": "프로젝트 결과",
+      "outcome": "테스트 R² **0.71 → 0.81**",
+      "outcomeNote": "비대칭 손실 적용 · 테스트 RMSE 22.3 → 17.9",
+      "tags": [
+        "NASA C-MAPSS",
+        "LSTM",
+        "Asymmetric loss",
+        "Matplotlib"
+      ],
+      "source": "07–09",
+      "kind": "safety",
+      "narrative": {
+        "problem": "NASA 터보팬 엔진 시뮬레이션 데이터로 엔진의 **잔여 유효 수명(RUL, 남은 가동 사이클 수)**을 예측했습니다. 센서가 엔진의 어느 부위를 측정하는지 알아야 유의미한 센서를 선별할 수 있었습니다.",
+        "decision": "수명을 실제보다 길게 예측하면 정비 시점을 놓칠 수 있어, **늦은 예측 오차에 3배 페널티**를 주는 손실 함수를 적용했습니다.",
+        "action": "엔진 구조, 공기 흐름, 고장 확률을 도식화하고 **센서 추세 그래프와 진행 현황 자료**를 제작해 공유했습니다. 최종 발표자료 디자인과 모델 구현 코딩도 함께 맡았습니다.",
+        "verification": "비대칭 손실을 적용해 **테스트 RMSE를 22.3에서 17.9로**, R²를 0.71에서 0.81로 개선했습니다.",
+        "limits": "늦은 예측이 실제로 몇 대에서 줄었는지 비율로 보여주는 그래프를 함께 만들겠습니다."
+      },
+      "contribution": {
+        "mine": [
+          "엔진 도메인 정리",
+          "데이터 시각화·그래프",
+          "진행 상황 시각화",
+          "발표자료 디자인·최종본",
+          "코딩"
+        ],
+        "team": [
+          "6명 · 10일",
+          "센서 선택·LSTM 학습",
+          "비대칭 손실 설계"
+        ]
+      },
+      "facts": [
+        {
+          "value": "100대",
+          "label": "테스트 엔진"
+        },
+        {
+          "value": "3배",
+          "label": "늦은 예측 오차 페널티"
+        },
+        {
+          "value": "17.9",
+          "label": "적용 후 테스트 RMSE (사이클)"
+        }
+      ],
+      "details": [
+        {
+          "heading": "도메인 정리와 공유",
+          "text": "엔진 부품 위치와 공기 흐름, 시간이 갈수록 고장 확률이 커지는 Weibull 곡선을 그림으로 정리했습니다. 엔진별 센서 추세를 그려 고장 직전에 움직이는 센서와 변화 없는 센서를 한눈에 보이게 했습니다."
+        },
+        {
+          "heading": "모델과 평가",
+          "text": "변화 없는 센서를 빼고 엔진별 마지막 30사이클을 입력으로 LSTM을 학습했습니다. 학습 엔진 100대 중 20대를 검증용으로 분리해 두고, 따로 주어진 **테스트 엔진 100대**로 최종 성능을 평가했습니다."
+        },
+        {
+          "heading": "비대칭 손실",
+          "text": "예측 오차를 d(예측 − 실제)라고 할 때, 늦은 예측(d ≥ 0)의 제곱 오차에 **3배 페널티**를 주는 손실로 학습했습니다. 평가는 늦은 예측일수록 **페널티가 지수적으로 커지는 점수 함수**로 산출했습니다. 그 결과 테스트 RMSE 22.3 → 17.9, MAE 16.2 → 12.3, R² 0.71 → 0.81을 기록했습니다."
+        }
+      ],
+      "resources": [],
+      "link": "https://drive.google.com/file/d/1s-RFam5iAfP9klukSH2eo5BRwoVYetbC/view",
+      "evidence": [
+        {
+          "claim": "센서 위치를 알기 위해 **엔진 구조부터 정리**해 공유했습니다.",
+          "why": "단면 구조도와 공기 흐름도를 제작해 각 센서의 측정 부위와 역할을 파악했습니다.",
+          "figure": {
+            "image": "engine-structure",
+            "width": 1578,
+            "height": 398,
+            "alt": "터보팬 엔진 단면 구조도와 공기가 지나는 모듈 순서도",
+            "caption": "엔진 부품 위치와 공기 흐름",
+            "page": "13",
+            "marks": [
+              {
+                "x": 0.0,
+                "y": 0.0,
+                "w": 0.355,
+                "h": 1.0,
+                "label": "부품 위치를 한 장에"
+              },
+              {
+                "x": 0.387,
+                "y": 0.0,
+                "w": 0.613,
+                "h": 1.0,
+                "label": "공기가 지나는 순서"
+              }
+            ]
+          }
+        },
+        {
+          "claim": "센서 추세를 그려 **고장 직전에 반응하는 센서**를 찾았습니다.",
+          "why": "센서별 추세 시각화로 변화 없는 센서를 걸러내고 고장 징후에 반응하는 유효 센서만 선별했습니다.",
+          "figure": {
+            "image": "engine-sensor-trends",
+            "width": 1600,
+            "height": 606,
+            "alt": "엔진 5대의 T24 온도가 고장 직전에 오르는 그래프와 값이 변하지 않는 센서 그래프들",
+            "caption": "엔진 5대의 온도 추세와 변화 없는 센서",
+            "page": "33",
+            "marks": [
+              {
+                "x": 0.225,
+                "y": 0.106,
+                "w": 0.205,
+                "h": 0.448,
+                "label": "고장이 가까울수록 온도 상승 (예: T24)"
+              },
+              {
+                "x": 0.452,
+                "y": 0.053,
+                "w": 0.543,
+                "h": 0.94,
+                "label": "값이 변하지 않는 센서는 제외"
+              }
+            ]
+          }
+        },
+        {
+          "claim": "수명을 길게 잘못 보면 **정비 시점을 놓칩니다.**",
+          "why": "지연 예측 위험을 줄이기 위해 늦은 예측 오차에 3배 벌점을 부여하는 손실 함수를 적용했습니다.",
+          "figure": {
+            "image": "engine-asymmetric-score",
+            "width": 892,
+            "height": 578,
+            "textMax": 19,
+            "textMin": 13,
+            "alt": "예측 오차에 따른 페널티 곡선. 늦은 예측 쪽이 가파르게 올라갑니다.",
+            "caption": "예측 오차별 페널티 곡선",
+            "page": "54",
+            "marks": [
+              {
+                "x": 0.1,
+                "y": 0.58,
+                "w": 0.42,
+                "h": 0.3,
+                "label": "일찍 예측 시 페널티 완만"
+              },
+              {
+                "x": 0.53,
+                "y": 0.05,
+                "w": 0.43,
+                "h": 0.83,
+                "label": "늦게 예측 시 페널티 급증"
+              }
+            ]
+          }
+        },
+        {
+          "claim": "비대칭 손실 적용 후 **RMSE가 22.3에서 17.9로** 줄었습니다.",
+          "why": "비대칭 손실 적용으로 테스트 RMSE 22.3 → 17.9, R² 0.71 → 0.81로 성능을 개선했습니다.",
+          "figure": {
+            "image": "engine-before-after",
+            "width": 800,
+            "height": 349,
+            "textMax": 36,
+            "textMin": 30,
+            "alt": "비대칭 스코어링 적용 전후 RMSE 22.32에서 17.91, MAE 16.17에서 12.28, R² 0.7115에서 0.8143",
+            "caption": "비대칭 손실 적용 전(X)과 후(O) 성능 비교",
+            "page": "57",
+            "marks": [
+              {
+                "x": 0.42,
+                "y": 0.5,
+                "w": 0.15,
+                "h": 0.47,
+                "label": "RMSE 22.3 → 17.9"
+              },
+              {
+                "x": 0.75,
+                "y": 0.5,
+                "w": 0.23,
+                "h": 0.47,
+                "label": "R² 0.71 → 0.81"
+              }
+            ]
+          }
+        }
+      ]
+    }
+  ],
+  "otherProjectCategories": [
+    {
+      "id": "shipped",
+      "label": "개인 서비스",
+      "summary": "혼자 만들어 스토어·웹에 출시하고 운영 중인 작업"
+    },
+    {
+      "id": "genai",
+      "label": "생성형 AI",
+      "summary": "LLM으로 대화·지시서를 만드는 작업"
+    },
+    {
+      "id": "vision",
+      "label": "비전",
+      "summary": "이미지에서 변화·체형·감정을 읽고 모델을 구현한 작업"
+    },
+    {
+      "id": "analysis",
+      "label": "데이터",
+      "summary": "수집, 가설 검정, 입지 도출, 중퇴 예측"
+    }
+  ],
+  "otherProjects": [
+    {
+      "id": "silmari",
+      "title": "실마리 계획 앱",
+      "category": "shipped",
+      "highlight": "하나의 계획을 목록·타임라인·원형으로 · 웹·Android 배포",
+      "type": "풀스택 서비스",
+      "duration": "2개월",
+      "stack": "React · TypeScript · Capacitor · Firebase",
+      "description": "할 일을 **목록·타임라인·원형 계획표**로 하나의 데이터에서 관리하는 로컬 우선 계획 앱입니다. 웹과 Android 앱, Firebase 서버·결제·관리자 기능까지 **혼자 만들어 운영**합니다.",
+      "source": "Silmari 저장소 · Google Play",
+      "image": "silmari-plan",
+      "imageAlt": "실마리 원형 보기 화면. 오늘의 시간표와 할 일 입력 칸",
+      "links": [
+        {
+          "label": "웹에서 쓰기",
+          "href": "https://silmari-todo.web.app/app/"
+        },
+        {
+          "label": "Google Play",
+          "href": "https://play.google.com/store/apps/details?id=com.poneul.silmari"
+        }
+      ],
+      "scope": "solo"
+    },
+    {
+      "id": "obell",
+      "title": "오벨 기상 미션 알람",
+      "category": "shipped",
+      "highlight": "물건을 찍어야 꺼지는 알람 · Google Play 배포",
+      "type": "모바일 앱",
+      "duration": "1주",
+      "stack": "Flutter · Riverpod · OpenCV",
+      "description": "세면대의 칫솔처럼 **미리 등록한 물건을 찍거나**, 휴대폰을 흔들거나, 계산 문제를 풀어야 꺼지는 알람 앱입니다. Flutter로 만들고 OpenCV로 사진을 대조하며, 인터넷 연결 없이도 작동하도록 해 **Google Play에 배포**했습니다.",
+      "source": "Google Play",
+      "image": "obell-mission",
+      "imageAlt": "오벨 사진 미션 화면. 등록한 칫솔을 찍자 '찾았어요 100%'가 표시된 모습",
+      "links": [
+        {
+          "label": "Google Play",
+          "href": "https://play.google.com/store/apps/details?id=com.poneul.obell"
+        }
+      ],
+      "scope": "solo"
+    },
+    {
+      "id": "memoivy",
+      "title": "MemoIvy 메모 캔버스",
+      "category": "shipped",
+      "highlight": "스티커 메모를 캔버스에서 잇는 Windows·Linux 앱 · Microsoft Store·Snap Store 배포",
+      "type": "데스크톱 앱",
+      "duration": "1개월",
+      "stack": "Electron · React · Rust · SQLite",
+      "description": "바탕화면에 붙여 두는 스티커 메모를 프로젝트로 묶고 **캔버스에서 연결**하는 Windows·Linux 메모 앱입니다. 계정 없이 로컬에 자동 저장하며, **Microsoft Store·Snap Store에 배포**했습니다.",
+      "source": "GitHub MemoIvy",
+      "image": "memoivy-canvas",
+      "imageAlt": "MemoIvy 캔버스. 색상별 메모 네 개와 작업 순서를 잇는 연결선",
+      "links": [
+        {
+          "label": "Microsoft Store",
+          "href": "https://apps.microsoft.com/detail/9P4QJZCXFDJV"
+        },
+        {
+          "label": "Snap Store",
+          "href": "https://snapcraft.io/memoivy"
+        },
+        {
+          "label": "코드",
+          "href": "https://github.com/pollux-o4/MemoIvy"
+        }
+      ],
+      "scope": "solo"
+    },
+    {
+      "id": "md2ebook",
+      "title": "md2ebook 책 리더",
+      "category": "shipped",
+      "highlight": "Markdown을 오프라인 책 리더 한 파일로 · VS Code 확장",
+      "type": "개발 도구",
+      "duration": "3개월",
+      "stack": "HTML · Python · VS Code Extension",
+      "description": "작성한 .md 파일을 외부 의존성 없는 **단일 HTML 책 리더**로 변환하는 에이전트 스킬입니다. **VS Code Marketplace**에 확장 기능으로도 배포했습니다.",
+      "source": "GitHub md2ebook",
+      "image": "md2ebook-reader",
+      "imageAlt": "md2ebook 책 리더 화면. 페이지 넘김과 목차",
+      "links": [
+        {
+          "label": "VS Code 확장",
+          "href": "https://marketplace.visualstudio.com/items?itemName=pollux-o4.markdown-ebook-reader"
+        },
+        {
+          "label": "코드",
+          "href": "https://github.com/pollux-o4/md2ebook"
+        }
+      ],
+      "scope": "solo"
+    },
+    {
+      "id": "design-home",
+      "title": "Design Home",
+      "category": "shipped",
+      "highlight": "UI 트렌드 15종 라이브 데모 · 디자인 검토 도구",
+      "type": "웹 · 개발 도구",
+      "duration": "4개월",
+      "stack": "JavaScript · Playwright",
+      "description": "UI 트렌드와 패턴을 **라이브 데모로 학습하는 사이트**와, 프로젝트 화면을 기준 컴포넌트와 비교하는 **디자인 검토 도구**입니다.",
+      "source": "GitHub design-home",
+      "image": "design-home",
+      "imageAlt": "Design Home 사이트의 UI 트렌드 데모 화면",
+      "links": [
+        {
+          "label": "사이트",
+          "href": "https://pollux-o4.github.io/design-home/"
+        },
+        {
+          "label": "코드",
+          "href": "https://github.com/pollux-o4/design-home"
+        }
+      ],
+      "scope": "solo"
+    },
+    {
+      "id": "listenee",
+      "title": "Listen to Me 과업지시서",
+      "category": "genai",
+      "highlight": "갈림길을 고르면 초안이 바뀌는 AI 협업 지시서 · npm 배포",
+      "type": "AI 라이브러리",
+      "duration": "10일",
+      "stack": "Rust · React · Storybook",
+      "description": "AI가 채운 초안을 **단계별 여정 지도**로 따라가며 갈림길만 고르면 과업지시서가 완성되는 프로젝트 설치형 라이브러리입니다. 프롬프트 경험과 관계없이 **중급 이상의 지시서**를 쓰게 하는 것이 목표이며, **npm 패키지와 단일 실행 파일로 0.1.0을 배포**했습니다.",
+      "source": "GitHub listeneeLTM",
+      "image": "listenee-workspace",
+      "imageAlt": "Listen to Me 작업 화면. 단계 여정 지도, 갈림길 카드, 실시간 초안",
+      "links": [
+        {
+          "label": "npm",
+          "href": "https://www.npmjs.com/package/listenee-ltm"
+        },
+        {
+          "label": "실행 파일",
+          "href": "https://github.com/pollux-o4/listeneeLTM/releases/tag/v0.1.0"
+        },
+        {
+          "label": "코드",
+          "href": "https://github.com/pollux-o4/listeneeLTM"
+        }
+      ],
+      "scope": "solo"
+    },
+    {
+      "id": "health",
+      "title": "고립 완화 AI 헬스케어",
+      "category": "genai",
+      "highlight": "표정·음성을 함께 읽는 공감 대화 · 음성 SNS 라디오",
+      "type": "멀티모달 서비스 기획",
+      "duration": "해커톤",
+      "stack": "Vision 모델 · STT · LLM · TTS",
+      "description": "독거노인·치매 환자의 고립을 줄이려고 **표정 분석 결과와 음성 텍스트를 LLM이 함께 판단**해 공감 대화를 이어 가는 서비스를 설계했습니다. 컴퓨터 비전 담당으로 MobileNet·ViT 등 **표정 인식 모델 후보를 비교**했습니다.",
+      "source": "인공지능사관학교 온라인 해커톤 발표자료",
+      "image": "health-preview",
+      "imageAlt": "기본 ViT와 3 epoch 학습 ViT가 같은 방송 프레임의 얼굴 표정을 각각 분류한 결과 비교",
+      "scope": "team",
+      "deck": "1R7kqyfooO_2POCXucRGGsSuR-wynf6hC"
+    },
+    {
+      "id": "dabangrok",
+      "title": "다방록 입주 전후 분석",
+      "category": "vision",
+      "highlight": "달라진 곳을 표시하는 리포트 · CI/CD 구축",
+      "type": "풀스택 서비스",
+      "duration": "2개월",
+      "stack": "FastAPI · SAM · CLIP · GitHub Actions · AWS EC2",
+      "description": "입주·퇴거 사진을 정렬해 **달라진 곳을 표시하는 리포트** 서비스에서 백엔드·AI를 맡아 **전체 코드를 통합**하고, GitHub Actions부터 EC2까지 **CI/CD를 구축**했습니다.",
+      "source": "06–12",
+      "image": "dabang-detect",
+      "imageAlt": "퇴거 전 방 사진에서 새로 생긴 사람과 가방을 빨간 상자로 표시한 AI 변화 탐지 결과",
+      "scope": "team",
+      "deck": "12d3g9rmu5CqG9ILev27feQTJ3XJiHuiU"
+    },
+    {
+      "id": "hanwoo",
+      "title": "한우 체형 분석 급여 관리",
+      "category": "vision",
+      "highlight": "후구 사진으로 BCS·체중 예측 · 주간 사료 배합 생성",
+      "type": "비전 서비스",
+      "duration": "3일 · 해커톤",
+      "stack": "Vision 모델 · 생성형 AI · STT·TTS",
+      "description": "스마트폰으로 찍은 한우 후구 사진에서 **체형 지수(BCS)와 체중을 예측**하고, 결과에 맞춰 생성형 AI가 **개체별 주간 사료 배합 플랜**을 만드는 서비스입니다. 재촬영 비교 그래프와 음성 챗봇까지 2박 3일 해커톤에서 구현했습니다.",
+      "source": "AI Frontier Challenge 발표자료",
+      "image": "hanwoo-bcs",
+      "imageAlt": "한우 후구를 분할해 BCS 6점, 신뢰도 88%, 예상 체중 429.3kg을 보여 주는 분석 화면",
+      "scope": "team",
+      "deck": "17s50GJ3sUvepOAxSOrSQsIC3IRd0_bnd"
+    },
+    {
+      "id": "thumbnail",
+      "title": "썸네일 감정 분석",
+      "category": "vision",
+      "highlight": "YOLO 얼굴 탐지 라벨링 보조, ViT·FaceNet 전이학습 비교",
+      "type": "전이학습 비교",
+      "duration": "20일",
+      "stack": "TensorFlow · YOLO · OpenCV",
+      "description": "YT-dlp·Google APIs로 썸네일과 메타데이터를 수집하고, YOLO 얼굴 탐지로 라벨링을 보조해 ViT·FaceNet 전이학습을 비교했습니다. 분석 결과 감정보다 **구독자·좋아요 수와의 연관성**이 더 크게 나타났습니다.",
+      "source": "20",
+      "image": "thumbnail-preview",
+      "imageAlt": "썸네일 얼굴 탐지와 라벨링 예시",
+      "scope": "team",
+      "deck": "1nGUwr1S5lYI4cDzCN50YrzQUovlYSPkC"
+    },
+    {
+      "id": "vit",
+      "title": "Vision Transformer 구현",
+      "category": "vision",
+      "highlight": "PM · 차원 변환을 시각 자료로 설명",
+      "type": "모델 구현",
+      "duration": "14일",
+      "stack": "PyTorch · Python",
+      "description": "ViT 논문의 차원 변환과 연산 과정을 **시각 자료로 정리**하고, **프로젝트 관리와 발표자료**를 맡았습니다.",
+      "source": "21",
+      "image": "vit-preview",
+      "imageAlt": "차원 변환 설명과 구현 코드",
+      "scope": "team",
+      "deck": "1I6QieQ7lCZvXFCb-k-NGS1gkcztCCNE6"
+    },
+    {
+      "id": "arxiv",
+      "title": "arXiv 논문 수집",
+      "category": "analysis",
+      "highlight": "제목·초록·링크를 Excel에 누적 저장",
+      "type": "웹 수집",
+      "duration": "6일",
+      "stack": "Selenium · Openpyxl",
+      "description": "동적 페이지에서 당일 AI 논문의 제목·초록·링크를 수집해 **Excel에 누적 저장**했습니다.",
+      "source": "19",
+      "image": "arxiv-preview",
+      "imageAlt": "논문 수집 결과와 Excel 저장 화면",
+      "scope": "solo",
+      "deck": "1nMbhkO-hl7TADqv8K2GN93HWc8SObhvy"
+    },
+    {
+      "id": "student",
+      "title": "학생 성적 분석",
+      "category": "analysis",
+      "highlight": "DDA·EDA·CDA 후 통계 검정으로 가설 확인",
+      "type": "통계 검정",
+      "duration": "6일",
+      "stack": "NumPy · pandas · SciPy",
+      "description": "DDA·EDA·CDA로 데이터를 탐색하고 가설을 세웠습니다. **카이제곱 독립 검정과 Kruskal–Wallis H 검정**으로 가설을 검증했습니다.",
+      "source": "19",
+      "image": "student-preview",
+      "imageAlt": "성적 분포와 통계 검정 결과",
+      "scope": "solo",
+      "deck": "1ArzaYgoYWyQHrvGKkMAsbaZjj05npoJJ"
+    },
+    {
+      "id": "city",
+      "title": "들락날락 입지 분석",
+      "category": "analysis",
+      "highlight": "도보 15분 이내로 접근 가능한 입지 도출",
+      "type": "공간 분석",
+      "duration": "14일",
+      "stack": "QGIS · GeoPandas · DBSCAN",
+      "description": "9종의 공공데이터로 부산 어린이복합문화공간 후보지를 분석했습니다. 지하철·버스와 경사를 종합적으로 고려해 어린이가 **도보 15분 이내로 접근 가능한 입지**를 도출했습니다.",
+      "source": "20",
+      "image": "city-preview",
+      "imageAlt": "부산 공공데이터 입지 분석 지도",
+      "scope": "team"
+    },
+    {
+      "id": "dropout",
+      "title": "대학생 중퇴 예측",
+      "category": "analysis",
+      "highlight": "중퇴 예측 모델 정확도 89%",
+      "type": "예측 모델",
+      "duration": "5일",
+      "stack": "pandas · scikit-learn",
+      "description": "포르투갈 대학생 데이터를 EDA·PDA로 분석해 중퇴 예측 모델을 구축했고, 정확도 **89%**를 기록했습니다.",
+      "source": "21",
+      "image": "dropout-preview",
+      "imageAlt": "학적 상태별 성적 분포",
+      "scope": "team",
+      "deck": "1k6fWsFBiG3NbCLoUHaL5Q2ToEtXki6Zt"
+    }
+  ],
+  "timelineYears": [
+    {
+      "year": "2025",
+      "note": "AI 모델링과 풀스택 개발 역량 집중 습득"
+    },
+    {
+      "year": "2026",
+      "note": "AI 서비스 실무와 직접 운영하는 개인 프로젝트"
+    }
+  ],
+  "timeline": [
+    {
+      "date": "2025.02",
+      "items": [
+        {
+          "text": "이스트캠프 AI 모델 개발 9기",
+          "kind": "course",
+          "until": "2025.06"
+        },
+        {
+          "text": "arXiv 논문 수집 · 개인",
+          "kind": "project",
+          "ref": "arxiv"
+        }
+      ]
+    },
+    {
+      "date": "2025.03",
+      "items": [
+        {
+          "text": "학생 성적 분석 · 개인",
+          "kind": "project",
+          "ref": "student"
+        },
+        {
+          "text": "농산물 가격 예측 · 팀",
+          "kind": "project",
+          "ref": "agriculture"
+        }
+      ]
+    },
+    {
+      "date": "2025.04",
+      "items": [
+        {
+          "text": "항공기 엔진 수명 예측 · 팀",
+          "kind": "project",
+          "ref": "engine"
+        },
+        {
+          "text": "SQLD",
+          "kind": "cert"
+        }
+      ]
+    },
+    {
+      "date": "2025.05–06",
+      "items": [
+        {
+          "text": "썸네일 감정 분석 · 파이널",
+          "kind": "project",
+          "ref": "thumbnail"
+        },
+        {
+          "text": "들락날락 입지 분석 · 공모전",
+          "kind": "project",
+          "ref": "city"
+        },
+        {
+          "text": "ADsP",
+          "kind": "cert"
+        }
+      ]
+    },
+    {
+      "date": "2025.07",
+      "items": [
+        {
+          "text": "인공지능사관학교 6기",
+          "kind": "course",
+          "until": "2025.12"
+        },
+        {
+          "text": "대학생 중퇴 예측 · 팀",
+          "kind": "project",
+          "ref": "dropout"
+        }
+      ]
+    },
+    {
+      "date": "2025.08",
+      "items": [
+        {
+          "text": "Vision Transformer 구현 · 팀",
+          "kind": "project",
+          "ref": "vit"
+        }
+      ]
+    },
+    {
+      "date": "2025.09",
+      "items": [
+        {
+          "text": "고립 완화 AI 헬스케어 · 해커톤",
+          "kind": "project",
+          "ref": "health"
+        }
+      ]
+    },
+    {
+      "date": "2025.10",
+      "items": [
+        {
+          "text": "한우 체형 분석 · 급여관리 서비스 해커톤",
+          "kind": "project",
+          "release": "ended",
+          "ref": "hanwoo"
+        },
+        {
+          "text": "인공지능활용능력",
+          "kind": "cert"
+        }
+      ]
+    },
+    {
+      "date": "2025.11–12",
+      "items": [
+        {
+          "text": "음식 사진 분석 서비스 · 파이널",
+          "kind": "project",
+          "ref": "nutrition",
+          "release": "ended"
+        },
+        {
+          "text": "빅데이터분석기사",
+          "kind": "cert"
+        }
+      ]
+    },
+    {
+      "date": "2026.01–03",
+      "items": [
+        {
+          "text": "다방록 입주 전후 분석 · 팀",
+          "kind": "project",
+          "ref": "dabangrok",
+          "release": "ended"
+        }
+      ]
+    },
+    {
+      "date": "2026.03–04",
+      "items": [
+        {
+          "text": "이스트소프트 AI 서비스 개발 · 프리랜서",
+          "kind": "project",
+          "career": true
+        }
+      ]
+    },
+    {
+      "date": "2026.06–08",
+      "items": [
+        {
+          "text": "md2ebook · VS Code 확장 배포",
+          "kind": "project",
+          "ref": "md2ebook",
+          "release": "live"
+        }
+      ]
+    },
+    {
+      "date": "2026.08",
+      "items": [
+        {
+          "text": "Design Home 공개",
+          "kind": "project",
+          "ref": "design-home",
+          "release": "live"
+        }
+      ]
+    },
+    {
+      "date": "2026.09",
+      "items": [
+        {
+          "text": "실마리 웹·Android 출시",
+          "kind": "project",
+          "ref": "silmari",
+          "release": "live"
+        }
+      ]
+    },
+    {
+      "date": "2026.10",
+      "items": [
+        {
+          "text": "MemoIvy · Microsoft Store·Snap Store 배포",
+          "kind": "project",
+          "ref": "memoivy",
+          "release": "live"
+        }
+      ]
+    },
+    {
+      "date": "2026.11",
+      "items": [
+        {
+          "text": "Listen to Me · npm 0.1.0 배포",
+          "kind": "project",
+          "ref": "listenee",
+          "release": "live"
+        },
+        {
+          "text": "오벨 · Google Play 출시",
+          "kind": "project",
+          "ref": "obell",
+          "release": "live"
+        }
+      ]
+    },
+    {
+      "date": "2026.12",
+      "items": [
+        {
+          "text": "정보처리기사",
+          "kind": "cert"
+        }
+      ]
+    }
+  ],
+  "experience": [
+    {
+      "period": "2026.03–04",
+      "organization": "이스트소프트 · 프리랜서",
+      "role": "AI 서비스 개발 프로젝트"
+    },
+    {
+      "period": "2025.10–11",
+      "organization": "OpenTrain AI · 프리랜서",
+      "role": "한국어 음성 전사·라벨링·품질 검수"
+    },
+    {
+      "period": "2024.08–12",
+      "organization": "에버트라이 · 인턴",
+      "role": "임상연구 운영 (SaMD CRA)"
+    }
+  ],
+  "education": [
+    {
+      "period": "2019.02–2025.08",
+      "title": "건양대학교",
+      "description": "임상의약학 학사 · 3.94 / 4.5"
+    }
+  ],
+  "certifications": [
+    {
+      "date": "2026.12",
+      "name": "정보처리기사"
+    },
+    {
+      "date": "2025.12",
+      "name": "빅데이터분석기사"
+    },
+    {
+      "date": "2025.10",
+      "name": "인공지능활용능력"
+    },
+    {
+      "date": "2025.06",
+      "name": "ADsP"
+    },
+    {
+      "date": "2025.04",
+      "name": "SQLD"
+    }
+  ]
+}

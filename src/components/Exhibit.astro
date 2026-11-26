@@ -1,0 +1,43 @@
+---
+import PortfolioImage from './PortfolioImage.astro';
+import { FRAME_PAD, SHELL, columns } from '../lib/layout-sizes';
+import type { Project } from '../lib/portfolio-schema';
+type Figure = NonNullable<Project['evidence'][number]['figure']>;
+interface Props { figure: Figure; label: string }
+const { figure: f, label } = Astro.props;
+const pct = (value: number) => `${(value * 100).toFixed(2)}%`;
+// The frame's inputs for CSS (text-size cap, ratio) and the viewer; optional measurements fall back in CSS.
+const frameVars = Object.entries({
+  'aspect-ratio': `${f.width}/${f.height}`,
+  '--ratio': (f.width / f.height).toFixed(4),
+  '--source-width': f.width,
+  '--text-max': f.textMax,
+  '--text-min': f.textMin,
+}).filter(([, value]) => value !== undefined).map(([key, value]) => `${key}:${value}`).join(';');
+// Mirrors the frame's CSS width: legible-text cap, stage width, and the viewport-height cap.
+const legible = `${f.width * Math.max(15 / (f.textMax ?? 25), 10.5 / (f.textMin ?? 1000))}px`;
+const stage = `(${SHELL} - 2 * ${FRAME_PAD})`;
+const sizes = `(max-width: 1099px) min(${legible}, calc(${stage})), min(${legible}, calc(${columns(2, 3, stage)}), calc((100svh - 212px - 2 * ${FRAME_PAD}) * ${f.width / f.height}))`;
+---
+<figure class="exhibit">
+  <div class="exhibit-frame" style={frameVars}>
+    <PortfolioImage name={f.image} width={f.width} alt={f.alt} sizes={sizes}/>
+    {f.marks.map((mark, i) => (
+      <span class="exhibit-mark" style={`left:${pct(mark.x)};top:${pct(mark.y)};width:${pct(mark.w)};height:${pct(mark.h)}`} aria-hidden="true">
+        <b>{i + 1}</b>
+      </span>
+    ))}
+    <button type="button" class="exhibit-zoom" aria-haspopup="dialog" aria-label={`${label} 크게 보기`}>
+      <svg viewBox="0 0 16 16" width="16" height="16" aria-hidden="true"><path d="M10 2h4v4M6 14H2v-4M14 2 9.5 6.5M2 14l4.5-4.5" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg>
+    </button>
+  </div>
+  <figcaption>
+    <p class="exhibit-caption"><span>{label}</span>{f.caption}</p>
+    {f.marks.length > 0 && (
+      <ol class="exhibit-keys" role="list">
+        {f.marks.map((mark, i) => <li><b aria-hidden="true">{i + 1}</b><span class="sr-only">표시 {i + 1}: </span>{mark.label}</li>)}
+      </ol>
+    )}
+    {f.page && <span class="exhibit-source">발표자료 p.{f.page}</span>}
+  </figcaption>
+</figure>
