@@ -89,13 +89,20 @@
   padding-inline: 0.04em;
   margin-inline: -0.04em;
   padding-bottom: 0.16em;
-  background: linear-gradient(var(--signal), var(--signal)) 0 100% / 100% 0.12em no-repeat;
-  animation-name: rise, sweep;
-  animation-duration: 1100ms, 900ms;
-  animation-delay: calc(var(--line) * 110ms + 120ms), 1000ms;
+  position: relative;
+}
+/* The underline is its own layer so the sweep stays on the compositor (transform only). */
+.hero-title .line > .mark::after {
+  content: "";
+  position: absolute;
+  inset: auto 0 0;
+  height: 0.12em;
+  background: var(--signal);
+  transform-origin: left;
+  animation: sweep 900ms var(--ease-out) 1000ms both;
 }
 @keyframes rise { from { transform: translateY(108%); } }
-@keyframes sweep { from { background-size: 0 0.12em; } }
+@keyframes sweep { from { transform: scaleX(0); } }
 
 /* Lead-in, then the claim, then why: the order of the original self-introduction (SPEC 2.2). */
 .hero-about {

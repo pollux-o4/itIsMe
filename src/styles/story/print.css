@@ -138,8 +138,9 @@
   .exhibit-caption { font-size: 10pt; }
   .case-brief dd { font-size: 11pt; }
   .split-journey strong { font-size: 20pt; }
-  .split-demo .cell { height: 72% !important; background: #000 !important; }
-  .split-demo .cell[data-t] { height: 100% !important; background: var(--signal) !important; }
+  .split-demo .cell { transform: scaleY(0.72) !important; background: #000 !important; }
+  .split-demo .cell::after { opacity: 0 !important; }
+  .split-demo .cell[data-t] { transform: none !important; background: var(--signal) !important; }
   .split-demo .note-random { display: none !important; }
   .split-demo .note-time { display: inline !important; }
 

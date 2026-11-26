@@ -42,15 +42,29 @@
   padding-bottom: 12px;
   border-bottom: 1px solid var(--line-strong);
 }
+/* Compositor-only motion: the bar scales and the test colour fades in on its own layer. */
 .cell {
-  height: 70%;
+  position: relative;
+  height: 100%;
   border-radius: 3px;
   background: var(--ink);
-  transition: background-color 420ms var(--ease-out), height 520ms var(--ease-out);
-  transition-delay: calc(var(--i) * 16ms);
+  transform: scaleY(0.7);
+  transform-origin: bottom;
+  transition: transform 520ms var(--ease-out) calc(var(--i) * 16ms);
+}
+.cell::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  border-radius: inherit;
+  background: var(--signal);
+  opacity: 0;
+  transition: opacity 420ms var(--ease-out) calc(var(--i) * 16ms);
 }
 [data-mode="random"] .cell[data-r],
-[data-mode="time"] .cell[data-t] { height: 100%; background: var(--signal); }
+[data-mode="time"] .cell[data-t] { transform: none; }
+[data-mode="random"] .cell[data-r]::after,
+[data-mode="time"] .cell[data-t]::after { opacity: 1; }
 .split-legend { display: flex; gap: 20px; margin-top: 14px; font-size: 13px; color: var(--muted); }
 .split-legend span { display: inline-flex; align-items: center; gap: 8px; }
 .split-legend span::before { content: ""; width: 12px; height: 12px; border-radius: 3px; }
